@@ -1,12 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:url_strategy/url_strategy.dart';
+
 import 'package:buzzer/app/app.bottomsheets.dart';
 import 'package:buzzer/app/app.dialogs.dart';
 import 'package:buzzer/app/app.locator.dart';
 import 'package:buzzer/app/app.router.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:url_strategy/url_strategy.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+import 'package:buzzer/services/system_config_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,6 +20,8 @@ Future<void> main() async {
 
   setupDialogUi();
   setupBottomSheetUi();
+
+  await locator<SystemConfigService>().ensureInitialized();
 
   runApp(const MainApp());
 }
