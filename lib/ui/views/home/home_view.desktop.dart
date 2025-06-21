@@ -1,3 +1,4 @@
+import 'package:buzzer/ui/widgets/common/create_room_form/create_room_form.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:stacked/stacked.dart';
 
@@ -57,10 +58,14 @@ class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
                         const Text(
                                 "Create a room for your game or event, and invite others to join.")
                             .base,
+                        verticalSpaceMedium,
+                        const CreateRoomForm(),
                       ],
                     ),
                   ),
+                  const SizedBox(width: 16.0),
                   const VerticalDivider(),
+                  const SizedBox(width: 16.0),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
