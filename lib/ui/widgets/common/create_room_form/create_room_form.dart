@@ -41,8 +41,15 @@ class CreateRoomForm extends StackedView<CreateRoomFormModel>
         verticalSpaceMedium,
         // Action buttons
         Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            Expanded(
+              child: Visibility(
+                visible: viewModel.hasError,
+                child: _buildErrorMessage(viewModel.error(viewModel)),
+              ),
+            ),
             Button.primary(
               onPressed: viewModel.onPressedCreateRoom,
               child: const Text("Create room"),
@@ -69,4 +76,22 @@ class CreateRoomForm extends StackedView<CreateRoomFormModel>
     BuildContext context,
   ) =>
       CreateRoomFormModel();
+
+  Widget _buildErrorMessage(dynamic error) {
+    const textStyle = TextStyle(
+      color: Colors.red,
+    );
+
+    if (error is String) {
+      return Text(
+        error,
+        style: textStyle,
+      ).bold;
+    } else {
+      return Text(
+        "Error: ${error.toString()}",
+        style: textStyle,
+      ).bold;
+    }
+  }
 }

@@ -7,6 +7,7 @@ import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:buzzer/services/system_config_service.dart';
 import 'package:buzzer/services/api_service.dart';
+import 'package:buzzer/ui/views/ingame/ingame_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -14,7 +15,8 @@ import 'package:buzzer/services/api_service.dart';
     CustomRoute(page: StartupView, initial: true),
     CustomRoute(page: HomeView),
 
-    // @stacked-route
+    CustomRoute(page: IngameView),
+// @stacked-route
     CustomRoute(page: UnknownView, path: '/404'),
 
     /// When none of the above routes match, redirect to UnknownView

@@ -1,0 +1,16 @@
+/// Holds the context of a game, such as the room ID.
+/// As this class is immutable, it only stores data that does not
+/// change during the game session.
+class GameContext {
+  /// The unique identifier for the game room.
+  final String roomId;
+
+  /// The name of the game room.
+  final String roomName;
+
+  /// Initializes a new [GameContext] instance.
+  GameContext({
+    required this.roomId,
+    required this.roomName,
+  });
+}
