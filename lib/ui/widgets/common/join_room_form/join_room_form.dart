@@ -1,3 +1,4 @@
+import 'package:buzzer/ui/widgets/input_features/random_name_input_feature.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
@@ -35,6 +36,9 @@ class JoinRoomForm extends StackedView<JoinRoomFormModel> with $JoinRoomForm {
         verticalSpaceTiny,
         TextField(
           controller: userNameController,
+          features: const [
+            RandomNameInputFeature(),
+          ],
         ),
         verticalSpaceMedium,
         // Action buttons
