@@ -32,7 +32,7 @@ class JoinCodeDisplay extends StackedView<JoinCodeDisplayModel> {
           ],
         ),
         Button.ghost(
-          onPressed: viewModel.onPressedCopy,
+          onPressed: () async => await viewModel.onPressedCopy(context),
           child: const Icon(BootstrapIcons.copy),
         ),
       ],
