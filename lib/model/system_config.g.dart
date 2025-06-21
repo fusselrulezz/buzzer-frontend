@@ -7,10 +7,10 @@ part of 'system_config.dart';
 // **************************************************************************
 
 SystemConfig _$SystemConfigFromJson(Map<String, dynamic> json) => SystemConfig(
-      baseUrl: json['baseUrl'] as String,
+      serviceUrl: json['serviceUrl'] as String,
     );
 
 Map<String, dynamic> _$SystemConfigToJson(SystemConfig instance) =>
     <String, dynamic>{
-      'baseUrl': instance.baseUrl,
+      'serviceUrl': instance.serviceUrl,
     };

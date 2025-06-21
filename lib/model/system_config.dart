@@ -4,12 +4,12 @@ part 'system_config.g.dart';
 
 @JsonSerializable()
 class SystemConfig {
-  final String baseUrl;
+  final String serviceUrl;
 
-  Uri get baseUri => Uri.parse(baseUrl);
+  Uri get serviceUri => Uri.parse(serviceUrl);
 
   SystemConfig({
-    required this.baseUrl,
+    required this.serviceUrl,
   });
 
   factory SystemConfig.fromJson(Map<String, dynamic> json) =>

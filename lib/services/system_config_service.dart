@@ -28,6 +28,6 @@ class SystemConfigService {
       rethrow;
     }
 
-    _logger.i("System config loaded. Base url: ${_config!.baseUrl}");
+    _logger.i("System config loaded. Base url: ${_config!.serviceUrl}");
   }
 }

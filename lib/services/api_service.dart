@@ -15,7 +15,7 @@ class ApiService {
 
   Buzzer? _buildClient() {
     return Buzzer.create(
-      baseUrl: _systemConfigService.config.baseUri,
+      baseUrl: _systemConfigService.config.serviceUri,
     );
   }
 }
