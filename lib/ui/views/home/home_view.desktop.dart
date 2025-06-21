@@ -1,4 +1,5 @@
 import 'package:buzzer/ui/widgets/common/create_room_form/create_room_form.dart';
+import 'package:buzzer/ui/widgets/common/join_room_form/join_room_form.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:stacked/stacked.dart';
 
@@ -71,6 +72,12 @@ class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Center(child: const Text("Join a room").h3),
+                        verticalSpaceMedium,
+                        const Text(
+                                "Join an existing room to participate in a game or event.")
+                            .base,
+                        verticalSpaceMedium,
+                        const JoinRoomForm(),
                       ],
                     ),
                   ),

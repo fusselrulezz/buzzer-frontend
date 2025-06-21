@@ -3,33 +3,31 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
 import 'package:buzzer/ui/common/ui_helpers.dart';
-import 'package:buzzer/ui/widgets/common/create_room_form/create_room_form.form.dart';
+import 'package:buzzer/ui/widgets/common/join_room_form/join_room_form.form.dart';
 
-import 'create_room_form_model.dart';
+import 'join_room_form_model.dart';
 
 @FormView(fields: [
-  FormTextField(name: 'roomName'),
+  FormTextField(name: 'joinCode'),
   FormTextField(name: 'userName'),
 ])
-class CreateRoomForm extends StackedView<CreateRoomFormModel>
-    with $CreateRoomForm {
-  const CreateRoomForm({super.key});
+class JoinRoomForm extends StackedView<JoinRoomFormModel> with $JoinRoomForm {
+  const JoinRoomForm({super.key});
 
   @override
   Widget builder(
     BuildContext context,
-    CreateRoomFormModel viewModel,
+    JoinRoomFormModel viewModel,
     Widget? child,
   ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Room name
-        const Text("Room name").base.bold,
+        const Text("Join code").base.bold,
         verticalSpaceTiny,
         TextField(
-          controller: roomNameController,
-          placeholder: const Text("Very fun room name"),
+          controller: joinCodeController,
         ),
         verticalSpaceSmall,
         // User name
@@ -44,8 +42,8 @@ class CreateRoomForm extends StackedView<CreateRoomFormModel>
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Button.primary(
-              onPressed: viewModel.onPressedCreateRoom,
-              child: const Text("Create room"),
+              onPressed: viewModel.onPressedJoinRoom,
+              child: const Text("Join room"),
             ),
           ],
         ),
@@ -54,19 +52,19 @@ class CreateRoomForm extends StackedView<CreateRoomFormModel>
   }
 
   @override
-  void onViewModelReady(CreateRoomFormModel viewModel) {
+  void onViewModelReady(JoinRoomFormModel viewModel) {
     syncFormWithViewModel(viewModel);
   }
 
   @override
-  void onDispose(CreateRoomFormModel viewModel) {
+  void onDispose(JoinRoomFormModel viewModel) {
     super.onDispose(viewModel);
     disposeForm();
   }
 
   @override
-  CreateRoomFormModel viewModelBuilder(
+  JoinRoomFormModel viewModelBuilder(
     BuildContext context,
   ) =>
-      CreateRoomFormModel();
+      JoinRoomFormModel();
 }
