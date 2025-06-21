@@ -8,9 +8,13 @@ class GameContext {
   /// The name of the game room.
   final String roomName;
 
+  /// The name of the user in the game room.
+  final String userName;
+
   /// Initializes a new [GameContext] instance.
   GameContext({
     required this.roomId,
     required this.roomName,
+    required this.userName,
   });
 }

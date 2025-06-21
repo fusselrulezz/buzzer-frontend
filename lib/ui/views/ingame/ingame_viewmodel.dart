@@ -15,7 +15,7 @@ class IngameViewModel extends BaseViewModel {
 
   String get roomName => gameContext.roomName;
 
-  String get userName => "Ronny";
+  String get userName => gameContext.userName;
 
   Future<void> onPressedLeaveRoom() async {
     _routerService.pop();
