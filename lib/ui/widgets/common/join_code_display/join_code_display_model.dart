@@ -10,6 +10,15 @@ class JoinCodeDisplayModel extends BaseViewModel {
 
   final String joinCode;
 
+  bool _isCodeVisible = true;
+
+  bool get isCodeVisible => _isCodeVisible;
+
+  /// Indicates whether the join code should be hidden without blurring the
+  /// text. This is useful for saving performance.
+  // TODO: Make this configurable in the UI, or detect based on client type.
+  bool get hideWithoutBlur => false;
+
   JoinCodeDisplayModel({
     required this.joinCode,
   });
@@ -56,5 +65,11 @@ class JoinCodeDisplayModel extends BaseViewModel {
         child: const Text('Could not copy :(').medium,
       ),
     );
+  }
+
+  void onPressedToggleVisibility() {
+    _isCodeVisible = !_isCodeVisible;
+    rebuildUi();
+    _logger.i("Join code visibility toggled: $_isCodeVisible");
   }
 }
