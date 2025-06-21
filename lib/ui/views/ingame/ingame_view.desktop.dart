@@ -59,6 +59,5 @@ class IngameViewDesktop extends ViewModelWidget<IngameViewModel> {
         ],
       ),
     );
-    ;
   }
 }
