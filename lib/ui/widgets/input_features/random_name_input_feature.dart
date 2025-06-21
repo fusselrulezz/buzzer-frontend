@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 
 class RandomNameInputFeature extends InputFeature {
@@ -7,10 +5,13 @@ class RandomNameInputFeature extends InputFeature {
 
   final Widget? icon;
 
+  final String Function() generateName;
+
   const RandomNameInputFeature({
     super.visibility,
     this.position = InputFeaturePosition.trailing,
     this.icon,
+    required this.generateName,
   });
 
   @override
@@ -19,32 +20,6 @@ class RandomNameInputFeature extends InputFeature {
 
 class _RandomNameInputFeatureState
     extends InputFeatureState<RandomNameInputFeature> {
-  static const List<String> _nameComponentsFirst = [
-    'Super',
-    'Mega',
-    'Ultra',
-    'Hyper',
-    'Epic',
-    'Legendary',
-    'Cosmic',
-    'Galactic',
-    'Quantum',
-    'Mystic',
-  ];
-
-  static const List<String> _nameComponentsSecond = [
-    'Warrior',
-    'Ninja',
-    'Wizard',
-    'Dragon',
-    'Phoenix',
-    'Titan',
-    'Knight',
-    'Samurai',
-    'Viking',
-    'Rogue',
-  ];
-
   Widget _build() {
     return IconButton.text(
       icon: feature.icon ?? const Icon(BootstrapIcons.dice6),
@@ -54,14 +29,7 @@ class _RandomNameInputFeatureState
   }
 
   void _onPressed() {
-    final random = Random();
-
-    final firstComponent =
-        _nameComponentsFirst[random.nextInt(_nameComponentsFirst.length)];
-    final secondComponent =
-        _nameComponentsSecond[random.nextInt(_nameComponentsSecond.length)];
-
-    controller.text = '$firstComponent$secondComponent';
+    controller.text = feature.generateName();
   }
 
   @override

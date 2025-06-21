@@ -36,8 +36,13 @@ class JoinRoomForm extends StackedView<JoinRoomFormModel> with $JoinRoomForm {
         verticalSpaceTiny,
         TextField(
           controller: userNameController,
-          features: const [
-            RandomNameInputFeature(),
+          features: [
+            RandomNameInputFeature(
+              visibility: viewModel.isRandomNameFeatureVisible
+                  ? InputFeatureVisibility.always
+                  : InputFeatureVisibility.never,
+              generateName: viewModel.generateRandomName,
+            ),
           ],
         ),
         verticalSpaceMedium,

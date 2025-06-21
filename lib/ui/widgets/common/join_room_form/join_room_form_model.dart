@@ -1,3 +1,4 @@
+import 'package:buzzer/services/random_name_service.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -17,11 +18,15 @@ class JoinRoomFormModel extends FormViewModel {
 
   final ApiService _apiService = locator<ApiService>();
 
+  final RandomNameService _randomNameService = locator<RandomNameService>();
+
   bool get isJoinCodeValid => joinCodeValue?.isNotEmpty ?? false;
 
   bool get isUsernameValid => userNameValue?.isNotEmpty ?? false;
 
   bool get isFormValid => isJoinCodeValid && isUsernameValid;
+
+  bool get isRandomNameFeatureVisible => _randomNameService.hasRandomNames;
 
   Future<void> onPressedJoinRoom() async {
     setError(null);
@@ -79,5 +84,19 @@ class JoinRoomFormModel extends FormViewModel {
         roomName: response.gameRoom.name,
       ),
     );
+  }
+
+  String generateRandomName() {
+    if (!_randomNameService.hasRandomNames) {
+      _logger.e('Failed to generate random name: Service has no data');
+      return "";
+    }
+
+    try {
+      return _randomNameService.getRandomName();
+    } catch (e) {
+      _logger.e('Failed to generate random name', e);
+      return "";
+    }
   }
 }
