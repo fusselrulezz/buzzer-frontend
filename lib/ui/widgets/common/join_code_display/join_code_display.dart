@@ -31,6 +31,10 @@ class JoinCodeDisplay extends StackedView<JoinCodeDisplayModel> {
             ).h3,
           ],
         ),
+        Button.ghost(
+          onPressed: viewModel.onPressedCopy,
+          child: const Icon(BootstrapIcons.copy),
+        ),
       ],
     );
   }

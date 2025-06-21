@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:stacked/stacked.dart';
 
 class JoinCodeDisplayModel extends BaseViewModel {
@@ -7,5 +8,7 @@ class JoinCodeDisplayModel extends BaseViewModel {
     required this.joinCode,
   });
 
-  void onPressedCopy() {}
+  Future<void> onPressedCopy() async {
+    await Clipboard.setData(ClipboardData(text: joinCode));
+  }
 }
