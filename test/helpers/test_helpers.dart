@@ -3,6 +3,7 @@ import 'package:mockito/mockito.dart';
 import 'package:buzzer/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:buzzer/services/system_config_service.dart';
+import 'package:buzzer/services/api_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -14,6 +15,7 @@ import 'test_helpers.mocks.dart';
     MockSpec<BottomSheetService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<SystemConfigService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ApiService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
   ],
 )
@@ -22,6 +24,7 @@ void registerServices() {
   getAndRegisterBottomSheetService();
   getAndRegisterDialogService();
   getAndRegisterSystemConfigService();
+  getAndRegisterApiService();
 // @stacked-mock-register
 }
 
@@ -83,6 +86,13 @@ MockSystemConfigService getAndRegisterSystemConfigService() {
   _removeRegistrationIfExists<SystemConfigService>();
   final service = MockSystemConfigService();
   locator.registerSingleton<SystemConfigService>(service);
+  return service;
+}
+
+MockApiService getAndRegisterApiService() {
+  _removeRegistrationIfExists<ApiService>();
+  final service = MockApiService();
+  locator.registerSingleton<ApiService>(service);
   return service;
 }
 // @stacked-mock-create
