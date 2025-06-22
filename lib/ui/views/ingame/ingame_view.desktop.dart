@@ -1,4 +1,5 @@
 import 'package:buzzer/ui/widgets/common/join_code_display/join_code_display.dart';
+import 'package:buzzer/ui/widgets/common/player_list/player_list.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:stacked/stacked.dart';
 
@@ -49,14 +50,20 @@ class IngameViewDesktop extends ViewModelWidget<IngameViewModel> {
               ],
             ),
           ),
-          const Expanded(
+          Expanded(
             child: Padding(
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 vertical: 32.0,
                 horizontal: horizontalPadding,
               ),
               child: Row(
-                children: [],
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  PlayerList(gameContext: viewModel.gameContext),
+                  const Expanded(
+                    child: Text("Buzzer here!"),
+                  ),
+                ],
               ),
             ),
           ),
