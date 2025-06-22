@@ -1,3 +1,4 @@
+import 'package:buzzer/services/authentication_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 
@@ -32,9 +33,15 @@ class ApiService {
 
   Uri get serviceUri => Uri.parse(serviceUrl);
 
+  void invalidateClient() {
+    _logger.i("Invalidating API client");
+    _client = null;
+  }
+
   Buzzer? _buildClient() {
     return Buzzer.create(
       baseUrl: serviceUri,
+      authenticator: locator<AuthenticationService>().authenticator,
     );
   }
 

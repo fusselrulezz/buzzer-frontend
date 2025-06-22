@@ -9,6 +9,7 @@ import 'package:buzzer/services/system_config_service.dart';
 import 'package:buzzer/services/api_service.dart';
 import 'package:buzzer/ui/views/ingame/ingame_view.dart';
 import 'package:buzzer/services/random_name_service.dart';
+import 'package:buzzer/services/authentication_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -30,6 +31,7 @@ import 'package:buzzer/services/random_name_service.dart';
     LazySingleton(classType: SystemConfigService),
     LazySingleton(classType: ApiService),
     InitializableSingleton(classType: RandomNameService),
+    LazySingleton(classType: AuthenticationService),
 // @stacked-service
   ],
   bottomsheets: [

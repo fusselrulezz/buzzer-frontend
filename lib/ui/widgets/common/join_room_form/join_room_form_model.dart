@@ -1,4 +1,3 @@
-import 'package:buzzer/services/random_name_service.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -7,7 +6,10 @@ import 'package:buzzer/app/app.locator.dart';
 import 'package:buzzer/app/app.logger.dart';
 import 'package:buzzer/app/app.router.dart';
 import 'package:buzzer/model/game_context.dart';
+import 'package:buzzer/model/identity.dart';
 import 'package:buzzer/services/api_service.dart';
+import 'package:buzzer/services/authentication_service.dart';
+import 'package:buzzer/services/random_name_service.dart';
 import 'package:buzzer/ui/widgets/common/join_room_form/join_room_form.form.dart';
 import 'package:buzzer_client/gen/buzzer.swagger.dart';
 
@@ -78,6 +80,11 @@ class JoinRoomFormModel extends FormViewModel {
     String joinCode,
   ) async {
     _logger.i('Room joined successfully: ${response.gameRoom.id}');
+
+    locator<AuthenticationService>().authenticate(Identity(
+      accessToken: response.token,
+      refreshToken: response.refreshToken,
+    ));
 
     _routerService.navigateToIngameView(
       gameContext: GameContext(

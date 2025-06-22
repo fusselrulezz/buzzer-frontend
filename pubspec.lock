@@ -144,7 +144,7 @@ packages:
     source: hosted
     version: "2.0.4"
   chopper:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: chopper
       sha256: "18928a74069cf1c257e657809c1b84b0304d8e32a6fc446dd2bbb28657e0358a"

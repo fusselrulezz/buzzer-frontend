@@ -2,7 +2,9 @@ import 'package:buzzer/app/app.locator.dart';
 import 'package:buzzer/app/app.logger.dart';
 import 'package:buzzer/app/app.router.dart';
 import 'package:buzzer/model/game_context.dart';
+import 'package:buzzer/model/identity.dart';
 import 'package:buzzer/services/api_service.dart';
+import 'package:buzzer/services/authentication_service.dart';
 import 'package:buzzer_client/buzzer_client.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
@@ -72,6 +74,11 @@ class CreateRoomFormModel extends FormViewModel {
     GameRoomCreateResponseDto response,
   ) async {
     _logger.i('Room created successfully: ${response.gameRoom.id}');
+
+    locator<AuthenticationService>().authenticate(Identity(
+      accessToken: response.token,
+      refreshToken: response.refreshToken,
+    ));
 
     _routerService.navigateToIngameView(
       gameContext: GameContext(
