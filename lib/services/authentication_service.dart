@@ -21,6 +21,16 @@ class AuthenticationService {
 
   Authenticator get authenticator => _authenticator;
 
+  void clearIdentity() {
+    _identity = null;
+    _authenticator = _ApiAuthenticator(identity: null);
+
+    // Invalidate the API client to force a refresh of the authenticator
+    _apiService.invalidateClient();
+
+    _logger.i("Cleared identity and authenticator");
+  }
+
   void authenticate(Identity identity) {
     _identity = identity;
     _authenticator = _ApiAuthenticator(

@@ -1,3 +1,4 @@
+import 'package:buzzer/services/authentication_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -20,6 +21,7 @@ class IngameViewModel extends BaseViewModel {
   String get joinCode => gameContext.joinCode;
 
   Future<void> onPressedLeaveRoom() async {
+    locator<AuthenticationService>().clearIdentity();
     _routerService.pop();
   }
 }
