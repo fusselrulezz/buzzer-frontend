@@ -17,7 +17,7 @@ class IngameViewModel extends BaseViewModel {
 
   String get userName => gameContext.userName;
 
-  String get joinCode => "ABC123";
+  String get joinCode => gameContext.joinCode;
 
   Future<void> onPressedLeaveRoom() async {
     _routerService.pop();

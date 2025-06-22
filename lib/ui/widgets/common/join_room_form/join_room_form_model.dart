@@ -64,7 +64,7 @@ class JoinRoomFormModel extends FormViewModel {
         return;
       }
 
-      await _onSuccessfullyJoinedRoom(result);
+      await _onSuccessfullyJoinedRoom(result, joinCode);
     } catch (e) {
       setError(e);
       _logger.e('Failed to join room', e);
@@ -75,6 +75,7 @@ class JoinRoomFormModel extends FormViewModel {
 
   Future<void> _onSuccessfullyJoinedRoom(
     GameRoomJoinedResponseDto response,
+    String joinCode,
   ) async {
     _logger.i('Room joined successfully: ${response.gameRoom.id}');
 
@@ -83,6 +84,7 @@ class JoinRoomFormModel extends FormViewModel {
         roomId: response.gameRoom.id,
         roomName: response.gameRoom.name,
         userName: response.playerName,
+        joinCode: joinCode,
       ),
     );
   }

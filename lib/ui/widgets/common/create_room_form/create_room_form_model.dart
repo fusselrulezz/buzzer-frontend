@@ -78,6 +78,7 @@ class CreateRoomFormModel extends FormViewModel {
         roomId: response.gameRoom.id,
         roomName: response.gameRoom.name,
         userName: response.playerName,
+        joinCode: response.joinCode,
       ),
     );
   }
