@@ -1,3 +1,7 @@
+import 'package:logger/logger.dart';
+import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+
 import 'package:buzzer/app/app.locator.dart';
 import 'package:buzzer/app/app.logger.dart';
 import 'package:buzzer/app/app.router.dart';
@@ -6,9 +10,6 @@ import 'package:buzzer/model/identity.dart';
 import 'package:buzzer/services/api_service.dart';
 import 'package:buzzer/services/authentication_service.dart';
 import 'package:buzzer_client/buzzer_client.dart';
-import 'package:logger/logger.dart';
-import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
 
 import 'create_room_form.form.dart';
 
@@ -17,8 +18,6 @@ class CreateRoomFormModel extends FormViewModel {
 
   final RouterService _routerService = locator<RouterService>();
 
-  final ApiService _apiService = locator<ApiService>();
-
   bool get isRoomNameValid => roomNameValue?.isNotEmpty ?? false;
 
   bool get isUsernameValid => userNameValue?.isNotEmpty ?? false;
@@ -26,10 +25,17 @@ class CreateRoomFormModel extends FormViewModel {
   bool get isFormValid => isRoomNameValid && isUsernameValid;
 
   Future<void> onPressedCreateRoom() async {
+    if (isBusy) {
+      _logger.w("Join room button pressed while busy, ignoring.");
+      return;
+    }
+
     setError(null);
+    setBusy(true);
 
     if (!isFormValid) {
       setError("Please fill in all fields correctly.");
+      setBusy(false);
       return;
     }
 
@@ -38,10 +44,9 @@ class CreateRoomFormModel extends FormViewModel {
 
     if (roomName == null || userName == null) {
       setError("Please provide both room name and user name.");
+      setBusy(false);
       return;
     }
-
-    setBusy(true);
 
     var createRequest = GameRoomCreateRequest(
       name: roomName,
@@ -49,9 +54,9 @@ class CreateRoomFormModel extends FormViewModel {
     );
 
     try {
-      var response = await _apiService.client.apiGameRoomCreatePost(
-        body: createRequest,
-      );
+      var response = await locator<ApiService>().client.apiGameRoomCreatePost(
+            body: createRequest,
+          );
 
       var result = response.body;
 

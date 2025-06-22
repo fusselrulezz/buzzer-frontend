@@ -52,6 +52,7 @@ class CreateRoomForm extends StackedView<CreateRoomFormModel>
             ),
             Button.primary(
               onPressed: viewModel.onPressedCreateRoom,
+              enabled: !viewModel.isBusy,
               child: const Text("Create room"),
             ),
           ],

@@ -59,6 +59,7 @@ class JoinRoomForm extends StackedView<JoinRoomFormModel> with $JoinRoomForm {
             ),
             Button.primary(
               onPressed: viewModel.onPressedJoinRoom,
+              enabled: !viewModel.isBusy,
               child: const Text("Join room"),
             ),
           ],

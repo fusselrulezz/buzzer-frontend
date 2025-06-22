@@ -18,8 +18,6 @@ class JoinRoomFormModel extends FormViewModel {
 
   final RouterService _routerService = locator<RouterService>();
 
-  final ApiService _apiService = locator<ApiService>();
-
   final RandomNameService _randomNameService = locator<RandomNameService>();
 
   bool get isJoinCodeValid => joinCodeValue?.isNotEmpty ?? false;
@@ -31,10 +29,17 @@ class JoinRoomFormModel extends FormViewModel {
   bool get isRandomNameFeatureVisible => _randomNameService.hasRandomNames;
 
   Future<void> onPressedJoinRoom() async {
+    if (isBusy) {
+      _logger.w("Join room button pressed while busy, ignoring.");
+      return;
+    }
+
     setError(null);
+    setBusy(true);
 
     if (!isFormValid) {
       setError("Please fill in all fields correctly.");
+      setBusy(false);
       return;
     }
 
@@ -43,10 +48,9 @@ class JoinRoomFormModel extends FormViewModel {
 
     if (joinCode == null || userName == null) {
       setError("Please provide both room name and user name.");
+      setBusy(false);
       return;
     }
-
-    setBusy(true);
 
     var joinRequest = GameRoomJoinRequest(
       joinCode: joinCode,
@@ -54,9 +58,9 @@ class JoinRoomFormModel extends FormViewModel {
     );
 
     try {
-      var response = await _apiService.client.apiGameRoomJoinPost(
-        body: joinRequest,
-      );
+      var response = await locator<ApiService>().client.apiGameRoomJoinPost(
+            body: joinRequest,
+          );
 
       var result = response.body;
 
