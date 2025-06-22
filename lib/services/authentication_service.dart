@@ -15,6 +15,8 @@ class AuthenticationService {
 
   Identity? _identity;
 
+  Identity? get identity => _identity;
+
   bool get hasIdentity => _identity != null;
 
   Authenticator _authenticator = _ApiAuthenticator(identity: null);

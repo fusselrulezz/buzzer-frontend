@@ -2,6 +2,8 @@ import 'package:stacked/stacked.dart';
 
 import 'package:buzzer/app/app.locator.dart';
 import 'package:buzzer/model/game_context.dart';
+import 'package:buzzer/model/player.dart';
+import 'package:buzzer/model/playerlist.dart';
 import 'package:buzzer/services/api_service.dart';
 import 'package:buzzer_client/buzzer_client.dart';
 
@@ -16,14 +18,26 @@ class PlayerListModel extends StreamViewModel {
   Stream<Playerlist> get stream => _buildStream();
 
   Stream<Playerlist> _buildStream() async* {
+    bool error = false;
+
+    await Future.delayed(const Duration(seconds: 10));
+
     while (true) {
-      await Future.delayed(const Duration(seconds: 1));
+      try {
+        if (error) {
+          await Future.delayed(const Duration(seconds: 1));
+        }
 
-      final list = await _fetchPlayerList();
+        final list = await _fetchPlayerList();
 
-      yield list;
+        yield list;
 
-      rebuildUi();
+        rebuildUi();
+
+        await Future.delayed(const Duration(seconds: 1));
+      } catch (e) {
+        error = true;
+      }
     }
   }
 
@@ -37,15 +51,14 @@ class PlayerListModel extends StreamViewModel {
     }
 
     return Playerlist(
-      players: response.body!.players,
+      players: response.body!.players.map(_createPlayer).toList(),
     );
   }
-}
 
-class Playerlist {
-  final List<GameRoomPlayerListDto> players;
-
-  Playerlist({
-    required this.players,
-  });
+  Player _createPlayer(GameRoomPlayerListDto e) {
+    return Player(
+      id: e.id,
+      name: e.name,
+    );
+  }
 }
