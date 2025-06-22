@@ -7,7 +7,7 @@ import 'package:buzzer/services/system_config_service.dart';
 import 'package:buzzer_client/buzzer_client.dart';
 
 class ApiService {
-  final Logger _logger = getLogger((ApiService).toString());
+  final Logger _logger = getLogger("ApiService");
 
   final SystemConfigService _systemConfigService =
       locator<SystemConfigService>();

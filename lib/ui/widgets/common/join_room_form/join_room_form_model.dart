@@ -12,7 +12,7 @@ import 'package:buzzer/ui/widgets/common/join_room_form/join_room_form.form.dart
 import 'package:buzzer_client/gen/buzzer.swagger.dart';
 
 class JoinRoomFormModel extends FormViewModel {
-  final Logger _logger = getLogger((JoinRoomFormModel).toString());
+  final Logger _logger = getLogger("JoinRoomFormModel");
 
   final RouterService _routerService = locator<RouterService>();
 

@@ -11,7 +11,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'create_room_form.form.dart';
 
 class CreateRoomFormModel extends FormViewModel {
-  final Logger _logger = getLogger((CreateRoomFormModel).toString());
+  final Logger _logger = getLogger("CreateRoomFormModel");
 
   final RouterService _routerService = locator<RouterService>();
 

@@ -6,7 +6,7 @@ import 'package:stacked/stacked.dart';
 import 'package:buzzer/app/app.logger.dart';
 
 class JoinCodeDisplayModel extends BaseViewModel {
-  final Logger _logger = getLogger((JoinCodeDisplayModel).toString());
+  final Logger _logger = getLogger("JoinCodeDisplayModel");
 
   final String joinCode;
 

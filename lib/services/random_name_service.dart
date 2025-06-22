@@ -8,7 +8,7 @@ import 'package:buzzer/app/app.logger.dart';
 import 'package:buzzer/model/random_names.dart';
 
 class RandomNameService with InitializableDependency {
-  final _logger = getLogger((RandomNameService).toString());
+  final _logger = getLogger("RandomNameService");
 
   RandomNames? _randomNames;
 

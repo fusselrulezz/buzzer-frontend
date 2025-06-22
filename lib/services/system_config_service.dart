@@ -5,7 +5,7 @@ import 'package:buzzer/model/system_config.dart';
 import 'package:flutter/services.dart';
 
 class SystemConfigService {
-  final _logger = getLogger((SystemConfigService).toString());
+  final _logger = getLogger("SystemConfigService");
 
   SystemConfig? _config;
 
