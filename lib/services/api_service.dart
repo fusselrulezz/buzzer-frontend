@@ -35,6 +35,8 @@ class ApiService {
 
   void invalidateClient() {
     _logger.i("Invalidating API client");
+
+    _client?.client.dispose();
     _client = null;
   }
 
