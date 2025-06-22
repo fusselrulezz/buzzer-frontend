@@ -1,11 +1,12 @@
-import 'package:buzzer/model/game_context.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:stacked/stacked.dart';
 
+import 'package:buzzer/model/game_context.dart';
+
 import 'ingame_view.desktop.dart';
-import 'ingame_view.tablet.dart';
 import 'ingame_view.mobile.dart';
+import 'ingame_view.tablet.dart';
 import 'ingame_viewmodel.dart';
 
 class IngameView extends StackedView<IngameViewModel> {
