@@ -6,8 +6,6 @@ part 'system_config.g.dart';
 class SystemConfig {
   final String serviceUrl;
 
-  Uri get serviceUri => Uri.parse(serviceUrl);
-
   SystemConfig({
     required this.serviceUrl,
   });
