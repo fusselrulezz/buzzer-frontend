@@ -8,6 +8,9 @@ class GameContext {
   /// The name of the game room.
   final String roomName;
 
+  /// The unique identifier for the user in the game room.
+  final String userId;
+
   /// The name of the user in the game room.
   final String userName;
 
@@ -18,6 +21,7 @@ class GameContext {
   GameContext({
     required this.roomId,
     required this.roomName,
+    required this.userId,
     required this.userName,
     required this.joinCode,
   });

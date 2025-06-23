@@ -94,6 +94,7 @@ class JoinRoomFormModel extends FormViewModel {
       gameContext: GameContext(
         roomId: response.gameRoom.id,
         roomName: response.gameRoom.name,
+        userId: response.player.id,
         userName: response.player.name,
         joinCode: joinCode,
       ),
