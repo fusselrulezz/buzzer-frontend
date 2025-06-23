@@ -20,8 +20,6 @@ class PlayerListModel extends StreamViewModel {
   Stream<Playerlist> _buildStream() async* {
     bool error = false;
 
-    await Future.delayed(const Duration(seconds: 10));
-
     while (true) {
       try {
         if (error) {
