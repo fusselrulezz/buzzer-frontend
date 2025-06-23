@@ -21,43 +21,45 @@ class CreateRoomForm extends StackedView<CreateRoomFormModel>
     CreateRoomFormModel viewModel,
     Widget? child,
   ) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Room name
-        const Text("Room name").base.bold,
-        verticalSpaceTiny,
-        TextField(
-          controller: roomNameController,
-          placeholder: const Text("Very fun room name"),
-        ),
-        verticalSpaceSmall,
-        // User name
-        const Text("Your name").base.bold,
-        verticalSpaceTiny,
-        TextField(
-          controller: userNameController,
-        ),
-        verticalSpaceMedium,
-        // Action buttons
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Visibility(
-                visible: viewModel.hasError,
-                child: _buildErrorMessage(viewModel.error(viewModel)),
+    return FocusTraversalGroup(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Room name
+          const Text("Room name").base.bold,
+          verticalSpaceTiny,
+          TextField(
+            controller: roomNameController,
+            placeholder: const Text("Very fun room name"),
+          ),
+          verticalSpaceSmall,
+          // User name
+          const Text("Your name").base.bold,
+          verticalSpaceTiny,
+          TextField(
+            controller: userNameController,
+          ),
+          verticalSpaceMedium,
+          // Action buttons
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Visibility(
+                  visible: viewModel.hasError,
+                  child: _buildErrorMessage(viewModel.error(viewModel)),
+                ),
               ),
-            ),
-            Button.primary(
-              onPressed: viewModel.onPressedCreateRoom,
-              enabled: !viewModel.isBusy,
-              child: const Text("Create room"),
-            ),
-          ],
-        ),
-      ],
+              Button.primary(
+                onPressed: viewModel.onPressedCreateRoom,
+                enabled: !viewModel.isBusy,
+                child: const Text("Create room"),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 

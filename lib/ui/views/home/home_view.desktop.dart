@@ -26,18 +26,20 @@ class HomeViewDesktop extends ViewModelWidget<HomeViewModel> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text("Buzzer").h1,
-                Row(
-                  children: [
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text("Login").h3,
-                    ),
-                    horizontalSpaceSmall,
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text("Register").h3,
-                    ),
-                  ],
+                FocusTraversalGroup(
+                  child: Row(
+                    children: [
+                      TextButton(
+                        onPressed: () {},
+                        child: const Text("Login").h3,
+                      ),
+                      horizontalSpaceSmall,
+                      TextButton(
+                        onPressed: () {},
+                        child: const Text("Register").h3,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

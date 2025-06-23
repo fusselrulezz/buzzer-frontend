@@ -21,50 +21,52 @@ class JoinRoomForm extends StackedView<JoinRoomFormModel> with $JoinRoomForm {
     JoinRoomFormModel viewModel,
     Widget? child,
   ) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Room name
-        const Text("Join code").base.bold,
-        verticalSpaceTiny,
-        TextField(
-          controller: joinCodeController,
-        ),
-        verticalSpaceSmall,
-        // User name
-        const Text("Your name").base.bold,
-        verticalSpaceTiny,
-        TextField(
-          controller: userNameController,
-          features: [
-            RandomNameInputFeature(
-              visibility: viewModel.isRandomNameFeatureVisible
-                  ? InputFeatureVisibility.always
-                  : InputFeatureVisibility.never,
-              generateName: viewModel.generateRandomName,
-            ),
-          ],
-        ),
-        verticalSpaceMedium,
-        // Action buttons
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Visibility(
-                visible: viewModel.hasError,
-                child: _buildErrorMessage(viewModel.error(viewModel)),
+    return FocusTraversalGroup(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Room name
+          const Text("Join code").base.bold,
+          verticalSpaceTiny,
+          TextField(
+            controller: joinCodeController,
+          ),
+          verticalSpaceSmall,
+          // User name
+          const Text("Your name").base.bold,
+          verticalSpaceTiny,
+          TextField(
+            controller: userNameController,
+            features: [
+              RandomNameInputFeature(
+                visibility: viewModel.isRandomNameFeatureVisible
+                    ? InputFeatureVisibility.always
+                    : InputFeatureVisibility.never,
+                generateName: viewModel.generateRandomName,
               ),
-            ),
-            Button.primary(
-              onPressed: viewModel.onPressedJoinRoom,
-              enabled: !viewModel.isBusy,
-              child: const Text("Join room"),
-            ),
-          ],
-        ),
-      ],
+            ],
+          ),
+          verticalSpaceMedium,
+          // Action buttons
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Visibility(
+                  visible: viewModel.hasError,
+                  child: _buildErrorMessage(viewModel.error(viewModel)),
+                ),
+              ),
+              Button.primary(
+                onPressed: viewModel.onPressedJoinRoom,
+                enabled: !viewModel.isBusy,
+                child: const Text("Join room"),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
