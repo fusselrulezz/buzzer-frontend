@@ -1,3 +1,4 @@
+import 'package:buzzer_client/buzzer_client.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -11,7 +12,6 @@ import 'package:buzzer/services/api_service.dart';
 import 'package:buzzer/services/authentication_service.dart';
 import 'package:buzzer/services/random_name_service.dart';
 import 'package:buzzer/ui/widgets/common/join_room_form/join_room_form.form.dart';
-import 'package:buzzer_client/gen/buzzer.swagger.dart';
 
 class JoinRoomFormModel extends FormViewModel {
   final Logger _logger = getLogger("JoinRoomFormModel");
@@ -94,7 +94,7 @@ class JoinRoomFormModel extends FormViewModel {
       gameContext: GameContext(
         roomId: response.gameRoom.id,
         roomName: response.gameRoom.name,
-        userName: response.playerName,
+        userName: response.player.name,
         joinCode: joinCode,
       ),
     );

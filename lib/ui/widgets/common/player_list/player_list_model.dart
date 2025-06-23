@@ -55,7 +55,7 @@ class PlayerListModel extends StreamViewModel {
     );
   }
 
-  Player _createPlayer(GameRoomPlayerListDto e) {
+  Player _createPlayer(PlayerDto e) {
     return Player(
       id: e.id,
       name: e.name,

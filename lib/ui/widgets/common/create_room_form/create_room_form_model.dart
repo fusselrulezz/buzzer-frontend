@@ -89,7 +89,7 @@ class CreateRoomFormModel extends FormViewModel {
       gameContext: GameContext(
         roomId: response.gameRoom.id,
         roomName: response.gameRoom.name,
-        userName: response.playerName,
+        userName: response.player.name,
         joinCode: response.joinCode,
       ),
     );
