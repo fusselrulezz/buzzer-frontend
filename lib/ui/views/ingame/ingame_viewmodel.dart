@@ -27,6 +27,7 @@ class IngameViewModel extends BaseViewModel {
 
   Future<void> onPressedLeaveRoom() async {
     locator<AuthenticationService>().clearIdentity();
+    await locator<BuzzerService>().disconnect();
     _routerService.pop();
   }
 
