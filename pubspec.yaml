@@ -25,6 +25,7 @@ dependencies:
   json_annotation: ^4.9.0
   logger: ^1.4.0
   chopper: ^8.1.0
+  signalr_netcore: ^1.4.3
 
 dev_dependencies:
   build_runner: ^2.4.5

@@ -1,4 +1,5 @@
 import 'package:buzzer/services/authentication_service.dart';
+import 'package:buzzer/services/buzzer_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -29,8 +30,11 @@ class IngameViewModel extends BaseViewModel {
     _routerService.pop();
   }
 
-  void onPressedBuzzer() {
+  Future<void> onPressedBuzzer() async {
     _buzzerEnabled = !_buzzerEnabled;
+
+    await locator<BuzzerService>().buzz(gameContext.roomId, gameContext.userId);
+
     rebuildUi();
   }
 }

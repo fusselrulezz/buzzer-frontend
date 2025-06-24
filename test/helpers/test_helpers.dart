@@ -6,6 +6,7 @@ import 'package:buzzer/services/system_config_service.dart';
 import 'package:buzzer/services/api_service.dart';
 import 'package:buzzer/services/random_name_service.dart';
 import 'package:buzzer/services/authentication_service.dart';
+import 'package:buzzer/services/buzzer_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -20,6 +21,7 @@ import 'test_helpers.mocks.dart';
     MockSpec<ApiService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<RandomNameService>(onMissingStub: OnMissingStub.returnDefault),
     MockSpec<AuthenticationService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<BuzzerService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
   ],
 )
@@ -31,6 +33,7 @@ void registerServices() {
   getAndRegisterApiService();
   getAndRegisterRandomNameService();
   getAndRegisterAuthenticationService();
+  getAndRegisterBuzzerService();
 // @stacked-mock-register
 }
 
@@ -113,6 +116,13 @@ MockAuthenticationService getAndRegisterAuthenticationService() {
   _removeRegistrationIfExists<AuthenticationService>();
   final service = MockAuthenticationService();
   locator.registerSingleton<AuthenticationService>(service);
+  return service;
+}
+
+MockBuzzerService getAndRegisterBuzzerService() {
+  _removeRegistrationIfExists<BuzzerService>();
+  final service = MockBuzzerService();
+  locator.registerSingleton<BuzzerService>(service);
   return service;
 }
 // @stacked-mock-create

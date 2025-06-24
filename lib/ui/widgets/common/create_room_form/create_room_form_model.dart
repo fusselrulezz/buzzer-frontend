@@ -1,3 +1,4 @@
+import 'package:buzzer/services/buzzer_service.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -84,6 +85,8 @@ class CreateRoomFormModel extends FormViewModel {
       accessToken: response.token,
       refreshToken: response.refreshToken,
     ));
+
+    await locator<BuzzerService>().connect();
 
     _routerService.navigateToIngameView(
       gameContext: GameContext(

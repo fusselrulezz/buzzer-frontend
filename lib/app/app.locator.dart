@@ -13,6 +13,7 @@ import 'package:stacked_shared/stacked_shared.dart';
 
 import '../services/api_service.dart';
 import '../services/authentication_service.dart';
+import '../services/buzzer_service.dart';
 import '../services/random_name_service.dart';
 import '../services/system_config_service.dart';
 import 'app.router.dart';
@@ -39,6 +40,7 @@ Future<void> setupLocator({
   locator.registerSingleton(randomNameService);
 
   locator.registerLazySingleton(() => AuthenticationService());
+  locator.registerLazySingleton(() => BuzzerService());
   if (stackedRouter == null) {
     throw Exception(
         'Stacked is building to use the Router (Navigator 2.0) navigation but no stackedRouter is supplied. Pass the stackedRouter to the setupLocator function in main.dart');
