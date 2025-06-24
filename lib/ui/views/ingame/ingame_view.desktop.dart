@@ -1,9 +1,10 @@
-import 'package:buzzer/ui/widgets/common/join_code_display/join_code_display.dart';
-import 'package:buzzer/ui/widgets/common/player_list/player_list.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:stacked/stacked.dart';
 
 import 'package:buzzer/ui/common/ui_helpers.dart';
+import 'package:buzzer/ui/views/ingame/buzzer_button.dart';
+import 'package:buzzer/ui/widgets/common/join_code_display/join_code_display.dart';
+import 'package:buzzer/ui/widgets/common/player_list/player_list.dart';
 
 import 'ingame_viewmodel.dart';
 
@@ -60,8 +61,11 @@ class IngameViewDesktop extends ViewModelWidget<IngameViewModel> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   PlayerList(gameContext: viewModel.gameContext),
-                  const Expanded(
-                    child: Text("Buzzer here!"),
+                  Expanded(
+                    child: BuzzerButton(
+                      enabled: viewModel.buzzerEnabled,
+                      onPressed: viewModel.onPressedBuzzer,
+                    ),
                   ),
                 ],
               ),

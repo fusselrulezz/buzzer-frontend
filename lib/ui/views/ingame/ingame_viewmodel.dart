@@ -20,8 +20,17 @@ class IngameViewModel extends BaseViewModel {
 
   String get joinCode => gameContext.joinCode;
 
+  bool _buzzerEnabled = true;
+
+  bool get buzzerEnabled => _buzzerEnabled;
+
   Future<void> onPressedLeaveRoom() async {
     locator<AuthenticationService>().clearIdentity();
     _routerService.pop();
+  }
+
+  void onPressedBuzzer() {
+    _buzzerEnabled = !_buzzerEnabled;
+    rebuildUi();
   }
 }
