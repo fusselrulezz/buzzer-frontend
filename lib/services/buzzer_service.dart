@@ -52,6 +52,9 @@ class BuzzerService {
     connection.onclose(_onConnectionClosed);
 
     connection.on("PlayerBuzzed", _onPLayerBuzzed);
+
+    connection.on("PlayerJoined", _onPlayerJoined);
+    connection.on("PlayerDisconnected", _onPlayerDisconnected);
   }
 
   Future<void> _onConnectionClosed({Exception? error}) async {
@@ -91,8 +94,20 @@ class BuzzerService {
   }
 
   void _onPLayerBuzzed(List<Object?>? arguments) {
-    final playerName = arguments?[0] as String?;
+    final playerId = arguments?[0] as String?;
 
-    _logger.i("Player buzzed: $playerName");
+    _logger.i("Player buzzed: $playerId");
+  }
+
+  void _onPlayerJoined(List<Object?>? arguments) {
+    final playerId = arguments?[0] as String?;
+
+    _logger.i("Player joined: $playerId");
+  }
+
+  void _onPlayerDisconnected(List<Object?>? arguments) {
+    final playerId = arguments?[0] as String?;
+
+    _logger.i("Player disconnected: $playerId");
   }
 }
