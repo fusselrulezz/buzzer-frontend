@@ -1,3 +1,5 @@
+import 'package:buzzer/app/app.logger.dart';
+import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 
 import 'package:buzzer/app/app.locator.dart';
@@ -8,6 +10,8 @@ import 'package:buzzer/services/api_service.dart';
 import 'package:buzzer_client/buzzer_client.dart';
 
 class PlayerListModel extends StreamViewModel {
+  final Logger _logger = getLogger("PlayerListModel");
+
   final GameContext gameContext;
 
   PlayerListModel({
@@ -34,6 +38,7 @@ class PlayerListModel extends StreamViewModel {
 
         await Future.delayed(const Duration(seconds: 1));
       } catch (e) {
+        _logger.e("Error fetching player list: $e");
         error = true;
       }
     }

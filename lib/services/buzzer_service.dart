@@ -31,8 +31,7 @@ class BuzzerService {
     _hubConnection = HubConnectionBuilder()
         .withUrl(hubUrl,
             options: HttpConnectionOptions(
-              accessTokenFactory: () async =>
-                  locator<AuthenticationService>().identity?.accessToken ?? "",
+              accessTokenFactory: _resolveAccessToken,
             ))
         .withAutomaticReconnect()
         .build();
@@ -46,6 +45,19 @@ class BuzzerService {
       _logger.e("Failed to connect to the hub: $e");
       rethrow;
     }
+  }
+
+  Future<String> _resolveAccessToken() async {
+    final service = locator<AuthenticationService>();
+
+    final accessToken = service.identity?.accessToken;
+
+    if (accessToken == null) {
+      _logger.w("No identity found, cannot get access token.");
+      return "";
+    }
+
+    return accessToken;
   }
 
   void _initConnection(HubConnection connection) {
