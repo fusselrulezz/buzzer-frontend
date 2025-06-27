@@ -54,8 +54,11 @@ class IngameViewModel extends BaseViewModel {
   }
 
   Future<void> onPressedBuzzer() async {
-    _buzzerEnabled = !_buzzerEnabled;
+    if (!_buzzerEnabled) {
+      return;
+    }
 
+    _buzzerEnabled = true;
     _buzzerService.buzz(gameContext.roomId, gameContext.userId);
 
     rebuildUi();
