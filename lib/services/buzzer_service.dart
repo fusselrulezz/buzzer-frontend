@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:buzzer/services/authentication_service.dart';
 import 'package:logger/logger.dart';
 import 'package:signalr_netcore/signalr_client.dart';
@@ -15,6 +17,24 @@ class BuzzerService {
   String get hubUrl => "${_systemConfigService.config.serviceUrl}/buzzer";
 
   HubConnection? _hubConnection;
+
+  // Streams
+
+  final StreamController<String> _buzzedController =
+      StreamController<String>.broadcast();
+
+  Stream<String> get buzzedStream => _buzzedController.stream;
+
+  final StreamController<String> _playerConnectedController =
+      StreamController<String>.broadcast();
+
+  Stream<String> get playerConnectedStream => _playerConnectedController.stream;
+
+  final StreamController<String> _playerDisconnectedController =
+      StreamController<String>.broadcast();
+
+  Stream<String> get playerDisconnectedStream =>
+      _playerDisconnectedController.stream;
 
   Future<void> connect() async {
     if (_hubConnection != null &&
@@ -63,7 +83,7 @@ class BuzzerService {
   void _initConnection(HubConnection connection) {
     connection.onclose(_onConnectionClosed);
 
-    connection.on("PlayerBuzzed", _onPLayerBuzzed);
+    connection.on("PlayerBuzzed", _onPlayerBuzzed);
 
     connection.on("PlayerConnected", _onPlayerConnected);
     connection.on("PlayerDisconnected", _onPlayerDisconnected);
@@ -105,21 +125,39 @@ class BuzzerService {
     }
   }
 
-  void _onPLayerBuzzed(List<Object?>? arguments) {
+  void _onPlayerBuzzed(List<Object?>? arguments) {
     final playerId = arguments?[0] as String?;
 
+    if (playerId == null) {
+      _logger.w("Received buzz event with null player ID.");
+      return;
+    }
+
     _logger.i("Player buzzed: $playerId");
+    _buzzedController.add(playerId);
   }
 
   void _onPlayerConnected(List<Object?>? arguments) {
     final playerId = arguments?[0] as String?;
 
-    _logger.i("Player joined: $playerId");
+    if (playerId == null) {
+      _logger.w("Received player connected event with null player ID.");
+      return;
+    }
+
+    _logger.i("Player connected: $playerId");
+    _playerConnectedController.add(playerId);
   }
 
   void _onPlayerDisconnected(List<Object?>? arguments) {
     final playerId = arguments?[0] as String?;
 
+    if (playerId == null) {
+      _logger.w("Received player disconnected event with null player ID.");
+      return;
+    }
+
     _logger.i("Player disconnected: $playerId");
+    _playerDisconnectedController.add(playerId);
   }
 }
