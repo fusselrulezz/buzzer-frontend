@@ -17,6 +17,9 @@ class GameContext {
   /// The code used to join the game room.
   final String joinCode;
 
+  /// Indicates whether the user is the host of the game room.
+  final bool isHost;
+
   /// Initializes a new [GameContext] instance.
   GameContext({
     required this.roomId,
@@ -24,5 +27,6 @@ class GameContext {
     required this.userId,
     required this.userName,
     required this.joinCode,
+    required this.isHost,
   });
 }
