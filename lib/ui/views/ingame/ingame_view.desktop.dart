@@ -70,9 +70,32 @@ class IngameViewDesktop extends ViewModelWidget<IngameViewModel> {
                 children: [
                   PlayerList(gameContext: viewModel.gameContext),
                   Expanded(
-                    child: BuzzerButton(
-                      enabled: viewModel.buzzerEnabled,
-                      onPressed: viewModel.onPressedBuzzer,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BuzzerButton(
+                          enabled: viewModel.buzzerEnabled,
+                          onPressed: viewModel.onPressedBuzzer,
+                        ),
+                        verticalSpaceLarge,
+                        Visibility.maintain(
+                          visible: viewModel.isHost,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Button(
+                                style: const ButtonStyle.ghostIcon(),
+                                enabled: viewModel.resetButtonEnabled,
+                                onPressed: viewModel.onPressedResetBuzzer,
+                                child: const Icon(
+                                  BootstrapIcons.arrowClockwise,
+                                  size: 32.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ],

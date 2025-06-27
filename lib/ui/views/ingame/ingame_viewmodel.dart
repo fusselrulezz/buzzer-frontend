@@ -41,6 +41,8 @@ class IngameViewModel extends BaseViewModel {
 
   bool get buzzerEnabled => _buzzerEnabled;
 
+  bool get resetButtonEnabled => !_buzzerEnabled;
+
   @override
   Future<void> dispose() async {
     await _buzzedSubscription.cancel();
@@ -74,4 +76,6 @@ class IngameViewModel extends BaseViewModel {
   void _onPlayerConnected(String playerId) {}
 
   void _onPlayerDisconnected(String playerId) {}
+
+  void onPressedResetBuzzer() {}
 }
