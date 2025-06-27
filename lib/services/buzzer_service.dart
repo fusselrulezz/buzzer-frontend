@@ -65,7 +65,7 @@ class BuzzerService {
 
     connection.on("PlayerBuzzed", _onPLayerBuzzed);
 
-    connection.on("PlayerJoined", _onPlayerJoined);
+    connection.on("PlayerConnected", _onPlayerConnected);
     connection.on("PlayerDisconnected", _onPlayerDisconnected);
   }
 
@@ -111,7 +111,7 @@ class BuzzerService {
     _logger.i("Player buzzed: $playerId");
   }
 
-  void _onPlayerJoined(List<Object?>? arguments) {
+  void _onPlayerConnected(List<Object?>? arguments) {
     final playerId = arguments?[0] as String?;
 
     _logger.i("Player joined: $playerId");
