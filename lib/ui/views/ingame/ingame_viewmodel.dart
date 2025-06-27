@@ -35,6 +35,9 @@ class IngameViewModel extends BaseViewModel {
 
   String get joinCode => gameContext.joinCode;
 
+  bool get isHost =>
+      true; // TODO: Implement logic to determine if the user is the host
+
   bool _buzzerEnabled = true;
 
   bool get buzzerEnabled => _buzzerEnabled;

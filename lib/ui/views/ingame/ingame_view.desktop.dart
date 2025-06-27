@@ -31,7 +31,15 @@ class IngameViewDesktop extends ViewModelWidget<IngameViewModel> {
                   children: [
                     Text(viewModel.roomName).h1,
                     verticalSpaceTiny,
-                    Text("Playing as ${viewModel.userName}").h3,
+                    Row(
+                      children: [
+                        Text("Playing as ${viewModel.userName}").h3,
+                        horizontalSpaceSmall,
+                        if (viewModel.isHost) ...[
+                          const PrimaryBadge(child: Text("Host"))
+                        ]
+                      ],
+                    ),
                     verticalSpaceTiny,
                     Text("Room ID: ${viewModel.gameContext.roomId}")
                         .muted
