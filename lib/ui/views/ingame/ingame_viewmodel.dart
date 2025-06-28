@@ -1,35 +1,30 @@
 import 'dart:async';
 
-import 'package:buzzer/services/authentication_service.dart';
-import 'package:buzzer/services/buzzer_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'package:buzzer/app/app.locator.dart';
+import 'package:buzzer/helper/managed_stream_subscriptions.dart';
 import 'package:buzzer/model/game_context.dart';
+import 'package:buzzer/services/authentication_service.dart';
+import 'package:buzzer/services/buzzer_service.dart';
 
-class IngameViewModel extends BaseViewModel {
+class IngameViewModel extends BaseViewModel with ManagedStreamSubscriptions {
   final GameContext gameContext;
 
   final BuzzerService _buzzerService = locator<BuzzerService>();
 
   final RouterService _routerService = locator<RouterService>();
 
-  late final StreamSubscription<String> _buzzedSubscription;
-  late final StreamSubscription<String> _buzzerClearedSubscription;
-  late final StreamSubscription<String> _playerConnectedSubscription;
-  late final StreamSubscription<String> _playerDisconnectedSubscription;
-
   IngameViewModel({
     required this.gameContext,
   }) {
-    _buzzedSubscription = _buzzerService.buzzedStream.listen(_onPlayerBuzzed);
-    _buzzerClearedSubscription =
-        _buzzerService.buzzerClearedStream.listen(_onBuzzerCleared);
-    _playerConnectedSubscription =
-        _buzzerService.playerConnectedStream.listen(_onPlayerConnected);
-    _playerDisconnectedSubscription =
-        _buzzerService.playerDisconnectedStream.listen(_onPlayerDisconnected);
+    addSubscriptions([
+      _buzzerService.buzzedStream.listen(_onPlayerBuzzed),
+      _buzzerService.buzzerClearedStream.listen(_onBuzzerCleared),
+      _buzzerService.playerConnectedStream.listen(_onPlayerConnected),
+      _buzzerService.playerDisconnectedStream.listen(_onPlayerDisconnected),
+    ]);
   }
 
   String get roomName => gameContext.roomName;
@@ -48,10 +43,7 @@ class IngameViewModel extends BaseViewModel {
 
   @override
   Future<void> dispose() async {
-    await _buzzedSubscription.cancel();
-    await _buzzerClearedSubscription.cancel();
-    await _playerConnectedSubscription.cancel();
-    await _playerDisconnectedSubscription.cancel();
+    await disposeSubscriptions();
     super.dispose();
   }
 
