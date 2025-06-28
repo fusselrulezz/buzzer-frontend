@@ -16,6 +16,7 @@ class IngameViewModel extends BaseViewModel {
   final RouterService _routerService = locator<RouterService>();
 
   late final StreamSubscription<String> _buzzedSubscription;
+  late final StreamSubscription<String> _buzzerClearedSubscription;
   late final StreamSubscription<String> _playerConnectedSubscription;
   late final StreamSubscription<String> _playerDisconnectedSubscription;
 
@@ -23,6 +24,8 @@ class IngameViewModel extends BaseViewModel {
     required this.gameContext,
   }) {
     _buzzedSubscription = _buzzerService.buzzedStream.listen(_onPlayerBuzzed);
+    _buzzerClearedSubscription =
+        _buzzerService.buzzerClearedStream.listen(_onBuzzerCleared);
     _playerConnectedSubscription =
         _buzzerService.playerConnectedStream.listen(_onPlayerConnected);
     _playerDisconnectedSubscription =
@@ -46,6 +49,7 @@ class IngameViewModel extends BaseViewModel {
   @override
   Future<void> dispose() async {
     await _buzzedSubscription.cancel();
+    await _buzzerClearedSubscription.cancel();
     await _playerConnectedSubscription.cancel();
     await _playerDisconnectedSubscription.cancel();
     super.dispose();
@@ -62,8 +66,7 @@ class IngameViewModel extends BaseViewModel {
       return;
     }
 
-    _buzzerEnabled = true;
-    _buzzerService.buzz(gameContext.roomId, gameContext.userId);
+    await _buzzerService.buzz(gameContext.roomId, gameContext.userId);
 
     rebuildUi();
   }
@@ -73,9 +76,20 @@ class IngameViewModel extends BaseViewModel {
     rebuildUi();
   }
 
+  void _onBuzzerCleared(String event) {
+    _buzzerEnabled = true;
+    rebuildUi();
+  }
+
   void _onPlayerConnected(String playerId) {}
 
   void _onPlayerDisconnected(String playerId) {}
 
-  void onPressedResetBuzzer() {}
+  Future<void> onPressedResetBuzzer() async {
+    if (!resetButtonEnabled) {
+      return;
+    }
+
+    await _buzzerService.clearBuzzer(gameContext.roomId);
+  }
 }

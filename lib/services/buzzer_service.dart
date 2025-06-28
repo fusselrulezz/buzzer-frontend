@@ -25,6 +25,11 @@ class BuzzerService {
 
   Stream<String> get buzzedStream => _buzzedController.stream;
 
+  final StreamController<String> _buzzerClearedController =
+      StreamController<String>.broadcast();
+
+  Stream<String> get buzzerClearedStream => _buzzerClearedController.stream;
+
   final StreamController<String> _playerConnectedController =
       StreamController<String>.broadcast();
 
@@ -84,6 +89,7 @@ class BuzzerService {
     connection.onclose(_onConnectionClosed);
 
     connection.on("PlayerBuzzed", _onPlayerBuzzed);
+    connection.on("BuzzerCleared", _onBuzzerCleared);
 
     connection.on("PlayerConnected", _onPlayerConnected);
     connection.on("PlayerDisconnected", _onPlayerDisconnected);
@@ -125,6 +131,22 @@ class BuzzerService {
     }
   }
 
+  Future<void> clearBuzzer(String roomId) async {
+    if (_hubConnection == null ||
+        _hubConnection!.state != HubConnectionState.Connected) {
+      _logger.w("Cannot reset buzzer, not connected to the hub.");
+      return;
+    }
+
+    try {
+      await _hubConnection!.invoke("ClearBuzzer");
+      _logger.i("Buzzer clear for room $roomId.");
+    } catch (e) {
+      _logger.e("Failed to reset buzzer: $e");
+      rethrow;
+    }
+  }
+
   void _onPlayerBuzzed(List<Object?>? arguments) {
     final playerId = arguments?[0] as String?;
 
@@ -135,6 +157,18 @@ class BuzzerService {
 
     _logger.i("Player buzzed: $playerId");
     _buzzedController.add(playerId);
+  }
+
+  void _onBuzzerCleared(List<Object?>? arguments) {
+    final playerId = arguments?[0] as String?;
+
+    if (playerId == null) {
+      _logger.w("Received buzzer cleared event with null player ID.");
+      return;
+    }
+
+    _logger.i("Buzzer cleared by player: $playerId");
+    _buzzerClearedController.add(playerId);
   }
 
   void _onPlayerConnected(List<Object?>? arguments) {
