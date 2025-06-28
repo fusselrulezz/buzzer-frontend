@@ -117,7 +117,7 @@ class BuzzerService {
     }
 
     try {
-      await _hubConnection!.invoke("Buzz", args: [roomId, playerId]);
+      await _hubConnection!.invoke("Buzz");
       _logger.i("Buzz sent for player $playerId in room $roomId.");
     } catch (e) {
       _logger.e("Failed to send buzz: $e");
