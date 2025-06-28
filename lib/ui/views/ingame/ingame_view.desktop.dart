@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart' as mat;
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:stacked/stacked.dart';
 
+import 'package:buzzer/model/player.dart';
 import 'package:buzzer/ui/common/ui_helpers.dart';
 import 'package:buzzer/ui/views/ingame/buzzer_button.dart';
 import 'package:buzzer/ui/widgets/common/join_code_display/join_code_display.dart';
-import 'package:buzzer/ui/widgets/common/player_list/player_list.dart';
 
 import 'ingame_viewmodel.dart';
 
@@ -68,7 +69,17 @@ class IngameViewDesktop extends ViewModelWidget<IngameViewModel> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  PlayerList(gameContext: viewModel.gameContext),
+                  SizedBox(
+                    width: 300.0,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: viewModel.players.length,
+                      itemBuilder: (context, index) {
+                        return _buildPlayerListTile(
+                            context, viewModel.players[index]);
+                      },
+                    ),
+                  ),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,6 +115,14 @@ class IngameViewDesktop extends ViewModelWidget<IngameViewModel> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildPlayerListTile(BuildContext context, Player player) {
+    return mat.ListTile(
+      contentPadding: const EdgeInsets.all(0.0),
+      title: Text(player.name).bold,
+      subtitle: Text(player.id).muted.small,
     );
   }
 }
