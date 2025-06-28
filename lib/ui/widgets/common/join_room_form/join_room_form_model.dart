@@ -1,5 +1,3 @@
-import 'package:buzzer/services/buzzer_service.dart';
-import 'package:buzzer_client/buzzer_client.dart';
 import 'package:logger/logger.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -11,8 +9,10 @@ import 'package:buzzer/model/game_context.dart';
 import 'package:buzzer/model/identity.dart';
 import 'package:buzzer/services/api_service.dart';
 import 'package:buzzer/services/authentication_service.dart';
+import 'package:buzzer/services/buzzer_service.dart';
 import 'package:buzzer/services/random_name_service.dart';
 import 'package:buzzer/ui/widgets/common/join_room_form/join_room_form.form.dart';
+import 'package:buzzer_client/buzzer_client.dart';
 
 class JoinRoomFormModel extends FormViewModel {
   final Logger _logger = getLogger("JoinRoomFormModel");
@@ -91,7 +91,11 @@ class JoinRoomFormModel extends FormViewModel {
       refreshToken: response.refreshToken,
     ));
 
-    await locator<BuzzerService>().connect();
+    final buzzerService = locator<BuzzerService>();
+
+    await buzzerService.connect();
+
+    final roomDetails = await buzzerService.client.fetchRoomDetails();
 
     _routerService.navigateToIngameView(
       gameContext: GameContext(
@@ -101,6 +105,7 @@ class JoinRoomFormModel extends FormViewModel {
         userName: response.player.name,
         joinCode: joinCode,
         isHost: response.player.isHost,
+        initialGameState: InitialGameState.fromDetails(roomDetails),
       ),
     );
   }

@@ -1,3 +1,5 @@
+import 'package:buzzer_client/buzzer_client.dart';
+
 /// Holds the context of a game, such as the room ID.
 /// As this class is immutable, it only stores data that does not
 /// change during the game session.
@@ -20,6 +22,8 @@ class GameContext {
   /// Indicates whether the user is the host of the game room.
   final bool isHost;
 
+  final InitialGameState? initialGameState;
+
   /// Initializes a new [GameContext] instance.
   GameContext({
     required this.roomId,
@@ -28,5 +32,20 @@ class GameContext {
     required this.userName,
     required this.joinCode,
     required this.isHost,
+    this.initialGameState,
   });
+}
+
+class InitialGameState {
+  final BuzzerStateDto buzzerState;
+
+  InitialGameState({
+    required this.buzzerState,
+  });
+
+  static InitialGameState fromDetails(PrivateGameRoomDto roomDetails) {
+    return InitialGameState(
+      buzzerState: roomDetails.buzzerState,
+    );
+  }
 }

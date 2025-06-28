@@ -13,7 +13,7 @@ dependencies:
   buzzer_client:
     git:
       url: https://github.com/fusselrulezz/buzzer-client-dart.git
-      ref: b60c5350be26aad5d16bb77c0c9819111c4023fe
+      ref: 288cb43482475a0c6460c5744f2a0ae178dce603
 
   stacked: ^3.4.4
   stacked_services: ^1.1.0

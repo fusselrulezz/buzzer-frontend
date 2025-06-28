@@ -26,6 +26,8 @@ class IngameViewModel extends BaseViewModel with ManagedStreamSubscriptions {
   IngameViewModel({
     required this.gameContext,
   }) {
+    _applyInitialState(gameContext.initialGameState);
+
     addSubscriptions([
       _buzzerService.client.buzzedStream.listen(_onPlayerBuzzed),
       _buzzerService.client.buzzerClearedStream.listen(_onBuzzerCleared),
@@ -48,6 +50,10 @@ class IngameViewModel extends BaseViewModel with ManagedStreamSubscriptions {
   bool get buzzerEnabled => _buzzerEnabled;
 
   bool get resetButtonEnabled => !_buzzerEnabled;
+
+  void _applyInitialState(InitialGameState? initialState) {
+    _buzzerEnabled = initialState?.buzzerState.isBuzzerActive ?? true;
+  }
 
   @override
   Future<void> dispose() async {
