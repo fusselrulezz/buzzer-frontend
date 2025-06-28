@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:buzzer/model/player.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -9,6 +8,7 @@ import 'package:buzzer/helper/managed_stream_subscriptions.dart';
 import 'package:buzzer/model/game_context.dart';
 import 'package:buzzer/services/authentication_service.dart';
 import 'package:buzzer/services/buzzer_service.dart';
+import 'package:buzzer_client/buzzer_client.dart';
 
 class IngameViewModel extends BaseViewModel with ManagedStreamSubscriptions {
   final GameContext gameContext;
@@ -17,10 +17,9 @@ class IngameViewModel extends BaseViewModel with ManagedStreamSubscriptions {
 
   final RouterService _routerService = locator<RouterService>();
 
-  final List<Player> _players = [];
+  final List<PlayerDto> _players = [];
 
-  List<Player> get players => [
-        Player(id: gameContext.userId, name: gameContext.userName),
+  List<PlayerDto> get players => [
         ..._players,
       ];
 
@@ -81,20 +80,20 @@ class IngameViewModel extends BaseViewModel with ManagedStreamSubscriptions {
     rebuildUi();
   }
 
-  void _onPlayerConnected(String playerId) {
+  void _onPlayerConnected(PlayerDto player) {
     // Check if the player is already in the list
-    if (_players.any((player) => player.id == playerId)) {
+    if (_players.any((p) => p.id == player.id)) {
       return;
     }
 
     // If not, add the player to the list
-    _players.add(Player(id: playerId, name: "Player $playerId"));
+    _players.add(player);
     rebuildUi();
   }
 
-  void _onPlayerDisconnected(String playerId) {
+  void _onPlayerDisconnected(PlayerDto player) {
     // Remove the player from the list if they are connected
-    _players.removeWhere((player) => player.id == playerId);
+    _players.removeWhere((p) => p.id == player.id);
     rebuildUi();
   }
 

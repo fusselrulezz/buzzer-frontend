@@ -2,10 +2,10 @@ import 'package:flutter/material.dart' as mat;
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:stacked/stacked.dart';
 
-import 'package:buzzer/model/player.dart';
 import 'package:buzzer/ui/common/ui_helpers.dart';
 import 'package:buzzer/ui/views/ingame/buzzer_button.dart';
 import 'package:buzzer/ui/widgets/common/join_code_display/join_code_display.dart';
+import 'package:buzzer_client/buzzer_client.dart';
 
 import 'ingame_viewmodel.dart';
 
@@ -118,7 +118,7 @@ class IngameViewDesktop extends ViewModelWidget<IngameViewModel> {
     );
   }
 
-  Widget _buildPlayerListTile(BuildContext context, Player player) {
+  Widget _buildPlayerListTile(BuildContext context, PlayerDto player) {
     return mat.ListTile(
       contentPadding: const EdgeInsets.all(0.0),
       title: Text(player.name).bold,

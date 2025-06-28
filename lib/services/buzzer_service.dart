@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:buzzer/services/authentication_service.dart';
+import 'package:buzzer_client/buzzer_client.dart';
 import 'package:logger/logger.dart';
 import 'package:signalr_netcore/signalr_client.dart';
 
@@ -30,15 +31,16 @@ class BuzzerService {
 
   Stream<String> get buzzerClearedStream => _buzzerClearedController.stream;
 
-  final StreamController<String> _playerConnectedController =
-      StreamController<String>.broadcast();
+  final StreamController<PlayerDto> _playerConnectedController =
+      StreamController<PlayerDto>.broadcast();
 
-  Stream<String> get playerConnectedStream => _playerConnectedController.stream;
+  Stream<PlayerDto> get playerConnectedStream =>
+      _playerConnectedController.stream;
 
-  final StreamController<String> _playerDisconnectedController =
-      StreamController<String>.broadcast();
+  final StreamController<PlayerDto> _playerDisconnectedController =
+      StreamController<PlayerDto>.broadcast();
 
-  Stream<String> get playerDisconnectedStream =>
+  Stream<PlayerDto> get playerDisconnectedStream =>
       _playerDisconnectedController.stream;
 
   Future<void> connect() async {
@@ -172,26 +174,40 @@ class BuzzerService {
   }
 
   void _onPlayerConnected(List<Object?>? arguments) {
-    final playerId = arguments?[0] as String?;
+    try {
+      if (arguments == null || arguments.isEmpty) {
+        _logger
+            .w("Received player connected event with null or empty arguments.");
+        return;
+      }
 
-    if (playerId == null) {
-      _logger.w("Received player connected event with null player ID.");
+      final player = PlayerDto.fromJson(arguments[0] as Map<String, dynamic>);
+
+      _logger.i("Player connected: ${player.id} with name: ${player.name}");
+
+      _playerConnectedController.add(player);
+    } catch (e) {
+      _logger.e("Error processing player connected event: $e");
       return;
     }
-
-    _logger.i("Player connected: $playerId");
-    _playerConnectedController.add(playerId);
   }
 
   void _onPlayerDisconnected(List<Object?>? arguments) {
-    final playerId = arguments?[0] as String?;
+    try {
+      if (arguments == null || arguments.isEmpty) {
+        _logger.w(
+            "Received player disconnected event with null or empty arguments.");
+        return;
+      }
 
-    if (playerId == null) {
-      _logger.w("Received player disconnected event with null player ID.");
+      final player = PlayerDto.fromJson(arguments[0] as Map<String, dynamic>);
+
+      _logger.i("Player disconnected: ${player.id} with name: ${player.name}");
+
+      _playerDisconnectedController.add(player);
+    } catch (e) {
+      _logger.e("Error processing player disconnected event: $e");
       return;
     }
-
-    _logger.i("Player disconnected: $playerId");
-    _playerDisconnectedController.add(playerId);
   }
 }
