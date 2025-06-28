@@ -122,8 +122,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "15fd9d69363ddb4194c6e3b59c7cfcf514b060e7"
-      resolved-ref: "15fd9d69363ddb4194c6e3b59c7cfcf514b060e7"
+      ref: b60c5350be26aad5d16bb77c0c9819111c4023fe
+      resolved-ref: b60c5350be26aad5d16bb77c0c9819111c4023fe
       url: "https://github.com/fusselrulezz/buzzer-client-dart.git"
     source: git
     version: "1.0.0"
@@ -844,7 +844,7 @@ packages:
     source: hosted
     version: "3.0.0"
   signalr_netcore:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: signalr_netcore
       sha256: f0726f7dea94ca7e08ee21366e9caf21350c9f7f48939994c51307eae16a678c

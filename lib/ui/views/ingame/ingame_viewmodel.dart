@@ -27,10 +27,11 @@ class IngameViewModel extends BaseViewModel with ManagedStreamSubscriptions {
     required this.gameContext,
   }) {
     addSubscriptions([
-      _buzzerService.buzzedStream.listen(_onPlayerBuzzed),
-      _buzzerService.buzzerClearedStream.listen(_onBuzzerCleared),
-      _buzzerService.playerConnectedStream.listen(_onPlayerConnected),
-      _buzzerService.playerDisconnectedStream.listen(_onPlayerDisconnected),
+      _buzzerService.client.buzzedStream.listen(_onPlayerBuzzed),
+      _buzzerService.client.buzzerClearedStream.listen(_onBuzzerCleared),
+      _buzzerService.client.playerConnectedStream.listen(_onPlayerConnected),
+      _buzzerService.client.playerDisconnectedStream
+          .listen(_onPlayerDisconnected),
     ]);
   }
 
@@ -65,7 +66,7 @@ class IngameViewModel extends BaseViewModel with ManagedStreamSubscriptions {
       return;
     }
 
-    await _buzzerService.buzz(gameContext.roomId, gameContext.userId);
+    await _buzzerService.client.buzz(gameContext.roomId, gameContext.userId);
 
     rebuildUi();
   }
@@ -102,6 +103,6 @@ class IngameViewModel extends BaseViewModel with ManagedStreamSubscriptions {
       return;
     }
 
-    await _buzzerService.clearBuzzer(gameContext.roomId);
+    await _buzzerService.client.clearBuzzer(gameContext.roomId);
   }
 }
