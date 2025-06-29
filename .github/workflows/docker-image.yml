@@ -24,14 +24,10 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Set image tag
-      id: vars
-      run: echo "tag=$(date +%s)" >> $GITHUB_OUTPUT
-
     - name: Build the Docker image
-      run: docker buildx build --ssh default . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/buzzer-frontend:${{ steps.vars.outputs.tag }}
+      run: docker buildx build --ssh default . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/buzzer-frontend:${{ github.ref_name }}
       env:
         SSH_AUTH_SOCK: ${{ env.SSH_AUTH_SOCK }}
 
     - name: Push the Docker image
-      run: docker push ghcr.io/${{ github.repository_owner }}/buzzer-frontend:${{ steps.vars.outputs.tag }}
+      run: docker push ghcr.io/${{ github.repository_owner }}/buzzer-frontend:${{ github.ref_name }}
