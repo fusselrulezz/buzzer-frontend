@@ -14,7 +14,17 @@ class BuzzerService {
   final SystemConfigService _systemConfigService =
       locator<SystemConfigService>();
 
-  String get hubUrl => "${_systemConfigService.serviceUrl}/buzzer";
+  String get hubUrl {
+    final serviceUrl = _systemConfigService.serviceUrl;
+
+    // If the service URL ends with a slash, we append "buzzer" directly.
+    // Otherwise, we append "/buzzer" to ensure the URL is correct.
+    if (serviceUrl.endsWith("/")) {
+      return "${serviceUrl}buzzer";
+    }
+
+    return "$serviceUrl/buzzer";
+  }
 
   BuzzerSignalClient? _client;
 
@@ -28,11 +38,14 @@ class BuzzerService {
   }
 
   Future<void> connect() async {
-    _client ??= BuzzerSignalClient(
-      url: hubUrl,
-      accessTokenFactory: _resolveAccessToken,
-      autoReconnect: true,
-    );
+    if (_client == null) {
+      _client = BuzzerSignalClient(
+        url: hubUrl,
+        accessTokenFactory: _resolveAccessToken,
+        autoReconnect: true,
+      );
+      _logger.i("Set up client with url: $hubUrl");
+    }
 
     await _client!.connect();
   }
