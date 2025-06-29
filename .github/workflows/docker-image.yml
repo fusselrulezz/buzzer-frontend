@@ -29,9 +29,9 @@ jobs:
       run: echo "tag=$(date +%s)" >> $GITHUB_OUTPUT
 
     - name: Build the Docker image
-      run: docker buildx build --ssh default . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/buzzer-frontent:${{ steps.vars.outputs.tag }}
+      run: docker buildx build --ssh default . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/buzzer-frontend:${{ steps.vars.outputs.tag }}
       env:
         SSH_AUTH_SOCK: ${{ env.SSH_AUTH_SOCK }}
 
     - name: Push the Docker image
-      run: docker push ghcr.io/${{ github.repository_owner }}/buzzer-frontent:${{ steps.vars.outputs.tag }}
+      run: docker push ghcr.io/${{ github.repository_owner }}/buzzer-frontend:${{ steps.vars.outputs.tag }}
