@@ -1,5 +1,4 @@
 import 'package:buzzer/services/authentication_service.dart';
-import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 
 import 'package:buzzer/app/app.locator.dart';
@@ -20,16 +19,7 @@ class ApiService {
     return _client!;
   }
 
-  String? _serviceUrl;
-
-  String get serviceUrl {
-    if (_serviceUrl == null) {
-      _serviceUrl = _resolveServiceUrl();
-      _logger.i("Using service URL: $_serviceUrl");
-    }
-
-    return _serviceUrl!;
-  }
+  String get serviceUrl => _systemConfigService.serviceUrl;
 
   Uri get serviceUri => Uri.parse(serviceUrl);
 
@@ -45,23 +35,5 @@ class ApiService {
       baseUrl: serviceUri,
       authenticator: locator<AuthenticationService>().authenticator,
     );
-  }
-
-  String _resolveServiceUrl() {
-    final serviceUrl = _systemConfigService.config.serviceUrl;
-
-    if (kIsWeb) {
-      // For web, we allow service URLs based on the origin or relative paths.
-
-      final uri = Uri.tryParse(serviceUrl);
-
-      if (serviceUrl.startsWith('/')) {
-        return Uri.base.origin + serviceUrl;
-      } else if (uri != null && !uri.isAbsolute) {
-        return Uri.base.resolve(serviceUrl).toString();
-      }
-    }
-
-    return serviceUrl;
   }
 }

@@ -14,7 +14,7 @@ class BuzzerService {
   final SystemConfigService _systemConfigService =
       locator<SystemConfigService>();
 
-  String get hubUrl => "${_systemConfigService.config.serviceUrl}/buzzer";
+  String get hubUrl => "${_systemConfigService.serviceUrl}/buzzer";
 
   BuzzerSignalClient? _client;
 
