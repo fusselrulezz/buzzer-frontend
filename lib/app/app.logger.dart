@@ -153,7 +153,7 @@ Logger getLogger(
       exludeLogsFromClasses: exludeLogsFromClasses,
     ),
     output: MultiOutput([
-      if (!kReleaseMode) ConsoleOutput(),
+      ConsoleOutput(),
     ]),
   );
 }

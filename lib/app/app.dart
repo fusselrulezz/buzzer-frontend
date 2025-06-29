@@ -44,6 +44,8 @@ import 'package:buzzer/services/buzzer_service.dart';
     StackedDialog(classType: InfoAlertDialog),
     // @stacked-dialog
   ],
-  logger: StackedLogger(),
+  logger: StackedLogger(
+    disableReleaseConsoleOutput: false,
+  ),
 )
 class App {}
