@@ -39,13 +39,17 @@ class GameContext {
 class InitialGameState {
   final BuzzerStateDto buzzerState;
 
+  final List<PlayerDto> players;
+
   InitialGameState({
     required this.buzzerState,
+    required this.players,
   });
 
   static InitialGameState fromDetails(PrivateGameRoomDto roomDetails) {
     return InitialGameState(
       buzzerState: roomDetails.buzzerState,
+      players: roomDetails.players,
     );
   }
 }

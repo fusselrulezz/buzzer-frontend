@@ -52,6 +52,7 @@ class IngameViewModel extends BaseViewModel with ManagedStreamSubscriptions {
   bool get resetButtonEnabled => !_buzzerEnabled;
 
   void _applyInitialState(InitialGameState? initialState) {
+    _players.addAll(initialState?.players ?? []);
     _buzzerEnabled = initialState?.buzzerState.isBuzzerActive ?? true;
   }
 
