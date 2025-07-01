@@ -1,0 +1,20 @@
+import "package:buzzer/app/service_locator.dart";
+import "package:buzzer/services/api_service.dart";
+import "package:buzzer/services/authentication_service.dart";
+import "package:buzzer/services/buzzer_service.dart";
+import "package:buzzer/services/random_name_service.dart";
+import "package:buzzer/services/system_config_service.dart";
+
+/// Registers services for dependency injection.
+/// This function should be called during the app initialization phase.
+Future<void> registerServices() async {
+  locator.registerLazySingleton(() => SystemConfigService());
+
+  final randomNameService = RandomNameService();
+  await randomNameService.init();
+  locator.registerSingleton(randomNameService);
+
+  locator.registerLazySingleton(() => ApiService());
+  locator.registerLazySingleton(() => AuthenticationService());
+  locator.registerLazySingleton(() => BuzzerService());
+}

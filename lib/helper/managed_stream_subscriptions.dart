@@ -1,7 +1,8 @@
-import 'dart:async';
+import "dart:async";
 
-import 'package:buzzer/app/app.logger.dart';
-import 'package:logger/logger.dart';
+import "package:logger/logger.dart";
+
+import "package:buzzer/app/app_logger.dart";
 
 /// A mixin to manage and dispose of multiple [StreamSubscription] instances.
 /// This mixin provides methods to add subscriptions and dispose of them when

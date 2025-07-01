@@ -1,31 +1,41 @@
-import 'package:buzzer/services/buzzer_service.dart';
-import 'package:logger/logger.dart';
-import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
+import "package:auto_route/auto_route.dart";
+import "package:logger/logger.dart";
+import "package:shadcn_flutter/shadcn_flutter.dart";
 
-import 'package:buzzer/app/app.locator.dart';
-import 'package:buzzer/app/app.logger.dart';
-import 'package:buzzer/app/app.router.dart';
-import 'package:buzzer/model/game_context.dart';
-import 'package:buzzer/model/identity.dart';
-import 'package:buzzer/services/api_service.dart';
-import 'package:buzzer/services/authentication_service.dart';
-import 'package:buzzer_client/buzzer_client.dart';
+import "package:buzzer/app/app_logger.dart";
+import "package:buzzer/app/app_router.gr.dart";
+import "package:buzzer/app/service_locator.dart";
+import "package:buzzer/model/game_context.dart";
+import "package:buzzer/model/identity.dart";
+import "package:buzzer/mvvm/base_view_model.dart";
+import "package:buzzer/services/api_service.dart";
+import "package:buzzer/services/authentication_service.dart";
+import "package:buzzer/services/buzzer_service.dart";
+import "package:buzzer_client/buzzer_client.dart";
 
-import 'create_room_form.form.dart';
-
-class CreateRoomFormModel extends FormViewModel {
+class CreateRoomFormModel extends BaseViewModel {
   final Logger _logger = getLogger("CreateRoomFormModel");
 
-  final RouterService _routerService = locator<RouterService>();
+  final TextEditingController _roomNameController = TextEditingController();
 
-  bool get isRoomNameValid => roomNameValue?.isNotEmpty ?? false;
+  TextEditingController get roomNameController => _roomNameController;
 
-  bool get isUsernameValid => userNameValue?.isNotEmpty ?? false;
+  final TextEditingController _userNameController = TextEditingController();
+
+  TextEditingController get userNameController => _userNameController;
+
+  bool get isRoomNameValid => roomNameController.text.isNotEmpty;
+
+  bool get isUsernameValid => userNameController.text.isNotEmpty;
 
   bool get isFormValid => isRoomNameValid && isUsernameValid;
 
-  Future<void> onPressedCreateRoom() async {
+  void disposeForm() {
+    _roomNameController.dispose();
+    _userNameController.dispose();
+  }
+
+  Future<void> onPressedCreateRoom(BuildContext context) async {
     if (isBusy) {
       _logger.w("Join room button pressed while busy, ignoring.");
       return;
@@ -40,10 +50,10 @@ class CreateRoomFormModel extends FormViewModel {
       return;
     }
 
-    final roomName = roomNameValue;
-    final userName = userNameValue;
+    final roomName = roomNameController.text.trim();
+    final userName = userNameController.text.trim();
 
-    if (roomName == null || userName == null) {
+    if (roomName.isEmpty || userName.isEmpty) {
       setError("Please provide both room name and user name.");
       setBusy(false);
       return;
@@ -56,47 +66,56 @@ class CreateRoomFormModel extends FormViewModel {
 
     try {
       var response = await locator<ApiService>().client.apiGameRoomCreatePost(
-            body: createRequest,
-          );
+        body: createRequest,
+      );
 
       var result = response.body;
 
       if (!response.isSuccessful || result == null) {
         setError(response.error);
-        _logger.e('Failed to create room: ${response.error}');
+        _logger.e("Failed to create room: ${response.error}");
         return;
       }
 
-      await _onSuccessfullyCreatedRoom(result);
+      if (context.mounted) {
+        await _onSuccessfullyCreatedRoom(context, result);
+      }
     } catch (e) {
       setError(e);
-      _logger.e('Failed to create room', e);
+      _logger.e("Failed to create room", error: e);
     } finally {
       setBusy(false);
     }
   }
 
   Future<void> _onSuccessfullyCreatedRoom(
+    BuildContext context,
     GameRoomCreateResponseDto response,
   ) async {
-    _logger.i('Room created successfully: ${response.gameRoom.id}');
+    _logger.i("Room created successfully: ${response.gameRoom.id}");
 
-    locator<AuthenticationService>().authenticate(Identity(
-      accessToken: response.token,
-      refreshToken: response.refreshToken,
-    ));
+    locator<AuthenticationService>().authenticate(
+      Identity(
+        accessToken: response.token,
+        refreshToken: response.refreshToken,
+      ),
+    );
 
     await locator<BuzzerService>().connect();
 
-    _routerService.navigateToIngameView(
-      gameContext: GameContext(
-        roomId: response.gameRoom.id,
-        roomName: response.gameRoom.name,
-        userId: response.player.id,
-        userName: response.player.name,
-        joinCode: response.joinCode,
-        isHost: response.player.isHost,
-      ),
-    );
+    if (context.mounted) {
+      context.router.push(
+        IngameRoute(
+          gameContext: GameContext(
+            roomId: response.gameRoom.id,
+            roomName: response.gameRoom.name,
+            userId: response.player.id,
+            userName: response.player.name,
+            joinCode: response.joinCode,
+            isHost: response.player.isHost,
+          ),
+        ),
+      );
+    }
   }
 }

@@ -1,18 +1,11 @@
-import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:stacked/stacked.dart';
-import 'package:stacked/stacked_annotations.dart';
+import "package:buzzer/ui/common/ui_helpers.dart";
+import "package:shadcn_flutter/shadcn_flutter.dart";
 
-import 'package:buzzer/ui/common/ui_helpers.dart';
-import 'package:buzzer/ui/widgets/common/create_room_form/create_room_form.form.dart';
+import "package:buzzer/mvvm/mvvm_view.dart";
 
-import 'create_room_form_model.dart';
+import "create_room_form_model.dart";
 
-@FormView(fields: [
-  FormTextField(name: 'roomName'),
-  FormTextField(name: 'userName'),
-])
-class CreateRoomForm extends StackedView<CreateRoomFormModel>
-    with $CreateRoomForm {
+class CreateRoomForm extends MvvmView<CreateRoomFormModel> {
   const CreateRoomForm({super.key});
 
   @override
@@ -29,16 +22,14 @@ class CreateRoomForm extends StackedView<CreateRoomFormModel>
           const Text("Room name").base.bold,
           verticalSpaceTiny,
           TextField(
-            controller: roomNameController,
+            controller: viewModel.roomNameController,
             placeholder: const Text("Very fun room name"),
           ),
           verticalSpaceSmall,
           // User name
           const Text("Your name").base.bold,
           verticalSpaceTiny,
-          TextField(
-            controller: userNameController,
-          ),
+          TextField(controller: viewModel.userNameController),
           verticalSpaceMedium,
           // Action buttons
           Row(
@@ -52,7 +43,8 @@ class CreateRoomForm extends StackedView<CreateRoomFormModel>
                 ),
               ),
               Button.primary(
-                onPressed: viewModel.onPressedCreateRoom,
+                onPressed: () async =>
+                    await viewModel.onPressedCreateRoom(context),
                 enabled: !viewModel.isBusy,
                 child: const Text("Create room"),
               ),
@@ -64,37 +56,22 @@ class CreateRoomForm extends StackedView<CreateRoomFormModel>
   }
 
   @override
-  void onViewModelReady(CreateRoomFormModel viewModel) {
-    syncFormWithViewModel(viewModel);
-  }
+  CreateRoomFormModel viewModelBuilder(BuildContext context) =>
+      CreateRoomFormModel();
 
   @override
   void onDispose(CreateRoomFormModel viewModel) {
     super.onDispose(viewModel);
-    disposeForm();
+    viewModel.disposeForm();
   }
 
-  @override
-  CreateRoomFormModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      CreateRoomFormModel();
-
   Widget _buildErrorMessage(dynamic error) {
-    const textStyle = TextStyle(
-      color: Colors.red,
-    );
+    const textStyle = TextStyle(color: Colors.red);
 
     if (error is String) {
-      return Text(
-        error,
-        style: textStyle,
-      ).bold;
+      return Text(error, style: textStyle).bold;
     } else {
-      return Text(
-        "Error: ${error.toString()}",
-        style: textStyle,
-      ).bold;
+      return Text("Error: ${error.toString()}", style: textStyle).bold;
     }
   }
 }

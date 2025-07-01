@@ -1,12 +1,12 @@
-import 'dart:async';
+import "dart:async";
 
-import 'package:chopper/chopper.dart';
-import 'package:logger/logger.dart';
+import "package:chopper/chopper.dart";
+import "package:logger/logger.dart";
 
-import 'package:buzzer/app/app.locator.dart';
-import 'package:buzzer/app/app.logger.dart';
-import 'package:buzzer/model/identity.dart';
-import 'package:buzzer/services/api_service.dart';
+import "package:buzzer/app/app_logger.dart";
+import "package:buzzer/app/service_locator.dart";
+import "package:buzzer/model/identity.dart";
+import "package:buzzer/services/api_service.dart";
 
 class AuthenticationService {
   final Logger _logger = getLogger("AuthenticationService");
@@ -35,9 +35,7 @@ class AuthenticationService {
 
   void authenticate(Identity identity) {
     _identity = identity;
-    _authenticator = _ApiAuthenticator(
-      identity: identity,
-    );
+    _authenticator = _ApiAuthenticator(identity: identity);
 
     // Invalidate the API client to force a refresh of the authenticator
     _apiService.invalidateClient();
@@ -49,9 +47,7 @@ class AuthenticationService {
 class _ApiAuthenticator extends Authenticator {
   final Identity? identity;
 
-  _ApiAuthenticator({
-    required this.identity,
-  });
+  _ApiAuthenticator({required this.identity});
 
   @override
   FutureOr<Request?> authenticate(

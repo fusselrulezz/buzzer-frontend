@@ -1,9 +1,8 @@
-import 'package:flutter/services.dart';
-import 'package:logger/logger.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:stacked/stacked.dart';
-
-import 'package:buzzer/app/app.logger.dart';
+import "package:buzzer/app/app_logger.dart";
+import "package:buzzer/mvvm/base_view_model.dart";
+import "package:flutter/services.dart";
+import "package:logger/logger.dart";
+import "package:shadcn_flutter/shadcn_flutter.dart";
 
 class JoinCodeDisplayModel extends BaseViewModel {
   final Logger _logger = getLogger("JoinCodeDisplayModel");
@@ -19,9 +18,7 @@ class JoinCodeDisplayModel extends BaseViewModel {
   // TODO: Make this configurable in the UI, or detect based on client type.
   bool get hideWithoutBlur => false;
 
-  JoinCodeDisplayModel({
-    required this.joinCode,
-  });
+  JoinCodeDisplayModel({required this.joinCode});
 
   Future<void> onPressedCopy(BuildContext context) async {
     try {
@@ -33,7 +30,11 @@ class JoinCodeDisplayModel extends BaseViewModel {
         _showCopySuccessPopover(context);
       }
     } catch (e, stackTrace) {
-      _logger.e("Failed to copy join code to clipboard", e, stackTrace);
+      _logger.e(
+        "Failed to copy join code to clipboard",
+        error: e,
+        stackTrace: stackTrace,
+      );
 
       if (context.mounted) {
         _showCopyFailurePopover(context);
@@ -48,9 +49,7 @@ class JoinCodeDisplayModel extends BaseViewModel {
       overlayBarrier: OverlayBarrier(
         borderRadius: Theme.of(context).borderRadiusLg,
       ),
-      builder: (context) => Card(
-        child: const Text('Copied!').medium,
-      ),
+      builder: (context) => Card(child: const Text("Copied!").medium),
     );
   }
 
@@ -61,9 +60,7 @@ class JoinCodeDisplayModel extends BaseViewModel {
       overlayBarrier: OverlayBarrier(
         borderRadius: Theme.of(context).borderRadiusLg,
       ),
-      builder: (context) => Card(
-        child: const Text('Could not copy :(').medium,
-      ),
+      builder: (context) => Card(child: const Text("Could not copy :(").medium),
     );
   }
 

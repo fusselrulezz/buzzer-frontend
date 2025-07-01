@@ -1,13 +1,13 @@
-import 'dart:convert';
-import 'dart:math';
+import "dart:convert";
+import "dart:math";
 
-import 'package:flutter/services.dart';
-import 'package:stacked/stacked_annotations.dart';
+import "package:flutter/services.dart";
 
-import 'package:buzzer/app/app.logger.dart';
-import 'package:buzzer/model/random_names.dart';
+import "package:buzzer/app/app_logger.dart";
+import "package:buzzer/app/initializable_service.dart";
+import "package:buzzer/model/random_names.dart";
 
-class RandomNameService with InitializableDependency {
+class RandomNameService with InitializableService {
   final _logger = getLogger("RandomNameService");
 
   RandomNames? _randomNames;
@@ -21,8 +21,12 @@ class RandomNameService with InitializableDependency {
       var jsonResult = jsonDecode(data);
       _randomNames = RandomNames.fromJson(jsonResult);
     } catch (e, stack) {
-      _logger.e("Failed to load random names.", e, stack);
+      _logger.e("Failed to load random names.", error: e, stackTrace: stack);
       rethrow;
+    }
+
+    if (_randomNames != null) {
+      _logger.i("Random names initialized successfully.");
     }
   }
 

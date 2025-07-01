@@ -3,7 +3,3 @@ targets:
     sources:
       - $package$
       - lib/**
-    builders:
-      stacked_generator|stackedRouterGenerator:
-        options:
-          navigator2: true

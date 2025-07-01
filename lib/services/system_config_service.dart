@@ -1,10 +1,10 @@
-import 'dart:convert';
+import "dart:convert";
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
+import "package:flutter/foundation.dart";
+import "package:flutter/services.dart";
 
-import 'package:buzzer/app/app.logger.dart';
-import 'package:buzzer/model/system_config.dart';
+import "package:buzzer/app/app_logger.dart";
+import "package:buzzer/model/system_config.dart";
 
 class SystemConfigService {
   final _logger = getLogger("SystemConfigService");
@@ -41,7 +41,7 @@ class SystemConfigService {
       var jsonResult = jsonDecode(data);
       _config = SystemConfig.fromJson(jsonResult);
     } catch (e, stack) {
-      _logger.e("Failed to load system config.", e, stack);
+      _logger.e("Failed to load system config.", error: e, stackTrace: stack);
       rethrow;
     }
 
@@ -56,7 +56,7 @@ class SystemConfigService {
 
       final uri = Uri.tryParse(serviceUrl);
 
-      if (serviceUrl.startsWith('/')) {
+      if (serviceUrl.startsWith("/")) {
         return Uri.base.origin + serviceUrl;
       } else if (uri != null && !uri.isAbsolute) {
         return Uri.base.resolve(serviceUrl).toString();

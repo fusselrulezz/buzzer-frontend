@@ -1,6 +1,6 @@
-import 'dart:math';
+import "dart:math";
 
-import 'package:flutter/material.dart';
+import "package:shadcn_flutter/shadcn_flutter.dart";
 
 const double _tinySize = 5.0;
 const double _smallSize = 10.0;
@@ -22,7 +22,7 @@ const Widget verticalSpaceMassive = SizedBox(height: _massiveSize);
 Widget spacedDivider = const Column(
   children: <Widget>[
     verticalSpaceMedium,
-    Divider(color: Colors.blueGrey, height: 5.0),
+    Divider(color: Colors.gray, height: 5.0),
     verticalSpaceMedium,
   ],
 );
@@ -37,16 +37,14 @@ double screenHeightFraction(
   int dividedBy = 1,
   double offsetBy = 0,
   double max = 3000,
-}) =>
-    min((screenHeight(context) - offsetBy) / dividedBy, max);
+}) => min((screenHeight(context) - offsetBy) / dividedBy, max);
 
 double screenWidthFraction(
   BuildContext context, {
   int dividedBy = 1,
   double offsetBy = 0,
   double max = 3000,
-}) =>
-    min((screenWidth(context) - offsetBy) / dividedBy, max);
+}) => min((screenWidth(context) - offsetBy) / dividedBy, max);
 
 double halfScreenWidth(BuildContext context) =>
     screenWidthFraction(context, dividedBy: 2);

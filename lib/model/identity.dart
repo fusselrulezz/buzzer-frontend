@@ -3,8 +3,5 @@ class Identity {
 
   final String refreshToken;
 
-  Identity({
-    required this.accessToken,
-    required this.refreshToken,
-  });
+  Identity({required this.accessToken, required this.refreshToken});
 }

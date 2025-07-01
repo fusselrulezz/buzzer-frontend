@@ -1,10 +1,10 @@
-import 'package:buzzer/services/authentication_service.dart';
-import 'package:logger/logger.dart';
+import "package:logger/logger.dart";
 
-import 'package:buzzer/app/app.locator.dart';
-import 'package:buzzer/app/app.logger.dart';
-import 'package:buzzer/services/system_config_service.dart';
-import 'package:buzzer_client/buzzer_client.dart';
+import "package:buzzer/app/app_logger.dart";
+import "package:buzzer/app/service_locator.dart";
+import "package:buzzer/services/authentication_service.dart";
+import "package:buzzer/services/system_config_service.dart";
+import "package:buzzer_client/buzzer_client.dart";
 
 class ApiService {
   final Logger _logger = getLogger("ApiService");

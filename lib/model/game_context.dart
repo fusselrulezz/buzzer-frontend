@@ -1,4 +1,4 @@
-import 'package:buzzer_client/buzzer_client.dart';
+import "package:buzzer_client/buzzer_client.dart";
 
 /// Holds the context of a game, such as the room ID.
 /// As this class is immutable, it only stores data that does not
@@ -41,10 +41,7 @@ class InitialGameState {
 
   final List<PlayerDto> players;
 
-  InitialGameState({
-    required this.buzzerState,
-    required this.players,
-  });
+  InitialGameState({required this.buzzerState, required this.players});
 
   static InitialGameState fromDetails(PrivateGameRoomDto roomDetails) {
     return InitialGameState(

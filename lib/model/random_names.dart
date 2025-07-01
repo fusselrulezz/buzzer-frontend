@@ -1,6 +1,6 @@
-import 'package:json_annotation/json_annotation.dart';
+import "package:json_annotation/json_annotation.dart";
 
-part 'random_names.g.dart';
+part "random_names.g.dart";
 
 @JsonSerializable()
 class RandomNames {
@@ -8,10 +8,7 @@ class RandomNames {
 
   final List<String> nouns;
 
-  RandomNames({
-    required this.adjectives,
-    required this.nouns,
-  });
+  RandomNames({required this.adjectives, required this.nouns});
 
   factory RandomNames.fromJson(Map<String, dynamic> json) =>
       _$RandomNamesFromJson(json);

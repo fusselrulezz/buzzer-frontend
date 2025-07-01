@@ -1,18 +1,12 @@
-import 'package:buzzer/ui/widgets/input_features/random_name_input_feature.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:stacked/stacked.dart';
-import 'package:stacked/stacked_annotations.dart';
+import "package:buzzer/mvvm/mvvm_view.dart";
+import "package:buzzer/ui/widgets/input_features/random_name_input_feature.dart";
+import "package:shadcn_flutter/shadcn_flutter.dart";
 
-import 'package:buzzer/ui/common/ui_helpers.dart';
-import 'package:buzzer/ui/widgets/common/join_room_form/join_room_form.form.dart';
+import "package:buzzer/ui/common/ui_helpers.dart";
 
-import 'join_room_form_model.dart';
+import "join_room_form_model.dart";
 
-@FormView(fields: [
-  FormTextField(name: 'joinCode'),
-  FormTextField(name: 'userName'),
-])
-class JoinRoomForm extends StackedView<JoinRoomFormModel> with $JoinRoomForm {
+class JoinRoomForm extends MvvmView<JoinRoomFormModel> {
   const JoinRoomForm({super.key});
 
   @override
@@ -28,15 +22,13 @@ class JoinRoomForm extends StackedView<JoinRoomFormModel> with $JoinRoomForm {
           // Room name
           const Text("Join code").base.bold,
           verticalSpaceTiny,
-          TextField(
-            controller: joinCodeController,
-          ),
+          TextField(controller: viewModel.joinCodeController),
           verticalSpaceSmall,
           // User name
           const Text("Your name").base.bold,
           verticalSpaceTiny,
           TextField(
-            controller: userNameController,
+            controller: viewModel.userNameController,
             features: [
               RandomNameInputFeature(
                 visibility: viewModel.isRandomNameFeatureVisible
@@ -59,7 +51,8 @@ class JoinRoomForm extends StackedView<JoinRoomFormModel> with $JoinRoomForm {
                 ),
               ),
               Button.primary(
-                onPressed: viewModel.onPressedJoinRoom,
+                onPressed: () async =>
+                    await viewModel.onPressedJoinRoom(context),
                 enabled: !viewModel.isBusy,
                 child: const Text("Join room"),
               ),
@@ -71,37 +64,22 @@ class JoinRoomForm extends StackedView<JoinRoomFormModel> with $JoinRoomForm {
   }
 
   @override
-  void onViewModelReady(JoinRoomFormModel viewModel) {
-    syncFormWithViewModel(viewModel);
-  }
-
-  @override
   void onDispose(JoinRoomFormModel viewModel) {
     super.onDispose(viewModel);
-    disposeForm();
+    viewModel.disposeForm();
   }
 
   @override
-  JoinRoomFormModel viewModelBuilder(
-    BuildContext context,
-  ) =>
+  JoinRoomFormModel viewModelBuilder(BuildContext context) =>
       JoinRoomFormModel();
 
   Widget _buildErrorMessage(dynamic error) {
-    const textStyle = TextStyle(
-      color: Colors.red,
-    );
+    const textStyle = TextStyle(color: Colors.red);
 
     if (error is String) {
-      return Text(
-        error,
-        style: textStyle,
-      ).bold;
+      return Text(error, style: textStyle).bold;
     } else {
-      return Text(
-        "Error: ${error.toString()}",
-        style: textStyle,
-      ).bold;
+      return Text("Error: ${error.toString()}", style: textStyle).bold;
     }
   }
 }

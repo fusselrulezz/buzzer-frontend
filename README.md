@@ -2,12 +2,15 @@
 
 A new Flutter project.
 
-## Golden Tests
+## Getting Started
 
-Golden tests are already setup for this project. To run the tests and update the golden files, run:
+This project is a starting point for a Flutter application.
 
-```bash
-flutter test --update-goldens
-```
+A few resources to get you started if this is your first Flutter project:
 
-The golden test screenshots will be stored under `test/golden/`.
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.

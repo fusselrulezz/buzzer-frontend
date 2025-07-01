@@ -1,61 +1,88 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:responsive_builder/responsive_builder.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:url_strategy/url_strategy.dart';
+import "package:buzzer/app/service_locator.dart";
+import "package:buzzer/services/system_config_service.dart";
+import "package:easy_localization/easy_localization.dart";
+import "package:shadcn_flutter/shadcn_flutter.dart";
 
-import 'package:buzzer/app/app.bottomsheets.dart';
-import 'package:buzzer/app/app.dialogs.dart';
-import 'package:buzzer/app/app.locator.dart';
-import 'package:buzzer/app/app.router.dart';
-import 'package:buzzer/services/system_config_service.dart';
+import "package:buzzer/app/app_logger.dart";
+import "package:buzzer/app/app_router.dart";
+import "package:buzzer/app/service_registrant.dart";
+
+final _logger = getLogger("main");
+
+late final Stopwatch _stopwatch;
+bool isInitialStart = true;
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  _stopwatch = Stopwatch()..start();
 
+  _logger.i("Starting Buzzer app...");
+
+  WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 
-  setPathUrlStrategy();
-  await setupLocator(stackedRouter: stackedRouter);
-
-  setupDialogUi();
-  setupBottomSheetUi();
+  await registerServices();
 
   await locator<SystemConfigService>().ensureInitialized();
 
-  runApp(const MainApp());
+  _logger.i("Core initialization complete, running app...");
+
+  runApp(MyApp());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class MyApp extends StatelessWidget {
+  final _appRouter = AppRouter();
+
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    _stopwatch.stop();
+
     const defaultLocale = Locale("en");
+    const supportedLocales = [defaultLocale];
+
+    if (isInitialStart) {
+      isInitialStart = false;
+      _logger.i("Time to first build: ${_stopwatch.elapsedMilliseconds} ms");
+    } else {
+      _logger.i("(Re)building root widget...");
+    }
 
     return EasyLocalization(
-      supportedLocales: const [
-        defaultLocale,
-      ],
+      supportedLocales: supportedLocales,
       fallbackLocale: defaultLocale,
       path: "assets/lang",
-      child: ResponsiveApp(
-        builder: (context) => ShadcnApp.router(
-          debugShowCheckedModeBanner: false,
-          routerDelegate: stackedRouter.delegate(),
-          routeInformationParser: stackedRouter.defaultRouteParser(),
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          theme: ThemeData(
-            colorScheme: ColorSchemes.lightGray(),
-            radius: 0.5,
-          ),
+      child: ShadcnApp.router(
+        routerConfig: _appRouter.config(),
+        title: "Buzzer",
+        theme: ThemeData(colorScheme: ColorSchemes.lightGray(), radius: 0.5),
+      ),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Text("You have pushed the button this many times:"),
+            Text("0", style: Theme.of(context).typography.h2),
+          ],
         ),
-      ).animate().fadeIn(
-            delay: const Duration(milliseconds: 50),
-            duration: const Duration(milliseconds: 400),
-          ),
+      ),
     );
   }
 }

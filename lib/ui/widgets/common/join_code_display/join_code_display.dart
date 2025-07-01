@@ -1,19 +1,17 @@
-import 'dart:ui';
+import "dart:ui";
 
-import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:stacked/stacked.dart';
+import "package:shadcn_flutter/shadcn_flutter.dart";
 
-import 'package:buzzer/ui/common/ui_helpers.dart';
+import "package:buzzer/mvvm/mvvm_view.dart";
+import "package:buzzer/ui/common/ui_helpers.dart";
 
-import 'join_code_display_model.dart';
+import "join_code_display_model.dart";
 
-class JoinCodeDisplay extends StackedView<JoinCodeDisplayModel> {
+class JoinCodeDisplay extends MvvmView<JoinCodeDisplayModel> {
   final String _joinCode;
 
-  const JoinCodeDisplay({
-    super.key,
-    required String joinCode,
-  }) : _joinCode = joinCode;
+  const JoinCodeDisplay({super.key, required String joinCode})
+    : _joinCode = joinCode;
 
   @override
   Widget builder(
@@ -58,23 +56,16 @@ class JoinCodeDisplay extends StackedView<JoinCodeDisplayModel> {
     if (viewModel.isCodeVisible) {
       return display;
     } else if (viewModel.hideWithoutBlur) {
-      return Visibility.maintain(
-        visible: false,
-        child: display,
-      );
+      return Visibility.maintain(visible: false, child: display);
     } else {
       return ImageFiltered(
         imageFilter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-        child: Text(
-          viewModel.joinCode,
-        ).h3,
+        child: Text(viewModel.joinCode).h3,
       );
     }
   }
 
   @override
-  JoinCodeDisplayModel viewModelBuilder(
-    BuildContext context,
-  ) =>
+  JoinCodeDisplayModel viewModelBuilder(BuildContext context) =>
       JoinCodeDisplayModel(joinCode: _joinCode);
 }
