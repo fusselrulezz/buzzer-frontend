@@ -1,7 +1,5 @@
-import "package:buzzer/mvvm/busy_error_state_helper.dart";
-import "package:flutter/widgets.dart";
-
-class BaseViewModel extends ChangeNotifier with BusyAndErrorStateHelper {
+/// Essential helper to work with the [ViewModelBuilder]
+mixin BuilderHelpers {
   bool disposed = false;
 
   bool _initialised = false;
@@ -9,24 +7,6 @@ class BaseViewModel extends ChangeNotifier with BusyAndErrorStateHelper {
 
   bool _onModelReadyCalled = false;
   bool get onModelReadyCalled => _onModelReadyCalled;
-
-  @override
-  void notifyListeners() {
-    if (!disposed) {
-      super.notifyListeners();
-    }
-  }
-
-  /// Calls the builder function with this updated viewmodel
-  void rebuildUi() {
-    notifyListeners();
-  }
-
-  @override
-  void dispose() {
-    disposed = true;
-    super.dispose();
-  }
 
   /// Sets the initialised value for the ViewModel to true. This is called after
   /// the first initialise special ViewModel call

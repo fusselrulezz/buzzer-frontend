@@ -1,7 +1,7 @@
 import "package:flutter/widgets.dart";
 import "package:provider/provider.dart";
 
-import "base_view_model.dart";
+import "base_view_models.dart";
 
 enum ViewModelBuilderType { nonReactive, reactive }
 
@@ -47,8 +47,24 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
   /// of any controllers or state values that need disposing
   final Function(T viewModel)? onDispose;
 
+  /// Constructs a ViewModel provider that will not rebuild the provided widget when notifyListeners is called.
+  ///
+  /// Widget from [builder] will be used as a static child and won't rebuild when notifyListeners is called
+  const ViewModelBuilder.nonReactive({
+    required this.viewModelBuilder,
+    required this.builder,
+    this.onViewModelReady,
+    this.onDispose,
+    this.disposeViewModel = true,
+    this.createNewViewModelOnInsert = false,
+    this.fireOnViewModelReadyOnce = false,
+    this.initialiseSpecialViewModelsOnce = false,
+    super.key,
+  }) : providerType = ViewModelBuilderType.nonReactive,
+       staticChild = null;
+
   /// Constructs a ViewModel provider that fires the [builder] function when notifyListeners is called in the ViewModel.
-  const ViewModelBuilder({
+  const ViewModelBuilder.reactive({
     required this.viewModelBuilder,
     required this.builder,
     this.staticChild,
@@ -85,6 +101,14 @@ class ViewModelBuilderState<T extends ChangeNotifier>
   void _createViewModel() {
     _viewModel = widget.viewModelBuilder();
 
+    if (widget.initialiseSpecialViewModelsOnce &&
+        !(_viewModel as BaseViewModel).initialised) {
+      _initialiseSpecialViewModels();
+      (_viewModel as BaseViewModel?)?.setInitialised(true);
+    } else if (!widget.initialiseSpecialViewModelsOnce) {
+      _initialiseSpecialViewModels();
+    }
+
     // Fire onViewModelReady after the ViewModel has been constructed
     if (widget.onViewModelReady != null) {
       if (widget.fireOnViewModelReadyOnce &&
@@ -97,6 +121,12 @@ class ViewModelBuilderState<T extends ChangeNotifier>
     }
   }
 
+  void _initialiseSpecialViewModels() {
+    if (_viewModel is Initialisable) {
+      (_viewModel as Initialisable).initialise();
+    }
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -105,16 +135,50 @@ class ViewModelBuilderState<T extends ChangeNotifier>
 
   @override
   Widget build(BuildContext context) {
+    if (widget.providerType == ViewModelBuilderType.nonReactive) {
+      if (!widget.disposeViewModel) {
+        return ChangeNotifierProvider<T>.value(
+          value: _viewModel!,
+          child: widget.builder(context, _viewModel!, widget.staticChild),
+        );
+      }
+
+      return ChangeNotifierProvider<T>(
+        create: (context) => _viewModel!,
+        child: widget.builder(context, _viewModel!, widget.staticChild),
+      );
+    }
+
     if (!widget.disposeViewModel) {
       return ChangeNotifierProvider<T>.value(
         value: _viewModel!,
-        child: widget.builder(context, _viewModel!, widget.staticChild),
+        child: Consumer<T>(
+          builder: builderWithDynamicSourceInitialise,
+          child: widget.staticChild,
+        ),
       );
     }
 
     return ChangeNotifierProvider<T>(
       create: (context) => _viewModel!,
-      child: widget.builder(context, _viewModel!, widget.staticChild),
+      child: Consumer<T>(
+        builder: builderWithDynamicSourceInitialise,
+        child: widget.staticChild,
+      ),
     );
+  }
+
+  Widget builderWithDynamicSourceInitialise(
+    BuildContext context,
+    T? viewModel,
+    Widget? child,
+  ) {
+    if (viewModel is DynamicSourceViewModel) {
+      if (viewModel.changeSource) {
+        _initialiseSpecialViewModels();
+      }
+    }
+
+    return widget.builder(context, viewModel!, child);
   }
 }

@@ -1,5 +1,5 @@
 import "package:buzzer/app/app_logger.dart";
-import "package:buzzer/mvvm/base_view_model.dart";
+import "package:buzzer/mvvm/base_view_models.dart";
 import "package:flutter/services.dart";
 import "package:logger/logger.dart";
 import "package:shadcn_flutter/shadcn_flutter.dart";

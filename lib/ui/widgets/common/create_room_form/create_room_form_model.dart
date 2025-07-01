@@ -7,7 +7,7 @@ import "package:buzzer/app/app_router.gr.dart";
 import "package:buzzer/app/service_locator.dart";
 import "package:buzzer/model/game_context.dart";
 import "package:buzzer/model/identity.dart";
-import "package:buzzer/mvvm/base_view_model.dart";
+import "package:buzzer/mvvm/base_view_models.dart";
 import "package:buzzer/services/api_service.dart";
 import "package:buzzer/services/authentication_service.dart";
 import "package:buzzer/services/buzzer_service.dart";
