@@ -32,22 +32,34 @@ class HomeScreen extends StatelessWidget {
                 FocusTraversalGroup(
                   child: Row(
                     children: [
-                      TextButton(
-                        onPressed: () {},
-                        child: Text("$trPrefix.topnav.login.caption".tr()).h3,
+                      Tooltip(
+                        tooltip: (context) =>
+                            Text("$trPrefix.topnav.login.tooltip".tr()),
+                        child: TextButton(
+                          onPressed: () {},
+                          child: Text("$trPrefix.topnav.login.caption".tr()).h3,
+                        ),
                       ),
                       horizontalSpaceSmall,
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          "$trPrefix.topnav.register.caption".tr(),
-                        ).h3,
+                      Tooltip(
+                        tooltip: (context) =>
+                            Text("$trPrefix.topnav.register.tooltip".tr()),
+                        child: TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            "$trPrefix.topnav.register.caption".tr(),
+                          ).h3,
+                        ),
                       ),
                       horizontalSpaceSmall,
-                      Button(
-                        style: const ButtonStyle.ghostIcon(),
-                        onPressed: () => _showSettingsPopover(context),
-                        child: const Icon(BootstrapIcons.gear, size: 24.0),
+                      Tooltip(
+                        tooltip: (context) =>
+                            Text("$trPrefix.topnav.settings.tooltip".tr()),
+                        child: Button(
+                          style: const ButtonStyle.ghostIcon(),
+                          onPressed: () => _showSettingsPopover(context),
+                          child: const Icon(BootstrapIcons.gear, size: 24.0),
+                        ),
                       ),
                     ],
                   ),
