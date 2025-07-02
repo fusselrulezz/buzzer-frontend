@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
         dark: ThemeData(colorScheme: ColorSchemes.darkNeutral(), radius: 0.5),
         initial: AdaptiveThemeMode.system,
         debugShowFloatingThemeButton: false,
-        builder: (theme, darkTheme) {
+        builder: (context, theme, darkTheme) {
           return ShadcnApp.router(
             routerConfig: _appRouter.config(),
             title: "Buzzer",

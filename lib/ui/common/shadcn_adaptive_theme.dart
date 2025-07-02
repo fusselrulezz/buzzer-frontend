@@ -3,7 +3,7 @@ import "package:flutter/foundation.dart";
 import "package:shadcn_flutter/shadcn_flutter.dart";
 
 typedef ShadcnAdaptiveThemeBuilder =
-    Widget Function(ThemeData light, ThemeData dark);
+    Widget Function(BuildContext context, ThemeData light, ThemeData dark);
 
 class ShadcnAdaptiveTheme extends StatefulWidget {
   final ThemeData light;
@@ -103,12 +103,16 @@ class _ShadcnAdaptiveThemeState extends State<ShadcnAdaptiveTheme>
 
   @override
   Widget build(BuildContext context) {
-    final child = widget.builder(theme, mode.isLight ? theme : darkTheme);
-
     return InheritedAdaptiveTheme<ThemeData>(
       manager: this,
       child: Builder(
         builder: (context) {
+          final child = widget.builder(
+            context,
+            theme,
+            mode.isLight ? theme : darkTheme,
+          );
+
           if (!kReleaseMode && _debugShowFloatingThemeButton) {
             return DebugFloatingThemeButtonWrapper(
               manager: this,
