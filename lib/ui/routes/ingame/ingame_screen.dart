@@ -1,4 +1,5 @@
 import "package:auto_route/auto_route.dart";
+import "package:buzzer/ui/widgets/common/settings_dialog/settings_dialog.dart";
 import "package:flutter/material.dart" as mat;
 import "package:shadcn_flutter/shadcn_flutter.dart";
 
@@ -59,6 +60,12 @@ class IngameScreen extends MvvmView<IngameScreenModel> {
                   children: [
                     JoinCodeDisplay(joinCode: viewModel.joinCode),
                     horizontalSpaceMedium,
+                    Button(
+                      style: const ButtonStyle.ghostIcon(),
+                      onPressed: () => _showSettingsPopover(context),
+                      child: const Icon(BootstrapIcons.gear, size: 24.0),
+                    ),
+                    horizontalSpaceSmall,
                     Button.destructive(
                       onPressed: () async =>
                           await viewModel.onPressedLeaveRoom(context),
@@ -127,6 +134,10 @@ class IngameScreen extends MvvmView<IngameScreenModel> {
         ],
       ),
     );
+  }
+
+  void _showSettingsPopover(BuildContext context) {
+    showDialog(context: context, builder: (context) => const SettingsDialog());
   }
 
   Widget _buildPlayerListTile(BuildContext context, PlayerDto player) {
