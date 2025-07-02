@@ -99,6 +99,7 @@ class JoinRoomFormModel extends BaseViewModel {
         refreshToken: response.refreshToken,
       ),
     );
+
     final buzzerService = locator<BuzzerService>();
 
     await buzzerService.connect();

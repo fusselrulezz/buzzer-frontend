@@ -1,6 +1,7 @@
 import "package:auto_route/auto_route.dart";
 import "package:flutter/widgets.dart";
 
+import "package:buzzer/app/app_logger.dart";
 import "package:buzzer/app/service_locator.dart";
 import "package:buzzer/helper/managed_stream_subscriptions.dart";
 import "package:buzzer/model/game_context.dart";
@@ -10,6 +11,8 @@ import "package:buzzer/services/buzzer_service.dart";
 import "package:buzzer_client/buzzer_client.dart";
 
 class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
+  final _logger = getLogger("IngameScreenModel");
+
   final GameContext gameContext;
 
   final BuzzerService _buzzerService = locator<BuzzerService>();
@@ -19,6 +22,10 @@ class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
   List<PlayerDto> get players => [..._players];
 
   IngameScreenModel({required this.gameContext}) {
+    _logger.i(
+      "IngameScreenModel initialized for room: ${gameContext.roomName}, user: ${gameContext.userName}",
+    );
+
     _applyInitialState(gameContext.initialGameState);
 
     addSubscriptions([
@@ -46,6 +53,9 @@ class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
   bool get resetButtonEnabled => !_buzzerEnabled;
 
   void _applyInitialState(InitialGameState? initialState) {
+    _logger.i("Applying initial game state...");
+    _logger.i("Players: ${initialState?.players.length ?? 0}");
+
     _players.addAll(initialState?.players ?? []);
     _buzzerEnabled = initialState?.buzzerState.isBuzzerActive ?? true;
   }

@@ -101,7 +101,11 @@ class CreateRoomFormModel extends BaseViewModel {
       ),
     );
 
-    await locator<BuzzerService>().connect();
+    final buzzerService = locator<BuzzerService>();
+
+    await buzzerService.connect();
+
+    final roomDetails = await buzzerService.client.fetchRoomDetails();
 
     if (context.mounted) {
       context.router.push(
@@ -113,6 +117,7 @@ class CreateRoomFormModel extends BaseViewModel {
             userName: response.player.name,
             joinCode: response.joinCode,
             isHost: response.player.isHost,
+            initialGameState: InitialGameState.fromDetails(roomDetails),
           ),
         ),
       );
