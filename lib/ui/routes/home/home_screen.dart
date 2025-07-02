@@ -1,4 +1,5 @@
 import "package:auto_route/auto_route.dart";
+import "package:buzzer/ui/widgets/common/settings_dialog/settings_dialog.dart";
 import "package:shadcn_flutter/shadcn_flutter.dart";
 
 import "package:buzzer/ui/common/ui_helpers.dart";
@@ -36,6 +37,12 @@ class HomeScreen extends StatelessWidget {
                       TextButton(
                         onPressed: () {},
                         child: const Text("Register").h3,
+                      ),
+                      horizontalSpaceSmall,
+                      Button(
+                        style: const ButtonStyle.ghostIcon(),
+                        onPressed: () => _showSettingsPopover(context),
+                        child: const Icon(BootstrapIcons.gear, size: 24.0),
                       ),
                     ],
                   ),
@@ -89,5 +96,9 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _showSettingsPopover(BuildContext context) {
+    showDialog(context: context, builder: (context) => const SettingsDialog());
   }
 }
