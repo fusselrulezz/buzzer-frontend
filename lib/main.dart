@@ -66,6 +66,9 @@ class MyApp extends StatelessWidget {
             theme: theme,
             darkTheme: darkTheme,
             debugShowCheckedModeBanner: false,
+            locale: context.locale,
+            supportedLocales: supportedLocales,
+            localizationsDelegates: context.localizationDelegates,
           );
         },
       ),
