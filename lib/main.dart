@@ -1,11 +1,13 @@
-import "package:buzzer/app/service_locator.dart";
-import "package:buzzer/services/system_config_service.dart";
+import "package:adaptive_theme/adaptive_theme.dart";
 import "package:easy_localization/easy_localization.dart";
 import "package:shadcn_flutter/shadcn_flutter.dart";
 
 import "package:buzzer/app/app_logger.dart";
 import "package:buzzer/app/app_router.dart";
+import "package:buzzer/app/service_locator.dart";
 import "package:buzzer/app/service_registrant.dart";
+import "package:buzzer/services/system_config_service.dart";
+import "package:buzzer/ui/common/shadcn_adaptive_theme.dart";
 
 final _logger = getLogger("main");
 
@@ -52,11 +54,20 @@ class MyApp extends StatelessWidget {
       supportedLocales: supportedLocales,
       fallbackLocale: defaultLocale,
       path: "assets/lang",
-      child: ShadcnApp.router(
-        routerConfig: _appRouter.config(),
-        title: "Buzzer",
-        theme: ThemeData(colorScheme: ColorSchemes.lightGray(), radius: 0.5),
-        debugShowCheckedModeBanner: false,
+      child: ShadcnAdaptiveTheme(
+        light: ThemeData(colorScheme: ColorSchemes.lightNeutral(), radius: 0.5),
+        dark: ThemeData(colorScheme: ColorSchemes.darkNeutral(), radius: 0.5),
+        initial: AdaptiveThemeMode.system,
+        debugShowFloatingThemeButton: false,
+        builder: (theme, darkTheme) {
+          return ShadcnApp.router(
+            routerConfig: _appRouter.config(),
+            title: "Buzzer",
+            theme: theme,
+            darkTheme: darkTheme,
+            debugShowCheckedModeBanner: false,
+          );
+        },
       ),
     );
   }
