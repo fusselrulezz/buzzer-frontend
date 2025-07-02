@@ -1,10 +1,11 @@
 import "package:auto_route/auto_route.dart";
-import "package:buzzer/ui/widgets/common/settings_dialog/settings_dialog.dart";
+import "package:easy_localization/easy_localization.dart";
 import "package:shadcn_flutter/shadcn_flutter.dart";
 
 import "package:buzzer/ui/common/ui_helpers.dart";
 import "package:buzzer/ui/widgets/common/create_room_form/create_room_form.dart";
 import "package:buzzer/ui/widgets/common/join_room_form/join_room_form.dart";
+import "package:buzzer/ui/widgets/common/settings_dialog/settings_dialog.dart";
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {
@@ -13,6 +14,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const horizontalPadding = 64.0;
+
+    const trPrefix = "routes.home";
 
     return Scaffold(
       child: Column(
@@ -25,18 +28,20 @@ class HomeScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text("Buzzer").h1,
+                Text("$trPrefix.branding".tr()).h1,
                 FocusTraversalGroup(
                   child: Row(
                     children: [
                       TextButton(
                         onPressed: () {},
-                        child: const Text("Login").h3,
+                        child: Text("$trPrefix.topnav.login.caption".tr()).h3,
                       ),
                       horizontalSpaceSmall,
                       TextButton(
                         onPressed: () {},
-                        child: const Text("Register").h3,
+                        child: Text(
+                          "$trPrefix.topnav.register.caption".tr(),
+                        ).h3,
                       ),
                       horizontalSpaceSmall,
                       Button(

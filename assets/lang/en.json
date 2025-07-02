@@ -1,1 +1,21 @@
-{}
+{
+    "routes": {
+        "home": {
+            "branding": "Buzzer",
+
+            "topnav": {
+                "login": {
+                    "caption": "Login",
+                    "tooltip": "Login to your account"
+                },
+                "register": {
+                    "caption": "Register",
+                    "tooltip": "Create a new account"
+                },
+                "settings": {
+                    "tooltip": "Settings"
+                }
+            }
+        }
+    }
+}
