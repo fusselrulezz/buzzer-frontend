@@ -41,7 +41,7 @@ class BuzzerService {
     if (_client == null) {
       _client = BuzzerSignalClient(
         url: hubUrl,
-        accessTokenFactory: _resolveAccessToken,
+        accessTokenFactory: () async => await _resolveAccessToken(),
         autoReconnect: true,
       );
       _logger.i("Set up client with url: $hubUrl");
