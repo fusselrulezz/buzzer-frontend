@@ -58,8 +58,7 @@
             "description": "Join an existing room to participate in a game or event.",
             "fields": {
                 "join_code": {
-                    "label": "Join code",
-                    "hint": "Very fun room name"
+                    "label": "Join code"
                 },
                 "player_name": {
                     "label": "Your Name"
