@@ -15,48 +15,61 @@ class JoinRoomForm extends MvvmView<JoinRoomFormModel> {
     JoinRoomFormModel viewModel,
     Widget? child,
   ) {
-    return FocusTraversalGroup(
+    return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Room name
-          const Text("Join code").base.bold,
-          verticalSpaceTiny,
-          TextField(controller: viewModel.joinCodeController),
-          verticalSpaceSmall,
-          // User name
-          const Text("Your name").base.bold,
-          verticalSpaceTiny,
-          TextField(
-            controller: viewModel.userNameController,
-            features: [
-              RandomNameInputFeature(
-                visibility: viewModel.isRandomNameFeatureVisible
-                    ? InputFeatureVisibility.always
-                    : InputFeatureVisibility.never,
-                generateName: viewModel.generateRandomName,
-              ),
-            ],
-          ),
+          Center(child: const Text("Join a room").h3),
           verticalSpaceMedium,
-          // Action buttons
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Visibility(
-                  visible: viewModel.hasError,
-                  child: _buildErrorMessage(viewModel.error(viewModel)),
+          const Text(
+            "Join an existing room to participate in a game or event.",
+          ).base,
+          verticalSpaceMedium,
+          FocusTraversalGroup(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Room name
+                const Text("Join code").base.bold,
+                verticalSpaceTiny,
+                TextField(controller: viewModel.joinCodeController),
+                verticalSpaceSmall,
+                // User name
+                const Text("Your name").base.bold,
+                verticalSpaceTiny,
+                TextField(
+                  controller: viewModel.userNameController,
+                  features: [
+                    RandomNameInputFeature(
+                      visibility: viewModel.isRandomNameFeatureVisible
+                          ? InputFeatureVisibility.always
+                          : InputFeatureVisibility.never,
+                      generateName: viewModel.generateRandomName,
+                    ),
+                  ],
                 ),
-              ),
-              Button.primary(
-                onPressed: () async =>
-                    await viewModel.onPressedJoinRoom(context),
-                enabled: !viewModel.isBusy,
-                child: const Text("Join room"),
-              ),
-            ],
+                verticalSpaceMedium,
+                // Action buttons
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Visibility(
+                        visible: viewModel.hasError,
+                        child: _buildErrorMessage(viewModel.error(viewModel)),
+                      ),
+                    ),
+                    Button.primary(
+                      onPressed: () async =>
+                          await viewModel.onPressedJoinRoom(context),
+                      enabled: !viewModel.isBusy,
+                      child: const Text("Join room"),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),

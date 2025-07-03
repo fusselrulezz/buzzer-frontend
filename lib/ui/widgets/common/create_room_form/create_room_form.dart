@@ -14,41 +14,54 @@ class CreateRoomForm extends MvvmView<CreateRoomFormModel> {
     CreateRoomFormModel viewModel,
     Widget? child,
   ) {
-    return FocusTraversalGroup(
+    return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Room name
-          const Text("Room name").base.bold,
-          verticalSpaceTiny,
-          TextField(
-            controller: viewModel.roomNameController,
-            placeholder: const Text("Very fun room name"),
-          ),
-          verticalSpaceSmall,
-          // User name
-          const Text("Your name").base.bold,
-          verticalSpaceTiny,
-          TextField(controller: viewModel.userNameController),
+          Center(child: const Text("Create a room").h3),
           verticalSpaceMedium,
-          // Action buttons
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Visibility(
-                  visible: viewModel.hasError,
-                  child: _buildErrorMessage(viewModel.error(viewModel)),
+          const Text(
+            "Create a room for your game or event, and invite others to join.",
+          ).base,
+          verticalSpaceMedium,
+          FocusTraversalGroup(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Room name
+                const Text("Room name").base.bold,
+                verticalSpaceTiny,
+                TextField(
+                  controller: viewModel.roomNameController,
+                  placeholder: const Text("Very fun room name"),
                 ),
-              ),
-              Button.primary(
-                onPressed: () async =>
-                    await viewModel.onPressedCreateRoom(context),
-                enabled: !viewModel.isBusy,
-                child: const Text("Create room"),
-              ),
-            ],
+                verticalSpaceSmall,
+                // User name
+                const Text("Your name").base.bold,
+                verticalSpaceTiny,
+                TextField(controller: viewModel.userNameController),
+                verticalSpaceMedium,
+                // Action buttons
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Visibility(
+                        visible: viewModel.hasError,
+                        child: _buildErrorMessage(viewModel.error(viewModel)),
+                      ),
+                    ),
+                    Button.primary(
+                      onPressed: () async =>
+                          await viewModel.onPressedCreateRoom(context),
+                      enabled: !viewModel.isBusy,
+                      child: const Text("Create room"),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),

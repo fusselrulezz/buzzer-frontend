@@ -74,38 +74,11 @@ class HomeScreen extends StatelessWidget {
                 horizontal: horizontalPadding,
               ),
               child: Row(
+                spacing: 16.0,
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Center(child: const Text("Create a room").h3),
-                        verticalSpaceMedium,
-                        const Text(
-                          "Create a room for your game or event, and invite others to join.",
-                        ).base,
-                        verticalSpaceMedium,
-                        const CreateRoomForm(),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 16.0),
+                  const CreateRoomForm(),
                   const VerticalDivider(),
-                  const SizedBox(width: 16.0),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Center(child: const Text("Join a room").h3),
-                        verticalSpaceMedium,
-                        const Text(
-                          "Join an existing room to participate in a game or event.",
-                        ).base,
-                        verticalSpaceMedium,
-                        const JoinRoomForm(),
-                      ],
-                    ),
-                  ),
+                  const JoinRoomForm(),
                 ],
               ),
             ),
