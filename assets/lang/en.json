@@ -81,6 +81,15 @@
         "buzzer_button": {
             "enabled": "BUZZ!",
             "disabled": "BUZZED"
+        },
+        "settings_dialog": {
+            "title": "Settings",
+            "theme": {
+                "label": "Theme"
+            },
+            "locale": {
+                "label": "Locale"
+            }
         }
     },
 
@@ -88,6 +97,20 @@
         "names": {
             "en": {
                 "name": "English"
+            }
+        }
+    },
+
+    "theme": {
+        "modes": {
+            "light": {
+                "name": "Light"
+            },
+            "dark": {
+                "name": "Dark"
+            },
+            "system": {
+                "name": "System Default"
             }
         }
     }

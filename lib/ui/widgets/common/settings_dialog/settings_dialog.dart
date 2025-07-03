@@ -1,4 +1,5 @@
 import "package:adaptive_theme/adaptive_theme.dart";
+import "package:easy_localization/easy_localization.dart";
 import "package:flutter/widgets.dart" as widgets;
 import "package:shadcn_flutter/shadcn_flutter.dart";
 
@@ -15,6 +16,8 @@ class SettingsDialog extends MvvmView<SettingsDialogModel> {
     SettingsDialogModel viewModel,
     Widget? child,
   ) {
+    const trPrefix = "widgets.settings_dialog";
+
     final theme = Theme.of(context);
     final scaling = theme.scaling;
     final spacing = scaling * 16;
@@ -43,7 +46,7 @@ class SettingsDialog extends MvvmView<SettingsDialogModel> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Settings").h3,
+            Text("$trPrefix.title".tr()).h3,
             verticalSpaceSmall,
             ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 400),
@@ -58,7 +61,7 @@ class SettingsDialog extends MvvmView<SettingsDialogModel> {
                     // Theme selection
                     widgets.TableRow(
                       children: [
-                        const Text("Theme").textSmall
+                        Text("$trPrefix.theme.label".tr()).textSmall
                             .withAlign(AlignmentDirectional.centerEnd)
                             .withMargin(right: 16 * scaling)
                             .sized(height: 32 * scaling)
@@ -78,7 +81,7 @@ class SettingsDialog extends MvvmView<SettingsDialogModel> {
                     // Locale selection
                     widgets.TableRow(
                       children: [
-                        const Text("Locale").textSmall
+                        Text("$trPrefix.locale.label".tr()).textSmall
                             .withAlign(AlignmentDirectional.centerEnd)
                             .withMargin(right: 16 * scaling)
                             .sized(height: 32 * scaling)

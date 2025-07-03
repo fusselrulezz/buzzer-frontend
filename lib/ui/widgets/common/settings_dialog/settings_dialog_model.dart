@@ -31,9 +31,9 @@ class SettingsDialogModel extends BaseViewModel {
 
   String themeModeName(AdaptiveThemeMode mode) {
     return switch (mode) {
-      AdaptiveThemeMode.light => "Light",
-      AdaptiveThemeMode.dark => "Dark",
-      AdaptiveThemeMode.system => "System",
+      AdaptiveThemeMode.light => "theme.modes.light.name".tr(),
+      AdaptiveThemeMode.dark => "theme.modes.dark.name".tr(),
+      AdaptiveThemeMode.system => "theme.modes.system.name".tr(),
     };
   }
 
