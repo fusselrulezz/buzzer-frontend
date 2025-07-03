@@ -1,8 +1,9 @@
-import "package:buzzer/mvvm/mvvm_view.dart";
-import "package:buzzer/ui/widgets/input_features/random_name_input_feature.dart";
+import "package:easy_localization/easy_localization.dart";
 import "package:shadcn_flutter/shadcn_flutter.dart";
 
+import "package:buzzer/mvvm/mvvm_view.dart";
 import "package:buzzer/ui/common/ui_helpers.dart";
+import "package:buzzer/ui/widgets/input_features/random_name_input_feature.dart";
 
 import "join_room_form_model.dart";
 
@@ -15,27 +16,27 @@ class JoinRoomForm extends MvvmView<JoinRoomFormModel> {
     JoinRoomFormModel viewModel,
     Widget? child,
   ) {
+    const trPrefix = "widgets.join_room_form";
+
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Center(child: const Text("Join a room").h3),
+          Center(child: Text("$trPrefix.title".tr()).h3),
           verticalSpaceMedium,
-          const Text(
-            "Join an existing room to participate in a game or event.",
-          ).base,
+          Text("$trPrefix.description".tr()).base,
           verticalSpaceMedium,
           FocusTraversalGroup(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Room name
-                const Text("Join code").base.bold,
+                // Join code
+                Text("$trPrefix.fields.join_code.label".tr()).base.bold,
                 verticalSpaceTiny,
                 TextField(controller: viewModel.joinCodeController),
                 verticalSpaceSmall,
                 // User name
-                const Text("Your name").base.bold,
+                Text("$trPrefix.fields.player_name.label".tr()).base.bold,
                 verticalSpaceTiny,
                 TextField(
                   controller: viewModel.userNameController,
@@ -64,7 +65,7 @@ class JoinRoomForm extends MvvmView<JoinRoomFormModel> {
                       onPressed: () async =>
                           await viewModel.onPressedJoinRoom(context),
                       enabled: !viewModel.isBusy,
-                      child: const Text("Join room"),
+                      child: Text("$trPrefix.actions.join.label".tr()),
                     ),
                   ],
                 ),

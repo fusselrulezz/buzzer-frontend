@@ -17,5 +17,44 @@
                 }
             }
         }
+    },
+
+    "widgets": {
+        "create_room_form": {
+            "title": "Create a room",
+            "description": "Create a room for your game or event, and invite others to join.",
+            "fields": {
+                "room_name": {
+                    "label": "Room Name",
+                    "hint": "Very fun room name"
+                },
+                "player_name": {
+                    "label": "Your Name"
+                }
+            },
+            "actions": {
+                "create": {
+                    "label": "Create Room"
+                }
+            }
+        },
+        "join_room_form": {
+            "title": "Join a room",
+            "description": "Join an existing room to participate in a game or event.",
+            "fields": {
+                "join_code": {
+                    "label": "Join code",
+                    "hint": "Very fun room name"
+                },
+                "player_name": {
+                    "label": "Your Name"
+                }
+            },
+            "actions": {
+                "join": {
+                    "label": "Join Room"
+                }
+            }
+        }
     }
 }

@@ -1,7 +1,8 @@
-import "package:buzzer/ui/common/ui_helpers.dart";
+import "package:easy_localization/easy_localization.dart";
 import "package:shadcn_flutter/shadcn_flutter.dart";
 
 import "package:buzzer/mvvm/mvvm_view.dart";
+import "package:buzzer/ui/common/ui_helpers.dart";
 
 import "create_room_form_model.dart";
 
@@ -14,30 +15,30 @@ class CreateRoomForm extends MvvmView<CreateRoomFormModel> {
     CreateRoomFormModel viewModel,
     Widget? child,
   ) {
+    const trPrefix = "widgets.create_room_form";
+
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Center(child: const Text("Create a room").h3),
+          Center(child: Text("$trPrefix.title".tr()).h3),
           verticalSpaceMedium,
-          const Text(
-            "Create a room for your game or event, and invite others to join.",
-          ).base,
+          Text("$trPrefix.description".tr()).base,
           verticalSpaceMedium,
           FocusTraversalGroup(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Room name
-                const Text("Room name").base.bold,
+                Text("$trPrefix.fields.room_name.label".tr()).base.bold,
                 verticalSpaceTiny,
                 TextField(
                   controller: viewModel.roomNameController,
-                  placeholder: const Text("Very fun room name"),
+                  placeholder: Text("$trPrefix.fields.room_name.hint".tr()),
                 ),
                 verticalSpaceSmall,
                 // User name
-                const Text("Your name").base.bold,
+                Text("$trPrefix.fields.player_name.label".tr()).base.bold,
                 verticalSpaceTiny,
                 TextField(controller: viewModel.userNameController),
                 verticalSpaceMedium,
@@ -56,7 +57,7 @@ class CreateRoomForm extends MvvmView<CreateRoomFormModel> {
                       onPressed: () async =>
                           await viewModel.onPressedCreateRoom(context),
                       enabled: !viewModel.isBusy,
-                      child: const Text("Create room"),
+                      child: Text("$trPrefix.actions.create.label".tr()),
                     ),
                   ],
                 ),
