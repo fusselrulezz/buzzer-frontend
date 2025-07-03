@@ -82,5 +82,13 @@
             "enabled": "BUZZ!",
             "disabled": "BUZZED"
         }
+    },
+
+    "locale": {
+        "names": {
+            "en": {
+                "name": "English"
+            }
+        }
     }
 }
