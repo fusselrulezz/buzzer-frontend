@@ -77,6 +77,10 @@
                 "copied": "Copied!",
                 "not_copied": "Failed to copy :("
             }
+        },
+        "buzzer_button": {
+            "enabled": "BUZZ!",
+            "disabled": "BUZZED"
         }
     }
 }

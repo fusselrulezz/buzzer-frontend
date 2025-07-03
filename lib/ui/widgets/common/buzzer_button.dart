@@ -1,3 +1,4 @@
+import "package:easy_localization/easy_localization.dart";
 import "package:flutter/material.dart" as mat;
 import "package:shadcn_flutter/shadcn_flutter.dart";
 
@@ -39,12 +40,13 @@ class BuzzerButton extends StatelessWidget {
       );
     }
 
+    const trPrefix = "widgets.buzzer_button";
     String displayText;
 
     if (enabled) {
-      displayText = "BUZZ!";
+      displayText = "$trPrefix.enabled".tr();
     } else {
-      displayText = "BUZZED";
+      displayText = "$trPrefix.disabled".tr();
     }
 
     return Center(
