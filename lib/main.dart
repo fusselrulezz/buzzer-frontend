@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
     _stopwatch.stop();
 
     const defaultLocale = Locale("en");
-    const supportedLocales = [defaultLocale];
+    const supportedLocales = [defaultLocale, Locale("de")];
 
     if (isInitialStart) {
       isInitialStart = false;

@@ -6,14 +6,14 @@
             "topnav": {
                 "login": {
                     "caption": "Login",
-                    "tooltip": "Login to your account"
+                    "tooltip": "Logge dich in dein Konto ein"
                 },
                 "register": {
                     "caption": "Register",
-                    "tooltip": "Create a new account"
+                    "tooltip": "Erstelle ein neues Konto"
                 },
                 "settings": {
-                    "tooltip": "Settings"
+                    "tooltip": "Einstellungen"
                 }
             }
         },
@@ -21,13 +21,13 @@
         "ingame": {
             "header": {
                 "info": {
-                    "playing_as": "Playing as {playerName}",
-                    "room_id": "Room ID: {roomId}",
+                    "playing_as": "Spielt als {playerName}",
+                    "room_id": "Raum ID: {roomId}",
                     "badge_host": "Host"
                 },
                 "actions": {
                     "leave": {
-                        "label": "Leave Room"
+                        "label": "Raum verlassen"
                     }
                 }
             }
@@ -36,45 +36,45 @@
 
     "widgets": {
         "create_room_form": {
-            "title": "Create a room",
-            "description": "Create a room for your game or event, and invite others to join.",
+            "title": "Raum erstellen",
+            "description": "Erstelle einen neuen Raum für dein Spiel oder Event.",
             "fields": {
                 "room_name": {
-                    "label": "Room Name",
-                    "hint": "Very fun room name"
+                    "label": "Raumname",
+                    "hint": "Ein sehr lustiger Raumname"
                 },
                 "player_name": {
-                    "label": "Your Name"
+                    "label": "Dein Name"
                 }
             },
             "actions": {
                 "create": {
-                    "label": "Create Room"
+                    "label": "Raum erstellen"
                 }
             }
         },
         "join_room_form": {
-            "title": "Join a room",
-            "description": "Join an existing room to participate in a game or event.",
+            "title": "Raum beitreten",
+            "description": "Tritt einem Raum bei, um am Spiel teilzunehmen.",
             "fields": {
                 "join_code": {
-                    "label": "Join code"
+                    "label": "Beitrittscode"
                 },
                 "player_name": {
-                    "label": "Your Name"
+                    "label": "Dein Name"
                 }
             },
             "actions": {
                 "join": {
-                    "label": "Join Room"
+                    "label": "Raum beitreten"
                 }
             }
         },
         "join_code_display": {
-            "title": "Join code:",
+            "title": "Beitrittscode:",
             "copy": {
-                "copied": "Copied!",
-                "not_copied": "Failed to copy :("
+                "copied": "Kopiert!",
+                "not_copied": "Kopieren fehlgeschlagen :("
             }
         },
         "buzzer_button": {
@@ -82,12 +82,12 @@
             "disabled": "BUZZED"
         },
         "settings_dialog": {
-            "title": "Settings",
+            "title": "Einstellungen",
             "theme": {
-                "label": "Theme"
+                "label": "Farbschema"
             },
             "locale": {
-                "label": "Locale"
+                "label": "Sprache"
             }
         }
     },
@@ -106,13 +106,13 @@
     "theme": {
         "modes": {
             "light": {
-                "name": "Light"
+                "name": "Hell"
             },
             "dark": {
-                "name": "Dark"
+                "name": "Dunkel"
             },
             "system": {
-                "name": "System Default"
+                "name": "System"
             }
         }
     }
