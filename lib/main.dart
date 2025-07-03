@@ -54,6 +54,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: supportedLocales,
       fallbackLocale: defaultLocale,
       path: "assets/lang",
+      useFallbackTranslations: true,
       child: ShadcnAdaptiveTheme(
         light: ThemeData(colorScheme: ColorSchemes.lightNeutral(), radius: 0.5),
         dark: ThemeData(colorScheme: ColorSchemes.darkNeutral(), radius: 0.5),
