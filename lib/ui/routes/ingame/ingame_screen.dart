@@ -1,5 +1,5 @@
 import "package:auto_route/auto_route.dart";
-import "package:buzzer/ui/widgets/common/settings_dialog/settings_dialog.dart";
+import "package:easy_localization/easy_localization.dart";
 import "package:flutter/material.dart" as mat;
 import "package:shadcn_flutter/shadcn_flutter.dart";
 
@@ -9,6 +9,7 @@ import "package:buzzer/ui/common/ui_helpers.dart";
 import "package:buzzer/ui/routes/ingame/buzzer_button.dart";
 import "package:buzzer/ui/routes/ingame/ingame_screen_model.dart";
 import "package:buzzer/ui/widgets/common/join_code_display/join_code_display.dart";
+import "package:buzzer/ui/widgets/common/settings_dialog/settings_dialog.dart";
 import "package:buzzer_client/buzzer_client.dart";
 
 @RoutePage()
@@ -23,6 +24,8 @@ class IngameScreen extends MvvmView<IngameScreenModel> {
     IngameScreenModel viewModel,
     Widget? child,
   ) {
+    const trPrefix = "routes.ingame";
+
     const double horizontalPadding = 64.0;
 
     return Scaffold(
@@ -43,16 +46,26 @@ class IngameScreen extends MvvmView<IngameScreenModel> {
                     verticalSpaceTiny,
                     Row(
                       children: [
-                        Text("Playing as ${viewModel.userName}").h3,
+                        Text(
+                          "$trPrefix.header.info.playing_as".tr(
+                            namedArgs: {"playerName": viewModel.userName},
+                          ),
+                        ).h3,
                         horizontalSpaceSmall,
                         if (viewModel.isHost) ...[
-                          const PrimaryBadge(child: Text("Host")),
+                          PrimaryBadge(
+                            child: Text(
+                              "$trPrefix.header.info.badge_host".tr(),
+                            ),
+                          ),
                         ],
                       ],
                     ),
                     verticalSpaceTiny,
                     Text(
-                      "Room ID: ${viewModel.gameContext.roomId}",
+                      "$trPrefix.header.info.room_id".tr(
+                        namedArgs: {"roomId": viewModel.gameContext.roomId},
+                      ),
                     ).muted.small,
                   ],
                 ),
@@ -69,7 +82,7 @@ class IngameScreen extends MvvmView<IngameScreenModel> {
                     Button.destructive(
                       onPressed: () async =>
                           await viewModel.onPressedLeaveRoom(context),
-                      child: const Text("Leave Room"),
+                      child: Text("$trPrefix.header.actions.leave.label".tr()),
                     ),
                   ],
                 ),

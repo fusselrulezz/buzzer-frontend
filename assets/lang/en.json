@@ -16,6 +16,21 @@
                     "tooltip": "Settings"
                 }
             }
+        },
+
+        "ingame": {
+            "header": {
+                "info": {
+                    "playing_as": "Playing as {playerName}",
+                    "room_id": "Room ID: {roomId}",
+                    "badge_host": "Host"
+                },
+                "actions": {
+                    "leave": {
+                        "label": "Leave Room"
+                    }
+                }
+            }
         }
     },
 
@@ -54,6 +69,13 @@
                 "join": {
                     "label": "Join Room"
                 }
+            }
+        },
+        "join_code_display": {
+            "title": "Join code:",
+            "copy": {
+                "copied": "Copied!",
+                "not_copied": "Failed to copy :("
             }
         }
     }

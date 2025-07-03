@@ -1,5 +1,6 @@
 import "dart:ui";
 
+import "package:easy_localization/easy_localization.dart";
 import "package:shadcn_flutter/shadcn_flutter.dart";
 
 import "package:buzzer/mvvm/mvvm_view.dart";
@@ -19,12 +20,14 @@ class JoinCodeDisplay extends MvvmView<JoinCodeDisplayModel> {
     JoinCodeDisplayModel viewModel,
     Widget? child,
   ) {
+    const trPrefix = JoinCodeDisplayModel.trPrefix;
+
     return Row(
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Join code:"),
+            Text("$trPrefix.title".tr()),
             horizontalSpaceMedium,
             _buildJoinCodeDisplay(viewModel),
           ],

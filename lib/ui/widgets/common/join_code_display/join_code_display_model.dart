@@ -1,10 +1,13 @@
 import "package:buzzer/app/app_logger.dart";
 import "package:buzzer/mvvm/base_view_models.dart";
+import "package:easy_localization/easy_localization.dart";
 import "package:flutter/services.dart";
 import "package:logger/logger.dart";
 import "package:shadcn_flutter/shadcn_flutter.dart";
 
 class JoinCodeDisplayModel extends BaseViewModel {
+  static const trPrefix = "widgets.join_code_display";
+
   final Logger _logger = getLogger("JoinCodeDisplayModel");
 
   final String joinCode;
@@ -49,7 +52,8 @@ class JoinCodeDisplayModel extends BaseViewModel {
       overlayBarrier: OverlayBarrier(
         borderRadius: Theme.of(context).borderRadiusLg,
       ),
-      builder: (context) => Card(child: const Text("Copied!").medium),
+      builder: (context) =>
+          Card(child: Text("$trPrefix.copy.copied".tr()).medium),
     );
   }
 
@@ -60,7 +64,8 @@ class JoinCodeDisplayModel extends BaseViewModel {
       overlayBarrier: OverlayBarrier(
         borderRadius: Theme.of(context).borderRadiusLg,
       ),
-      builder: (context) => Card(child: const Text("Could not copy :(").medium),
+      builder: (context) =>
+          Card(child: Text("$trPrefix.copy.not_copied".tr()).medium),
     );
   }
 
