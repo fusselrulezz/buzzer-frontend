@@ -28,6 +28,14 @@ class SettingsDialog extends MvvmView<SettingsDialogModel> {
         )
         .toList();
 
+    final localeItemButtons = viewModel
+        .getSupportedLocales(context)
+        .map(
+          (e) =>
+              SelectItemButton(value: e, child: Text(viewModel.localeName(e))),
+        )
+        .toList();
+
     return AlertDialog(
       content: SizedBox(
         width: 300.0,
@@ -47,6 +55,7 @@ class SettingsDialog extends MvvmView<SettingsDialogModel> {
                     1: FlexColumnWidth(),
                   },
                   children: [
+                    // Theme selection
                     widgets.TableRow(
                       children: [
                         const Text("Theme").textSmall
@@ -64,6 +73,26 @@ class SettingsDialog extends MvvmView<SettingsDialogModel> {
                             items: SelectItemList(children: themeItemButtons),
                           ),
                         ),
+                      ],
+                    ),
+                    // Locale selection
+                    widgets.TableRow(
+                      children: [
+                        const Text("Locale").textSmall
+                            .withAlign(AlignmentDirectional.centerEnd)
+                            .withMargin(right: 16 * scaling)
+                            .sized(height: 32 * scaling)
+                            .withPadding(top: spacing, left: 16 * scaling),
+                        Select<Locale>(
+                          value: viewModel.locale(context),
+                          itemBuilder: (context, value) =>
+                              Text(viewModel.localeName(value)),
+                          onChanged: (value) =>
+                              viewModel.onLocaleChanged(context, value),
+                          popup: (context) => SelectPopup<Locale>(
+                            items: SelectItemList(children: localeItemButtons),
+                          ),
+                        ).withPadding(top: spacing),
                       ],
                     ),
                   ],
