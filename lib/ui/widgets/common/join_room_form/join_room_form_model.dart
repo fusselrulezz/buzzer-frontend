@@ -1,11 +1,12 @@
 import "package:auto_route/auto_route.dart";
-import "package:buzzer/app/app_router.gr.dart";
-import "package:buzzer/model/game_context.dart";
+import "package:easy_localization/easy_localization.dart";
 import "package:logger/logger.dart";
 import "package:shadcn_flutter/shadcn_flutter.dart";
 
 import "package:buzzer/app/app_logger.dart";
+import "package:buzzer/app/app_router.gr.dart";
 import "package:buzzer/app/service_locator.dart";
+import "package:buzzer/model/game_context.dart";
 import "package:buzzer/model/identity.dart";
 import "package:buzzer/mvvm/base_view_models.dart";
 import "package:buzzer/services/api_service.dart";
@@ -79,9 +80,12 @@ class JoinRoomFormModel extends BaseViewModel {
       if (context.mounted) {
         await _onSuccessfullyJoinedRoom(context, result, joinCode);
       }
-    } catch (e) {
-      setError(e);
-      _logger.e("Failed to join room", error: e);
+    } catch (e, stackTrace) {
+      // General exception. This might be a network error or something else.
+      // Log it as an connection error.
+
+      setError("errors.connection_error".tr());
+      _logger.e("Error creating room", error: e, stackTrace: stackTrace);
     } finally {
       setBusy(false);
     }
