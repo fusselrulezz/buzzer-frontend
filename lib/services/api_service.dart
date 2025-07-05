@@ -6,6 +6,7 @@ import "package:buzzer/services/authentication_service.dart";
 import "package:buzzer/services/system_config_service.dart";
 import "package:buzzer_client/buzzer_client.dart";
 
+/// Service for managing API interactions with the Buzzer backend.
 class ApiService {
   final Logger _logger = getLogger("ApiService");
 
@@ -14,15 +15,20 @@ class ApiService {
 
   Buzzer? _client;
 
+  /// The API client used to make requests to the Buzzer backend.
   Buzzer get client {
     _client ??= _buildClient();
     return _client!;
   }
 
+  /// The URL of the Buzzer service, constructed from the system configuration.
   String get serviceUrl => _systemConfigService.serviceUrl;
 
+  /// The URI of the Buzzer service, constructed from the service URL.
   Uri get serviceUri => Uri.parse(serviceUrl);
 
+  /// Invalidates the current API client, forcing a new client to be created
+  /// on the next request. This is useful when the authentication token changes.
   void invalidateClient() {
     _logger.i("Invalidating API client");
 

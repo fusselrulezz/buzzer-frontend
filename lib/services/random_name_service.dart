@@ -7,11 +7,14 @@ import "package:buzzer/app/app_logger.dart";
 import "package:buzzer/app/initializable_service.dart";
 import "package:buzzer/model/random_names.dart";
 
+/// Service for generating random names using predefined adjectives and nouns.
 class RandomNameService with InitializableService {
   final _logger = getLogger("RandomNameService");
 
   RandomNames? _randomNames;
 
+  /// Determines if the service has been initialized with random names.
+  /// Returns `true` if random names are available, `false` otherwise.
   bool get hasRandomNames => _randomNames != null;
 
   @override
@@ -30,6 +33,10 @@ class RandomNameService with InitializableService {
     }
   }
 
+  /// Generates a random name by combining a random adjective and a random noun.
+  /// Throws a [StateError] if the random names have not been initialized.
+  ///
+  /// Check [hasRandomNames] before calling this method to ensure that random names are available.
   String getRandomName() {
     if (_randomNames == null) {
       throw StateError("Random names not initialized.");

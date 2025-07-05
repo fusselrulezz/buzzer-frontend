@@ -1,6 +1,7 @@
 import "package:auto_route/auto_route.dart";
 import "package:buzzer/app/app_router.gr.dart";
 
+/// The main router for the Buzzer app.
 @AutoRouterConfig()
 class AppRouter extends RootStackRouter {
   @override

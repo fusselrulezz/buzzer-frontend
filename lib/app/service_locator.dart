@@ -9,10 +9,13 @@ final locator = ServiceLocator.instance;
 class ServiceLocator {
   static ServiceLocator? _instance;
 
+  /// The GetIt instance used for service registration and retrieval.
   GetIt locator;
 
   ServiceLocator._(GetIt instance) : locator = instance;
 
+  /// Returns the singleton instance of the service locator.
+  /// If the instance does not yet exist, a new one will be created.
   static ServiceLocator get instance {
     _instance ??= ServiceLocator._(GetIt.instance);
     return _instance!;
@@ -29,6 +32,7 @@ class ServiceLocator {
     param2: param2,
   );
 
+  /// Registers a singleton service of type [T] in the locator.
   void registerSingleton<T extends Object>(
     T instance, {
     String? instanceName,

@@ -12,7 +12,7 @@ import "package:buzzer/ui/common/shadcn_adaptive_theme.dart";
 final _logger = getLogger("main");
 
 late final Stopwatch _stopwatch;
-bool isInitialStart = true;
+bool _isInitialStart = true;
 
 Future<void> main() async {
   _stopwatch = Stopwatch()..start();
@@ -31,9 +31,11 @@ Future<void> main() async {
   runApp(MyApp());
 }
 
+/// The main application widget that sets up the root of the app.
 class MyApp extends StatelessWidget {
   final _appRouter = AppRouter();
 
+  /// Initializes a new [MyApp] instance.
   MyApp({super.key});
 
   @override
@@ -43,8 +45,8 @@ class MyApp extends StatelessWidget {
     const defaultLocale = Locale("en");
     const supportedLocales = [defaultLocale, Locale("de")];
 
-    if (isInitialStart) {
-      isInitialStart = false;
+    if (_isInitialStart) {
+      _isInitialStart = false;
       _logger.i("Time to first build: ${_stopwatch.elapsedMilliseconds} ms");
     } else {
       _logger.i("(Re)building root widget...");

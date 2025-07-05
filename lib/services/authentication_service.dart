@@ -8,6 +8,7 @@ import "package:buzzer/app/service_locator.dart";
 import "package:buzzer/model/identity.dart";
 import "package:buzzer/services/api_service.dart";
 
+/// Service for managing authentication and identity.
 class AuthenticationService {
   final Logger _logger = getLogger("AuthenticationService");
 
@@ -15,14 +16,18 @@ class AuthenticationService {
 
   Identity? _identity;
 
+  /// The current identity of the user, if available.
   Identity? get identity => _identity;
 
+  /// Checks if the user has an identity (i.e., is authenticated).
   bool get hasIdentity => _identity != null;
 
   Authenticator _authenticator = _ApiAuthenticator(identity: null);
 
+  /// The authenticator used for API requests.
   Authenticator get authenticator => _authenticator;
 
+  /// Clears the current identity and resets the authenticator.
   void clearIdentity() {
     _identity = null;
     _authenticator = _ApiAuthenticator(identity: null);
@@ -33,6 +38,7 @@ class AuthenticationService {
     _logger.i("Cleared identity and authenticator");
   }
 
+  /// Authenticates the user with the provided identity.
   void authenticate(Identity identity) {
     _identity = identity;
     _authenticator = _ApiAuthenticator(identity: identity);

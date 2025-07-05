@@ -22,6 +22,7 @@ class GameContext {
   /// Indicates whether the user is the host of the game room.
   final bool isHost;
 
+  /// The initial game state, if available.
   final InitialGameState? initialGameState;
 
   /// Initializes a new [GameContext] instance.
@@ -36,13 +37,19 @@ class GameContext {
   });
 }
 
+/// Represents the initial state of a game, including the buzzer state and players.
+/// This is primarily used to initialize the game context when joining a game room.
 class InitialGameState {
+  /// The state of the buzzer.
   final BuzzerStateDto buzzerState;
 
+  /// The list of players in the game room.
   final List<PlayerDto> players;
 
+  /// Creates a new [InitialGameState] instance.
   InitialGameState({required this.buzzerState, required this.players});
 
+  /// Creates an [InitialGameState] from the details of a game room.
   static InitialGameState fromDetails(PrivateGameRoomDto roomDetails) {
     return InitialGameState(
       buzzerState: roomDetails.buzzerState,

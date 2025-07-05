@@ -6,11 +6,14 @@ import "package:flutter/services.dart";
 import "package:buzzer/app/app_logger.dart";
 import "package:buzzer/model/system_config.dart";
 
+/// Service for managing system configuration and service URLs.
 class SystemConfigService {
   final _logger = getLogger("SystemConfigService");
 
   SystemConfig? _config;
 
+  /// The loaded system configuration. If the configuration has not been loaded yet,
+  /// this will throw an error when accessed.
   SystemConfig get config => _config!;
 
   String? _serviceUrl;
@@ -28,8 +31,12 @@ class SystemConfigService {
     return _serviceUrl!;
   }
 
+  /// Initializes the [SystemConfigService] instance.
   SystemConfigService();
 
+  /// Ensures that the system configuration is loaded.
+  /// If the configuration is already loaded, this method does nothing and logs
+  /// a message instead.
   Future<void> ensureInitialized() async {
     if (_config != null) {
       _logger.i("Already initialized.");
