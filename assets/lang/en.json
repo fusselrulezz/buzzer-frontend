@@ -93,6 +93,11 @@
             "locale": {
                 "label": "Locale"
             }
+        },
+        "player_list": {
+            "header": {
+                "title": "Players"
+            }
         }
     },
 

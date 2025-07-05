@@ -1,6 +1,5 @@
 import "package:auto_route/auto_route.dart";
 import "package:easy_localization/easy_localization.dart";
-import "package:flutter/material.dart" as mat;
 import "package:shadcn_flutter/shadcn_flutter.dart";
 
 import "package:buzzer/model/game_context.dart";
@@ -9,8 +8,8 @@ import "package:buzzer/ui/common/ui_helpers.dart";
 import "package:buzzer/ui/routes/ingame/ingame_screen_model.dart";
 import "package:buzzer/ui/widgets/common/buzzer_button.dart";
 import "package:buzzer/ui/widgets/common/join_code_display/join_code_display.dart";
+import "package:buzzer/ui/widgets/common/player_list/player_list.dart";
 import "package:buzzer/ui/widgets/common/settings_dialog/settings_dialog.dart";
-import "package:buzzer_client/buzzer_client.dart";
 
 @RoutePage()
 class IngameScreen extends MvvmView<IngameScreenModel> {
@@ -98,31 +97,7 @@ class IngameScreen extends MvvmView<IngameScreenModel> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    width: 300.0,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Players",
-                          style: Theme.of(
-                            context,
-                          ).typography.h4.copyWith(fontSize: 20.0),
-                        ),
-                        verticalSpaceTiny,
-                        ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: viewModel.players.length,
-                          itemBuilder: (context, index) {
-                            return _buildPlayerListTile(
-                              context,
-                              viewModel.players[index],
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
+                  PlayerList(players: viewModel.players),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,14 +138,6 @@ class IngameScreen extends MvvmView<IngameScreenModel> {
 
   void _showSettingsPopover(BuildContext context) {
     showDialog(context: context, builder: (context) => const SettingsDialog());
-  }
-
-  Widget _buildPlayerListTile(BuildContext context, PlayerDto player) {
-    return mat.ListTile(
-      contentPadding: const EdgeInsets.all(0.0),
-      title: Text(player.name).bold,
-      subtitle: Text(player.id).muted.small,
-    );
   }
 
   @override
