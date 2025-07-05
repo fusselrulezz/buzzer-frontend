@@ -89,11 +89,15 @@ class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
   Future<void> _onPlayerBuzzed(String playerId) async {
     _buzzerEnabled = false;
     rebuildUi();
+
+    _logger.i("Received buzz from player: $playerId");
   }
 
-  void _onBuzzerCleared(String event) {
+  void _onBuzzerCleared(String playerId) {
     _buzzerEnabled = true;
     rebuildUi();
+
+    _logger.i("Buzzer cleared by player: $playerId");
   }
 
   void _onPlayerConnected(PlayerDto player) {
@@ -105,12 +109,16 @@ class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
     // If not, add the player to the list
     _players.add(player);
     rebuildUi();
+
+    _logger.i("Player connected: ${player.name} (${player.id})");
   }
 
   void _onPlayerDisconnected(PlayerDto player) {
     // Remove the player from the list if they are connected
     _players.removeWhere((p) => p.id == player.id);
     rebuildUi();
+
+    _logger.i("Player disconnected: ${player.name} (${player.id})");
   }
 
   Future<void> onPressedResetBuzzer() async {

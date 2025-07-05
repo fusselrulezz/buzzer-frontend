@@ -100,15 +100,27 @@ class IngameScreen extends MvvmView<IngameScreenModel> {
                 children: [
                   SizedBox(
                     width: 300.0,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: viewModel.players.length,
-                      itemBuilder: (context, index) {
-                        return _buildPlayerListTile(
-                          context,
-                          viewModel.players[index],
-                        );
-                      },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Players",
+                          style: Theme.of(
+                            context,
+                          ).typography.h4.copyWith(fontSize: 20.0),
+                        ),
+                        verticalSpaceTiny,
+                        ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: viewModel.players.length,
+                          itemBuilder: (context, index) {
+                            return _buildPlayerListTile(
+                              context,
+                              viewModel.players[index],
+                            );
+                          },
+                        ),
+                      ],
                     ),
                   ),
                   Expanded(
