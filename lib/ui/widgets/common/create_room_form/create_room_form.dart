@@ -17,6 +17,10 @@ class CreateRoomForm extends MvvmView<CreateRoomFormModel> {
   ) {
     const trPrefix = "widgets.create_room_form";
 
+    final theme = Theme.of(context);
+    final progressHeight = theme.scaling * 2;
+    final totalHeight = (mediumSize - progressHeight) / 2;
+
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,10 +45,21 @@ class CreateRoomForm extends MvvmView<CreateRoomFormModel> {
                 Text("$trPrefix.fields.player_name.label".tr()).base.bold,
                 verticalSpaceTiny,
                 TextField(controller: viewModel.userNameController),
-                verticalSpaceMedium,
+                // Progress and spacing
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: totalHeight,
+                    horizontal: tinySize,
+                  ),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: progressHeight,
+                    child: viewModel.isBusy ? LinearProgressIndicator() : null,
+                  ),
+                ),
                 // Action buttons
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(

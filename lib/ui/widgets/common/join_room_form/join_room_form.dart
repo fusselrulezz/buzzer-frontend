@@ -18,6 +18,10 @@ class JoinRoomForm extends MvvmView<JoinRoomFormModel> {
   ) {
     const trPrefix = "widgets.join_room_form";
 
+    final theme = Theme.of(context);
+    final progressHeight = theme.scaling * 2;
+    final totalHeight = (mediumSize - progressHeight) / 2;
+
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +53,18 @@ class JoinRoomForm extends MvvmView<JoinRoomFormModel> {
                     ),
                   ],
                 ),
-                verticalSpaceMedium,
+                // Progress and spacing
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: totalHeight,
+                    horizontal: tinySize,
+                  ),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: progressHeight,
+                    child: viewModel.isBusy ? LinearProgressIndicator() : null,
+                  ),
+                ),
                 // Action buttons
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
