@@ -2,7 +2,6 @@ import "package:auto_route/auto_route.dart";
 import "package:easy_localization/easy_localization.dart";
 import "package:shadcn_flutter/shadcn_flutter.dart";
 
-import "package:buzzer/ui/common/ui_helpers.dart";
 import "package:buzzer/ui/widgets/common/create_room_form/create_room_form.dart";
 import "package:buzzer/ui/widgets/common/join_room_form/join_room_form.dart";
 import "package:buzzer/ui/widgets/common/settings_dialog/settings_dialog.dart";
@@ -32,26 +31,26 @@ class HomeScreen extends StatelessWidget {
                 FocusTraversalGroup(
                   child: Row(
                     children: [
-                      Tooltip(
-                        tooltip: (context) =>
-                            Text("$trPrefix.topnav.login.tooltip".tr()),
-                        child: TextButton(
-                          onPressed: () {},
-                          child: Text("$trPrefix.topnav.login.caption".tr()).h3,
-                        ),
-                      ),
-                      horizontalSpaceSmall,
-                      Tooltip(
-                        tooltip: (context) =>
-                            Text("$trPrefix.topnav.register.tooltip".tr()),
-                        child: TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            "$trPrefix.topnav.register.caption".tr(),
-                          ).h3,
-                        ),
-                      ),
-                      horizontalSpaceSmall,
+                      //Tooltip(
+                      //  tooltip: (context) =>
+                      //      Text("$trPrefix.topnav.login.tooltip".tr()),
+                      //  child: TextButton(
+                      //    onPressed: () {},
+                      //    child: Text("$trPrefix.topnav.login.caption".tr()).h3,
+                      //  ),
+                      //),
+                      //horizontalSpaceSmall,
+                      //Tooltip(
+                      //  tooltip: (context) =>
+                      //      Text("$trPrefix.topnav.register.tooltip".tr()),
+                      //  child: TextButton(
+                      //    onPressed: () {},
+                      //    child: Text(
+                      //      "$trPrefix.topnav.register.caption".tr(),
+                      //    ).h3,
+                      //  ),
+                      //),
+                      //horizontalSpaceSmall,
                       Tooltip(
                         tooltip: (context) =>
                             Text("$trPrefix.topnav.settings.tooltip".tr()),
