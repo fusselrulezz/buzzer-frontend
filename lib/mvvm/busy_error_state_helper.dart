@@ -1,5 +1,7 @@
 import "package:flutter/widgets.dart";
 
+/// Mixin that provides functionality to manage busy and error states in a
+/// ViewModel.
 mixin BusyAndErrorStateHelper on ChangeNotifier {
   final Map<int, bool> _busyStates = <int, bool>{};
 
@@ -9,7 +11,7 @@ mixin BusyAndErrorStateHelper on ChangeNotifier {
   /// Returns the busy status of the ViewModel
   bool get isBusy => busy(this);
 
-  // Returns true if any objects still have a busy status that is true.
+  /// Returns true if any objects still have a busy status that is true.
   bool get anyObjectsBusy => _busyStates.values.any((busy) => busy);
 
   /// Sets the busy state for the object equal to the value passed in and notifies Listeners
@@ -75,6 +77,8 @@ mixin BusyAndErrorStateHelper on ChangeNotifier {
   }
 
   final Map<int, dynamic> _errorStates = <int, dynamic>{};
+
+  /// Returns the error for the object if it exists. Returns null if not present.
   dynamic error(Object object) => _errorStates[object.hashCode];
 
   /// Returns the error existence status of the ViewModel
@@ -96,6 +100,7 @@ mixin BusyAndErrorStateHelper on ChangeNotifier {
     setErrorForObject(this, error);
   }
 
+  /// Sets the error for the ViewModel or an object with the key passed in.
   void setErrorForModelOrObject(dynamic value, {Object? key}) {
     if (key != null) {
       setErrorForObject(key, value);
@@ -111,6 +116,8 @@ mixin BusyAndErrorStateHelper on ChangeNotifier {
     notifyListeners();
   }
 
+  /// Runs a future and sets the error for the model or object if it throws an
+  /// error.
   Future<T> runErrorFuture<T>(
     Future<T> future, {
     Object? key,

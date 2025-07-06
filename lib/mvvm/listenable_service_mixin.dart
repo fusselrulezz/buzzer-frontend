@@ -4,6 +4,7 @@ import "package:flutter/foundation.dart";
 mixin ListenableServiceMixin {
   final List<Function> _listeners = List<Function>.empty(growable: true);
 
+  /// Returns the number of listeners currently registered with this service
   int get listenersCount => _listeners.length;
 
   /// List to the values and react when there are any changes

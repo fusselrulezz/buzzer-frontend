@@ -33,8 +33,11 @@ class BaseViewModel extends ChangeNotifier
 /// A [BaseViewModel] that provides functionality to subscribe to a reactive service.
 abstract class ReactiveViewModel extends BaseViewModel {
   List<ListenableServiceMixin> _listenableServices = [];
+
+  /// The list of listenable services.
   List<ListenableServiceMixin> get listenableServices => [];
 
+  /// Creates a new [ReactiveViewModel] instance.
   ReactiveViewModel() {
     if (listenableServices.isNotEmpty) {
       _reactToServices(listenableServices);
@@ -62,9 +65,14 @@ abstract class ReactiveViewModel extends BaseViewModel {
   }
 }
 
+/// A [DynamicSourceViewModel] that can be used to notify the View when the
+/// source changes.
 @protected
 class DynamicSourceViewModel<T> extends ReactiveViewModel {
+  /// Whether the source has changed.
   bool changeSource = false;
+
+  /// Notifies the View that the source has changed.
   void notifySourceChanged() {
     changeSource = true;
   }
@@ -75,11 +83,15 @@ class DynamicSourceViewModel<T> extends ReactiveViewModel {
 
 /// Interface: Additional actions that should be implemented by spcialised ViewModels
 abstract class Initialisable {
+  /// Initialises the ViewModel.
   void initialise();
 }
 
+/// A [StreamData] ViewModel that listens to a stream and updates the data
+/// accordingly.
 class StreamData<T> extends DynamicSourceViewModel<T>
     with MessageStateHelper, DataStateHelper<T> {
+  /// The stream that this ViewModel listens to
   Stream<T> stream;
 
   /// Called when the new data arrives
@@ -102,6 +114,8 @@ class StreamData<T> extends DynamicSourceViewModel<T>
   /// This can be used to modify the data if required. If nothhing is returned the data
   /// won't be set.
   Function? transformData;
+
+  /// Creates a new [StreamData] instance.
   StreamData(
     this.stream, {
     this.onData,
@@ -112,6 +126,7 @@ class StreamData<T> extends DynamicSourceViewModel<T>
   });
   late StreamSubscription _streamSubscription;
 
+  /// Initializes the stream and sets up the listeners.
   void initialise() {
     _streamSubscription = stream.listen(
       (incomingData) {

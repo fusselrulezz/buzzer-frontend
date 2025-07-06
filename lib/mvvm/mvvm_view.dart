@@ -2,7 +2,9 @@ import "package:flutter/widgets.dart";
 
 import "view_model_builder.dart";
 
+/// A base class for views in the MVVM architecture.
 abstract class MvvmView<T extends ChangeNotifier> extends StatelessWidget {
+  /// Creates a new [MvvmView] instance.
   const MvvmView({super.key});
 
   /// A function that builds the UI to be shown from the ViewModel - Required

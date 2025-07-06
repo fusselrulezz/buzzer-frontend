@@ -3,10 +3,18 @@ import "package:provider/provider.dart";
 
 import "base_view_models.dart";
 
-enum ViewModelBuilderType { nonReactive, reactive }
+/// Enum to define the type of ViewModelBuilder being used.
+enum ViewModelBuilderType {
+  /// A view model that is non-reactive and does not rebuild the widget when notifyListeners is called.
+  nonReactive,
+
+  /// A view model that is reactive and rebuilds the widget when notifyListeners is called.
+  reactive,
+}
 
 /// A widget that provides base functionality for the Mvvm style provider architecture by FilledStacks.
 class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
+  /// A static child that will be used when the ViewModel is non-reactive.
   final Widget? staticChild;
 
   /// Fires once when the ViewModel is created or set for the first time
@@ -34,6 +42,7 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
   /// a new value.
   final bool createNewViewModelOnInsert;
 
+  /// The type of ViewModelBuilder being used.
   final ViewModelBuilderType providerType;
 
   /// Indicates if the onViewModelReady should fire every time the ViewModel is inserted into the widget tree.
@@ -81,6 +90,7 @@ class ViewModelBuilder<T extends ChangeNotifier> extends StatefulWidget {
   ViewModelBuilderState<T> createState() => ViewModelBuilderState<T>();
 }
 
+/// The state for the [ViewModelBuilder] widget.
 class ViewModelBuilderState<T extends ChangeNotifier>
     extends State<ViewModelBuilder<T>> {
   T? _viewModel;
@@ -168,6 +178,7 @@ class ViewModelBuilderState<T extends ChangeNotifier>
     );
   }
 
+  /// Builds the widget with the dynamic source initialisation.
   Widget builderWithDynamicSourceInitialise(
     BuildContext context,
     T? viewModel,

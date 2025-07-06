@@ -1,5 +1,6 @@
 import "package:flutter/foundation.dart";
 
+/// Mixin that provides functionality to manage message states in a ViewModel.
 mixin MessageStateHelper on ChangeNotifier {
   final Map<int, String?> _messageStates = <int, String?>{};
 
@@ -15,6 +16,7 @@ mixin MessageStateHelper on ChangeNotifier {
   /// Returns a boolean that indicates if the ViewModel has an message for the key
   bool hasMessageForKey(Object key) => message(key) != null;
 
+  /// Clears all messages for the ViewModel.
   void clearMessages() {
     _messageStates.clear();
   }

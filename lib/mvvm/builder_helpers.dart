@@ -1,11 +1,16 @@
 /// Essential helper to work with the [ViewModelBuilder]
 mixin BuilderHelpers {
+  /// Whether the ViewModel has been disposed
   bool disposed = false;
 
   bool _initialised = false;
+
+  /// Whether the ViewModel has been initialised
   bool get initialised => _initialised;
 
   bool _onModelReadyCalled = false;
+
+  /// Whether the onModelReady method has been called
   bool get onModelReadyCalled => _onModelReadyCalled;
 
   /// Sets the initialised value for the ViewModel to true. This is called after
