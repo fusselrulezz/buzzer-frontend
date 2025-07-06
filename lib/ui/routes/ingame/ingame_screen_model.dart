@@ -10,17 +10,23 @@ import "package:buzzer/services/authentication_service.dart";
 import "package:buzzer/services/buzzer_service.dart";
 import "package:buzzer_client/buzzer_client.dart";
 
+/// The view model for the ingame screen, managing the game state and player
+/// interactions.
 class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
   final _logger = getLogger("IngameScreenModel");
 
+  /// The context of the game, containing information about the room,
+  /// the user, and the initial game state.
   final GameContext gameContext;
 
   final BuzzerService _buzzerService = locator<BuzzerService>();
 
   final List<PlayerDto> _players = [];
 
+  /// The list of players currently in the game.
   List<PlayerDto> get players => [..._players];
 
+  /// Creates a new [IngameScreenModel] instance.
   IngameScreenModel({required this.gameContext}) {
     _logger.i(
       "IngameScreenModel initialized for room: ${gameContext.roomName}, user: ${gameContext.userName}",
@@ -38,18 +44,24 @@ class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
     ]);
   }
 
+  /// The name of the room the user is currently in.
   String get roomName => gameContext.roomName;
 
+  /// The name of the player in the game.
   String get userName => gameContext.userName;
 
+  /// The join code for the game room, used for joining the game.
   String get joinCode => gameContext.joinCode;
 
+  /// Whether the current user is the host of the game.
   bool get isHost => gameContext.isHost;
 
   bool _buzzerEnabled = true;
 
+  /// Whether the buzzer is currently enabled for the user.
   bool get buzzerEnabled => _buzzerEnabled;
 
+  /// Whether the reset button is enabled.
   bool get resetButtonEnabled => !_buzzerEnabled;
 
   void _applyInitialState(InitialGameState? initialState) {
@@ -66,6 +78,7 @@ class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
     super.dispose();
   }
 
+  /// Will be called when the user presses the "Leave Room" button.
   Future<void> onPressedLeaveRoom(BuildContext context) async {
     locator<AuthenticationService>().clearIdentity();
 
@@ -76,6 +89,7 @@ class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
     }
   }
 
+  /// Will be called when the user presses the buzzer button.
   Future<void> onPressedBuzzer() async {
     if (!_buzzerEnabled) {
       return;
@@ -121,6 +135,7 @@ class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
     _logger.i("Player disconnected: ${player.name} (${player.id})");
   }
 
+  /// Will be called when the user presses the "Reset Buzzer" button.
   Future<void> onPressedResetBuzzer() async {
     if (!resetButtonEnabled) {
       return;

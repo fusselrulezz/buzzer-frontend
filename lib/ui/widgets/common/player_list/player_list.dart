@@ -6,11 +6,16 @@ import "package:buzzer_client/buzzer_client.dart";
 
 import "player_list_tile.dart";
 
+/// A widget that displays a list of players in a column format.
+/// Each player is represented by a [PlayerListTile].
 class PlayerList extends StatelessWidget {
+  /// The list of players to be displayed in the player list.
   final List<PlayerDto> players;
 
+  /// The width of the player list widget.
   final double width;
 
+  /// Creates a new [PlayerList] widget.
   const PlayerList({super.key, required this.players, this.width = 300.0});
 
   @override

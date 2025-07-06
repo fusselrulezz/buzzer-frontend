@@ -1,12 +1,17 @@
 import "package:shadcn_flutter/shadcn_flutter.dart";
 
+/// A [InputFeature] that generates a random name when pressed.
 class RandomNameInputFeature extends InputFeature {
+  /// The position of the feature in the input field, either leading or trailing.
   final InputFeaturePosition position;
 
+  /// An optional icon to display in the input field.
   final Widget? icon;
 
+  /// A function that generates a random name when called.
   final String Function() generateName;
 
+  /// Creates a new [RandomNameInputFeature] instance.
   const RandomNameInputFeature({
     super.visibility,
     this.position = InputFeaturePosition.trailing,

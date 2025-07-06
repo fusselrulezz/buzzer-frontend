@@ -15,6 +15,8 @@ import "package:buzzer/services/buzzer_service.dart";
 import "package:buzzer/services/random_name_service.dart";
 import "package:buzzer_client/buzzer_client.dart";
 
+/// The view model for the join room form, managing the state and logic
+/// for joining an existing game room.
 class JoinRoomFormModel extends BaseViewModel {
   final Logger _logger = getLogger("JoinRoomFormModel");
 
@@ -22,25 +24,34 @@ class JoinRoomFormModel extends BaseViewModel {
 
   final TextEditingController _joinCodeController = TextEditingController();
 
+  /// The controller for the join code input field.
   TextEditingController get joinCodeController => _joinCodeController;
 
   final TextEditingController _userNameController = TextEditingController();
 
+  /// The controller for the user name input field.
   TextEditingController get userNameController => _userNameController;
 
+  /// Whether the join code is valid.
   bool get isJoinCodeValid => joinCodeController.text.isNotEmpty;
 
+  /// Whether the user name is valid.
   bool get isUsernameValid => userNameController.text.isNotEmpty;
 
+  /// Whether the form is valid, meaning both join code and user name are valid.
   bool get isFormValid => isJoinCodeValid && isUsernameValid;
 
+  /// Whether the random name feature is visible.
+  /// This is true if the [RandomNameService] has any random names available.
   bool get isRandomNameFeatureVisible => _randomNameService.hasRandomNames;
 
+  /// Disposes the controllers used in the form.
   void disposeForm() {
     _joinCodeController.dispose();
     _userNameController.dispose();
   }
 
+  /// Will be called when the user has pressed the "Join Room" button.
   Future<void> onPressedJoinRoom(BuildContext context) async {
     if (isBusy) {
       _logger.w("Join room button pressed while busy, ignoring.");
@@ -127,6 +138,8 @@ class JoinRoomFormModel extends BaseViewModel {
     }
   }
 
+  /// Will be called when the user has pressed the "Generate Random Name" button.
+  /// It generates a random name using the [RandomNameService].
   String generateRandomName() {
     if (!_randomNameService.hasRandomNames) {
       _logger.e("Failed to generate random name: Service has no data");

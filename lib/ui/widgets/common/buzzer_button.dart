@@ -2,15 +2,26 @@ import "package:easy_localization/easy_localization.dart";
 import "package:flutter/material.dart" as mat;
 import "package:shadcn_flutter/shadcn_flutter.dart";
 
+/// A button widget that acts as a buzzer, allowing users to press it
+/// to signal their readiness or to answer questions in a game.
 class BuzzerButton extends StatelessWidget {
+  /// The size of the buzzer button, defaulting to 300.0 pixels.
   final double size;
 
+  /// The font size of the text displayed on the buzzer button,
+  /// defaulting to 36.0 pixels.
   final double fontSize;
 
+  /// Whether the buzzer button is enabled or disabled.
+  /// If enabled, the button will be clickable and styled with a red background.
+  /// If disabled, the button will be styled with a gray background
+  /// and will not respond to clicks.
   final bool enabled;
 
+  /// The callback function that will be called when the buzzer button is pressed.
   final void Function()? onPressed;
 
+  /// Creates a new [BuzzerButton] widget.
   const BuzzerButton({
     super.key,
     this.size = 300.0,

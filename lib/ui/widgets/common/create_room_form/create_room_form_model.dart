@@ -14,28 +14,37 @@ import "package:buzzer/services/authentication_service.dart";
 import "package:buzzer/services/buzzer_service.dart";
 import "package:buzzer_client/buzzer_client.dart";
 
+/// The view model for the create room form, managing the state and logic
+/// for creating a new game room.
 class CreateRoomFormModel extends BaseViewModel {
   final Logger _logger = getLogger("CreateRoomFormModel");
 
   final TextEditingController _roomNameController = TextEditingController();
 
+  /// The controller for the room name input field.
   TextEditingController get roomNameController => _roomNameController;
 
   final TextEditingController _userNameController = TextEditingController();
 
+  /// The controller for the user name input field.
   TextEditingController get userNameController => _userNameController;
 
+  /// Whether the room name is valid.
   bool get isRoomNameValid => roomNameController.text.isNotEmpty;
 
+  /// Whether the user name is valid.
   bool get isUsernameValid => userNameController.text.isNotEmpty;
 
+  /// Whether the form is valid, meaning both room name and user name are valid.
   bool get isFormValid => isRoomNameValid && isUsernameValid;
 
+  /// Disposes the controllers used in the form.
   void disposeForm() {
     _roomNameController.dispose();
     _userNameController.dispose();
   }
 
+  /// Will be calles when the user has pressed the "Create Room" button.
   Future<void> onPressedCreateRoom(BuildContext context) async {
     if (isBusy) {
       _logger.w("Join room button pressed while busy, ignoring.");

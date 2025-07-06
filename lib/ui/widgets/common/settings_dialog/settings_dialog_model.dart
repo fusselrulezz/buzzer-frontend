@@ -7,18 +7,23 @@ import "package:buzzer/app/app_logger.dart";
 import "package:buzzer/mvvm/base_view_models.dart";
 import "package:buzzer/ui/common/shadcn_adaptive_theme.dart";
 
+/// The view model for the settings dialog, managing the state and logic
+/// for changing the theme and locale settings of the application.
 class SettingsDialogModel extends BaseViewModel {
   final Logger _logger = getLogger("SettingsDialogModel");
 
+  /// The list of available theme modes for the application.
   final List<AdaptiveThemeMode> themeModes = [
     AdaptiveThemeMode.light,
     AdaptiveThemeMode.dark,
     AdaptiveThemeMode.system,
   ];
 
+  /// Resolves the current theme mode from the context.
   AdaptiveThemeMode themeMode(BuildContext context) =>
       ShadcnAdaptiveTheme.of(context).mode;
 
+  /// Will be called when the user has picked a new theme mode.
   void onThemeChanged(
     BuildContext context,
     AdaptiveThemeMode? adaptiveThemeMode,
@@ -29,6 +34,7 @@ class SettingsDialogModel extends BaseViewModel {
     notifyListeners();
   }
 
+  /// Returns the name of the theme mode for display purposes.
   String themeModeName(AdaptiveThemeMode mode) {
     return switch (mode) {
       AdaptiveThemeMode.light => "theme.modes.light.name".tr(),
@@ -37,6 +43,7 @@ class SettingsDialogModel extends BaseViewModel {
     };
   }
 
+  /// Returns a list of supported locales for the application.
   List<Locale> getSupportedLocales(BuildContext context) {
     final easyLocalization = EasyLocalization.of(context);
 
@@ -50,6 +57,7 @@ class SettingsDialogModel extends BaseViewModel {
     return easyLocalization.supportedLocales;
   }
 
+  /// Resolves the current locale from the context.
   Locale locale(BuildContext context) {
     final easyLocalization = EasyLocalization.of(context);
 
@@ -63,6 +71,7 @@ class SettingsDialogModel extends BaseViewModel {
     return easyLocalization.locale;
   }
 
+  /// Returns the name of the locale for display purposes.
   String localeName(Locale locale) {
     return _localeNameTranslationKey(locale).tr();
   }
@@ -77,6 +86,7 @@ class SettingsDialogModel extends BaseViewModel {
     return sb.toString();
   }
 
+  /// Will be called when the user has picked a new locale.
   void onLocaleChanged(BuildContext context, Locale? value) {
     if (value == null) return;
 

@@ -6,7 +6,10 @@ import "package:buzzer/ui/common/ui_helpers.dart";
 
 import "create_room_form_model.dart";
 
+/// A form widget for creating a new game room, allowing users to enter
+/// a room name and their player name.
 class CreateRoomForm extends MvvmView<CreateRoomFormModel> {
+  /// Creates a new [CreateRoomForm] widget.
   const CreateRoomForm({super.key});
 
   @override

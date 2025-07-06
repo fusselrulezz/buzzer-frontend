@@ -7,7 +7,9 @@ import "package:buzzer/mvvm/mvvm_view.dart";
 import "package:buzzer/ui/common/ui_helpers.dart";
 import "package:buzzer/ui/widgets/common/settings_dialog/settings_dialog_model.dart";
 
+/// A dialog widget for changing application settings such as theme and locale.
 class SettingsDialog extends MvvmView<SettingsDialogModel> {
+  /// Creates a new [SettingsDialog] widget.
   const SettingsDialog({super.key});
 
   @override

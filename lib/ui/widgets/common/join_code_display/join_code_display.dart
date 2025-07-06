@@ -8,9 +8,12 @@ import "package:buzzer/ui/common/ui_helpers.dart";
 
 import "join_code_display_model.dart";
 
+/// A widget that displays a join code for a game room, allowing users to
+/// copy it to the clipboard or toggle its visibility.
 class JoinCodeDisplay extends MvvmView<JoinCodeDisplayModel> {
   final String _joinCode;
 
+  /// Creates a new [JoinCodeDisplay] widget.
   const JoinCodeDisplay({super.key, required String joinCode})
     : _joinCode = joinCode;
 

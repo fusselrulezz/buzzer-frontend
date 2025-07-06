@@ -14,6 +14,7 @@ final _logger = getLogger("main");
 late final Stopwatch _stopwatch;
 bool _isInitialStart = true;
 
+/// The entry point of the Buzzer application.
 Future<void> main() async {
   _stopwatch = Stopwatch()..start();
 

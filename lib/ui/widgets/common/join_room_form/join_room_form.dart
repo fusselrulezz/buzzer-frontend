@@ -7,7 +7,10 @@ import "package:buzzer/ui/widgets/input_features/random_name_input_feature.dart"
 
 import "join_room_form_model.dart";
 
+/// A form widget for joining an existing game room, allowing users to enter
+/// a join code and their player name.
 class JoinRoomForm extends MvvmView<JoinRoomFormModel> {
+  /// Creates a new [JoinRoomForm] widget.
   const JoinRoomForm({super.key});
 
   @override

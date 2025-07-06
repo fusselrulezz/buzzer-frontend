@@ -6,8 +6,11 @@ import "package:buzzer/ui/widgets/common/create_room_form/create_room_form.dart"
 import "package:buzzer/ui/widgets/common/join_room_form/join_room_form.dart";
 import "package:buzzer/ui/widgets/common/settings_dialog/settings_dialog.dart";
 
+/// The home screen of the application, which serves as the main entry point
+/// for users to create or join rooms.
 @RoutePage()
 class HomeScreen extends StatelessWidget {
+  /// Creeates a new [HomeScreen] widget.
   const HomeScreen({super.key});
 
   @override

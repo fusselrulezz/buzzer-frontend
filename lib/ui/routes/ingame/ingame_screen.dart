@@ -11,10 +11,15 @@ import "package:buzzer/ui/widgets/common/join_code_display/join_code_display.dar
 import "package:buzzer/ui/widgets/common/player_list/player_list.dart";
 import "package:buzzer/ui/widgets/common/settings_dialog/settings_dialog.dart";
 
+/// The ingame screen of the application, which displays the current game
+/// state, player list, and buzzer functionality.
 @RoutePage()
 class IngameScreen extends MvvmView<IngameScreenModel> {
+  /// The context of the game, containing information about the room,
+  /// the user, and the initial game state.
   final GameContext gameContext;
 
+  /// Creates a new [IngameScreen] widget.
   const IngameScreen({super.key, required this.gameContext});
 
   @override
