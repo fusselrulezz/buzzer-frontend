@@ -1,11 +1,13 @@
 import "package:adaptive_theme/adaptive_theme.dart";
 import "package:easy_localization/easy_localization.dart";
-import "package:flutter/widgets.dart" as widgets;
 import "package:shadcn_flutter/shadcn_flutter.dart";
 
 import "package:buzzer/mvvm/mvvm_view.dart";
 import "package:buzzer/ui/common/ui_helpers.dart";
-import "package:buzzer/ui/widgets/common/settings_dialog/settings_dialog_model.dart";
+
+import "settings_dialog_model.dart";
+import "settings_dialog_table.dart";
+import "settings_dialog_table_item.dart";
 
 /// A dialog widget for changing application settings such as theme and locale.
 class SettingsDialog extends MvvmView<SettingsDialogModel> {
@@ -20,27 +22,6 @@ class SettingsDialog extends MvvmView<SettingsDialogModel> {
   ) {
     const trPrefix = "widgets.settings_dialog";
 
-    final theme = Theme.of(context);
-    final scaling = theme.scaling;
-    final spacing = scaling * 16;
-
-    final themeItemButtons = viewModel.themeModes
-        .map(
-          (e) => SelectItemButton(
-            value: e,
-            child: Text(viewModel.themeModeName(e)),
-          ),
-        )
-        .toList();
-
-    final localeItemButtons = viewModel
-        .getSupportedLocales(context)
-        .map(
-          (e) =>
-              SelectItemButton(value: e, child: Text(viewModel.localeName(e))),
-        )
-        .toList();
-
     return AlertDialog(
       content: SizedBox(
         width: 300.0,
@@ -50,59 +31,26 @@ class SettingsDialog extends MvvmView<SettingsDialogModel> {
           children: [
             Text("$trPrefix.title".tr()).h3,
             verticalSpaceSmall,
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 400),
-              child: DefaultTextStyle.merge(
-                style: TextStyle(color: theme.colorScheme.foreground),
-                child: widgets.Table(
-                  columnWidths: const {
-                    0: IntrinsicColumnWidth(),
-                    1: FlexColumnWidth(),
-                  },
-                  children: [
-                    // Theme selection
-                    widgets.TableRow(
-                      children: [
-                        Text("$trPrefix.theme.label".tr()).textSmall
-                            .withAlign(AlignmentDirectional.centerEnd)
-                            .withMargin(right: 16 * scaling)
-                            .sized(height: 32 * scaling)
-                            .withPadding(top: 0, left: 16 * scaling),
-                        Select<AdaptiveThemeMode>(
-                          value: viewModel.themeMode(context),
-                          itemBuilder: (context, value) =>
-                              Text(viewModel.themeModeName(value)),
-                          onChanged: (value) =>
-                              viewModel.onThemeChanged(context, value),
-                          popup: (context) => SelectPopup<AdaptiveThemeMode>(
-                            items: SelectItemList(children: themeItemButtons),
-                          ),
-                        ),
-                      ],
-                    ),
-                    // Locale selection
-                    widgets.TableRow(
-                      children: [
-                        Text("$trPrefix.locale.label".tr()).textSmall
-                            .withAlign(AlignmentDirectional.centerEnd)
-                            .withMargin(right: 16 * scaling)
-                            .sized(height: 32 * scaling)
-                            .withPadding(top: spacing, left: 16 * scaling),
-                        Select<Locale>(
-                          value: viewModel.locale(context),
-                          itemBuilder: (context, value) =>
-                              Text(viewModel.localeName(value)),
-                          onChanged: (value) =>
-                              viewModel.onLocaleChanged(context, value),
-                          popup: (context) => SelectPopup<Locale>(
-                            items: SelectItemList(children: localeItemButtons),
-                          ),
-                        ).withPadding(top: spacing),
-                      ],
-                    ),
-                  ],
+            SettingsDialogTable(
+              maxWidth: 400.0,
+              items: [
+                // New theme selection
+                SettingsDialogTableItem.select<AdaptiveThemeMode>(
+                  items: viewModel.themeModes,
+                  label: "$trPrefix.theme.label".tr(),
+                  value: viewModel.themeMode(context),
+                  displayName: viewModel.themeModeName,
+                  onChanged: viewModel.onThemeChanged,
                 ),
-              ),
+                // new locale selection
+                SettingsDialogTableItem.select<Locale>(
+                  items: viewModel.getSupportedLocales(context),
+                  label: "$trPrefix.locale.label".tr(),
+                  value: viewModel.locale(context),
+                  displayName: viewModel.localeName,
+                  onChanged: viewModel.onLocaleChanged,
+                ),
+              ],
             ),
           ],
         ),
