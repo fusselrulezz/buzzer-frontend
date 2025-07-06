@@ -52,6 +52,8 @@ class SettingsDialog extends MvvmView<SettingsDialogModel> {
                 ),
               ],
             ),
+            verticalSpaceMedium,
+            Text("Version: ${viewModel.appVersion}").textMuted,
           ],
         ),
       ),

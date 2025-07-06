@@ -4,7 +4,9 @@ import "package:flutter/widgets.dart";
 import "package:logger/logger.dart";
 
 import "package:buzzer/app/app_logger.dart";
+import "package:buzzer/app/service_locator.dart";
 import "package:buzzer/mvvm/base_view_models.dart";
+import "package:buzzer/services/app_info_service.dart";
 import "package:buzzer/ui/common/shadcn_adaptive_theme.dart";
 
 /// The view model for the settings dialog, managing the state and logic
@@ -18,6 +20,8 @@ class SettingsDialogModel extends BaseViewModel {
     AdaptiveThemeMode.dark,
     AdaptiveThemeMode.system,
   ];
+
+  String get appVersion => locator<AppInfoService>().appVersion;
 
   /// Resolves the current theme mode from the context.
   AdaptiveThemeMode themeMode(BuildContext context) =>

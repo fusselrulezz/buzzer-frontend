@@ -1,5 +1,6 @@
 import "package:buzzer/app/service_locator.dart";
 import "package:buzzer/services/api_service.dart";
+import "package:buzzer/services/app_info_service.dart";
 import "package:buzzer/services/authentication_service.dart";
 import "package:buzzer/services/buzzer_service.dart";
 import "package:buzzer/services/random_name_service.dart";
@@ -13,6 +14,10 @@ Future<void> registerServices() async {
   final randomNameService = RandomNameService();
   await randomNameService.init();
   locator.registerSingleton(randomNameService);
+
+  final appInfoService = AppInfoService();
+  await appInfoService.init();
+  locator.registerSingleton(appInfoService);
 
   locator.registerLazySingleton(() => ApiService());
   locator.registerLazySingleton(() => AuthenticationService());

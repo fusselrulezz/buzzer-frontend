@@ -27,6 +27,7 @@ dependencies:
   provider: ^6.1.5
   shared_preferences: ^2.5.3
   adaptive_theme: ^3.7.0
+  package_info_plus: ^8.3.0
 
 dev_dependencies:
   flutter_test:
