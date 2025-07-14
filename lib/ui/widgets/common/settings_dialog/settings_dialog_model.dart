@@ -21,6 +21,7 @@ class SettingsDialogModel extends BaseViewModel {
     AdaptiveThemeMode.system,
   ];
 
+  /// The current application version, retrieved from the app info service.
   String get appVersion => locator<AppInfoService>().appVersion;
 
   /// Resolves the current theme mode from the context.
