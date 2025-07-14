@@ -9,21 +9,22 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i3;
-import 'package:buzzer/model/game_context.dart' as _i5;
+import 'package:auto_route/auto_route.dart' as _i4;
+import 'package:buzzer/model/game_context.dart' as _i6;
 import 'package:buzzer/ui/routes/home/home_screen.dart' as _i1;
 import 'package:buzzer/ui/routes/ingame/ingame_screen.dart' as _i2;
-import 'package:flutter/material.dart' as _i4;
+import 'package:buzzer/ui/routes/license/license_screen.dart' as _i3;
+import 'package:shadcn_flutter/shadcn_flutter.dart' as _i5;
 
 /// generated route for
 /// [_i1.HomeScreen]
-class HomeRoute extends _i3.PageRouteInfo<void> {
-  const HomeRoute({List<_i3.PageRouteInfo>? children})
+class HomeRoute extends _i4.PageRouteInfo<void> {
+  const HomeRoute({List<_i4.PageRouteInfo>? children})
     : super(HomeRoute.name, initialChildren: children);
 
   static const String name = 'HomeRoute';
 
-  static _i3.PageInfo page = _i3.PageInfo(
+  static _i4.PageInfo page = _i4.PageInfo(
     name,
     builder: (data) {
       return const _i1.HomeScreen();
@@ -33,11 +34,11 @@ class HomeRoute extends _i3.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.IngameScreen]
-class IngameRoute extends _i3.PageRouteInfo<IngameRouteArgs> {
+class IngameRoute extends _i4.PageRouteInfo<IngameRouteArgs> {
   IngameRoute({
-    _i4.Key? key,
-    required _i5.GameContext gameContext,
-    List<_i3.PageRouteInfo>? children,
+    _i5.Key? key,
+    required _i6.GameContext gameContext,
+    List<_i4.PageRouteInfo>? children,
   }) : super(
          IngameRoute.name,
          args: IngameRouteArgs(key: key, gameContext: gameContext),
@@ -46,7 +47,7 @@ class IngameRoute extends _i3.PageRouteInfo<IngameRouteArgs> {
 
   static const String name = 'IngameRoute';
 
-  static _i3.PageInfo page = _i3.PageInfo(
+  static _i4.PageInfo page = _i4.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<IngameRouteArgs>();
@@ -58,9 +59,9 @@ class IngameRoute extends _i3.PageRouteInfo<IngameRouteArgs> {
 class IngameRouteArgs {
   const IngameRouteArgs({this.key, required this.gameContext});
 
-  final _i4.Key? key;
+  final _i5.Key? key;
 
-  final _i5.GameContext gameContext;
+  final _i6.GameContext gameContext;
 
   @override
   String toString() {
@@ -76,4 +77,20 @@ class IngameRouteArgs {
 
   @override
   int get hashCode => key.hashCode ^ gameContext.hashCode;
+}
+
+/// generated route for
+/// [_i3.LicenseScreen]
+class LicenseRoute extends _i4.PageRouteInfo<void> {
+  const LicenseRoute({List<_i4.PageRouteInfo>? children})
+    : super(LicenseRoute.name, initialChildren: children);
+
+  static const String name = 'LicenseRoute';
+
+  static _i4.PageInfo page = _i4.PageInfo(
+    name,
+    builder: (data) {
+      return const _i3.LicenseScreen();
+    },
+  );
 }

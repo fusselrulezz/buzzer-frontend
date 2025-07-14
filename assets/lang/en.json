@@ -35,6 +35,12 @@
                     }
                 }
             }
+        },
+
+        "license": {
+            "title": "Licenses",
+            "select_license": "Select a license to view its details",
+            "no_licenses": "No licenses available for this package."
         }
     },
 

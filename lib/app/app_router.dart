@@ -11,5 +11,8 @@ class AppRouter extends RootStackRouter {
 
     // Ingame page, containing the game screen
     AutoRoute(page: IngameRoute.page),
+
+    // License page
+    AutoRoute(page: LicenseRoute.page),
   ];
 }

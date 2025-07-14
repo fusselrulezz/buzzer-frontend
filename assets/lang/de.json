@@ -35,6 +35,12 @@
                     }
                 }
             }
+        },
+
+        "license": {
+            "title": "Lizenzen",
+            "select_license": "Wähle eine Lizenz, um ihre Details anzuzeigen",
+            "no_licenses": "Keine Lizenzen für dieses Paket verfügbar."
         }
     },
 

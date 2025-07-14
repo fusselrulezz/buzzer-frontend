@@ -1,4 +1,6 @@
 import "package:adaptive_theme/adaptive_theme.dart";
+import "package:auto_route/auto_route.dart";
+import "package:buzzer/app/app_router.gr.dart";
 import "package:easy_localization/easy_localization.dart";
 import "package:shadcn_flutter/shadcn_flutter.dart";
 
@@ -53,7 +55,18 @@ class SettingsDialog extends MvvmView<SettingsDialogModel> {
               ],
             ),
             verticalSpaceMedium,
-            Text("Version: ${viewModel.appVersion}").textMuted,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Version: ${viewModel.appVersion}").textMuted,
+                LinkButton(
+                  onPressed: () {
+                    context.pushRoute(LicenseRoute());
+                  },
+                  child: Text("Licenses"),
+                ),
+              ],
+            ),
           ],
         ),
       ),
