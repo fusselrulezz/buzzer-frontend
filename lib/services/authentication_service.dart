@@ -28,7 +28,7 @@ class AuthenticationService {
   Authenticator get authenticator => _authenticator;
 
   /// Clears the current identity and resets the authenticator.
-  void clearIdentity() {
+  Future<void> clearIdentity() async {
     _identity = null;
     _authenticator = _ApiAuthenticator(identity: null);
 
@@ -39,7 +39,7 @@ class AuthenticationService {
   }
 
   /// Authenticates the user with the provided identity.
-  void authenticate(Identity identity) {
+  Future<void> authenticate(Identity identity) async {
     _identity = identity;
     _authenticator = _ApiAuthenticator(identity: identity);
 

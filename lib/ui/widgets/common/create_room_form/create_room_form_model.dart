@@ -107,7 +107,7 @@ class CreateRoomFormModel extends BaseViewModel {
   ) async {
     _logger.i("Room created successfully: ${response.gameRoom.id}");
 
-    locator<AuthenticationService>().authenticate(
+    await locator<AuthenticationService>().authenticate(
       Identity(
         accessToken: response.token,
         refreshToken: response.refreshToken,
