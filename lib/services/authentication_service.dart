@@ -5,7 +5,7 @@ import "package:logger/logger.dart";
 
 import "package:buzzer/app/app_logger.dart";
 import "package:buzzer/app/service_locator.dart";
-import "package:buzzer/model/identity.dart";
+import "package:buzzer/model/auth/identity.dart";
 import "package:buzzer/services/api_service.dart";
 
 /// Service for managing authentication and identity.
