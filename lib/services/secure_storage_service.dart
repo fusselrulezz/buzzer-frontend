@@ -28,4 +28,10 @@ class SecureStorageService with InitializableService {
   Future<void> write(String key, String value) async {
     await _preferences?.setString(key, value);
   }
+
+  /// Deletes the value associated with the given key from secure storage.
+  /// If the key does not exist, this operation will have no effect.
+  Future<void> delete(String key) async {
+    await _preferences?.remove(key);
+  }
 }
