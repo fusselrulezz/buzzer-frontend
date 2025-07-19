@@ -20,6 +20,20 @@ class Identity {
     required this.claims,
   });
 
+  /// Creates a copy of the current [Identity] with optional new values for
+  /// access token, refresh token, and claims.
+  Identity copyWith({
+    String? accessToken,
+    String? refreshToken,
+    Claims? claims,
+  }) {
+    return Identity._(
+      accessToken: accessToken ?? this.accessToken,
+      refreshToken: refreshToken ?? this.refreshToken,
+      claims: claims ?? this.claims,
+    );
+  }
+
   /// Creates a new [Identity] instance from the provided access and refresh tokens.
   static Identity create({
     required String accessToken,
