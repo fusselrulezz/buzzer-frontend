@@ -1,5 +1,7 @@
 import "dart:async";
 
+import "package:buzzer/model/auth/stored_identity.dart";
+import "package:buzzer/services/secure_storage_service.dart";
 import "package:chopper/chopper.dart";
 import "package:logger/logger.dart";
 
@@ -32,6 +34,8 @@ class AuthenticationService {
     _identity = null;
     _authenticator = _ApiAuthenticator(identity: null);
 
+    await locator<SecureStorageService>().deleteIdentity();
+
     // Invalidate the API client to force a refresh of the authenticator
     _apiService.invalidateClient();
 
@@ -42,6 +46,10 @@ class AuthenticationService {
   Future<void> authenticate(Identity identity) async {
     _identity = identity;
     _authenticator = _ApiAuthenticator(identity: identity);
+
+    await locator<SecureStorageService>().storeIdentity(
+      StoredIdentity.fromIdentity(identity),
+    );
 
     // Invalidate the API client to force a refresh of the authenticator
     _apiService.invalidateClient();
