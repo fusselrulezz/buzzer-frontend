@@ -8,12 +8,12 @@ class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
     // Home page, containing a screen to create or join a game
-    AutoRoute(page: HomeRoute.page, initial: true),
+    AutoRoute(page: HomeRoute.page, initial: true, path: "/"),
 
     // Ingame page, containing the game screen
-    AutoRoute(page: IngameRoute.page, guards: [AuthGuard()]),
+    AutoRoute(page: IngameRoute.page, guards: [AuthGuard()], path: "/ingame"),
 
     // License page
-    AutoRoute(page: LicenseRoute.page),
+    AutoRoute(page: LicenseRoute.page, path: "/license"),
   ];
 }
