@@ -14,7 +14,7 @@ dependencies:
   buzzer_client:
     git:
       url: git@github.com:fusselrulezz/buzzer-client-dart.git
-      ref: 288cb43482475a0c6460c5744f2a0ae178dce603
+      ref: v0.3.0
 
   cupertino_icons: ^1.0.8
   shadcn_flutter: ^0.0.37
