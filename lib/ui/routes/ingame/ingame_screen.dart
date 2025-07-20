@@ -2,7 +2,6 @@ import "package:auto_route/auto_route.dart";
 import "package:easy_localization/easy_localization.dart";
 import "package:shadcn_flutter/shadcn_flutter.dart";
 
-import "package:buzzer/model/game_context.dart";
 import "package:buzzer/mvvm/mvvm_view.dart";
 import "package:buzzer/ui/common/ui_helpers.dart";
 import "package:buzzer/ui/routes/ingame/ingame_screen_model.dart";
@@ -15,12 +14,8 @@ import "package:buzzer/ui/widgets/common/settings_dialog/settings_dialog.dart";
 /// state, player list, and buzzer functionality.
 @RoutePage()
 class IngameScreen extends MvvmView<IngameScreenModel> {
-  /// The context of the game, containing information about the room,
-  /// the user, and the initial game state.
-  final GameContext gameContext;
-
   /// Creates a new [IngameScreen] widget.
-  const IngameScreen({super.key, required this.gameContext});
+  const IngameScreen({super.key});
 
   @override
   Widget builder(
@@ -147,5 +142,5 @@ class IngameScreen extends MvvmView<IngameScreenModel> {
 
   @override
   IngameScreenModel viewModelBuilder(BuildContext context) =>
-      IngameScreenModel(gameContext: gameContext);
+      IngameScreenModel();
 }

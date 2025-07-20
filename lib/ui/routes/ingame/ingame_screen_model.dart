@@ -1,4 +1,5 @@
 import "package:auto_route/auto_route.dart";
+import "package:buzzer/services/game_context_service.dart";
 import "package:flutter/widgets.dart";
 
 import "package:buzzer/app/app_logger.dart";
@@ -17,7 +18,7 @@ class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
 
   /// The context of the game, containing information about the room,
   /// the user, and the initial game state.
-  final GameContext gameContext;
+  GameContext get gameContext => locator<GameContextService>().currentContext!;
 
   final BuzzerService _buzzerService = locator<BuzzerService>();
 
@@ -27,7 +28,7 @@ class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
   List<PlayerDto> get players => [..._players];
 
   /// Creates a new [IngameScreenModel] instance.
-  IngameScreenModel({required this.gameContext}) {
+  IngameScreenModel() {
     _logger.i(
       "IngameScreenModel initialized for room: ${gameContext.roomName}, user: ${gameContext.userName}",
     );

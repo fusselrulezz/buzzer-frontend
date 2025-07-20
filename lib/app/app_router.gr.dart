@@ -10,11 +10,9 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i4;
-import 'package:buzzer/model/game_context.dart' as _i6;
 import 'package:buzzer/ui/routes/home/home_screen.dart' as _i1;
 import 'package:buzzer/ui/routes/ingame/ingame_screen.dart' as _i2;
 import 'package:buzzer/ui/routes/license/license_screen.dart' as _i3;
-import 'package:shadcn_flutter/shadcn_flutter.dart' as _i5;
 
 /// generated route for
 /// [_i1.HomeScreen]
@@ -34,49 +32,18 @@ class HomeRoute extends _i4.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.IngameScreen]
-class IngameRoute extends _i4.PageRouteInfo<IngameRouteArgs> {
-  IngameRoute({
-    _i5.Key? key,
-    required _i6.GameContext gameContext,
-    List<_i4.PageRouteInfo>? children,
-  }) : super(
-         IngameRoute.name,
-         args: IngameRouteArgs(key: key, gameContext: gameContext),
-         initialChildren: children,
-       );
+class IngameRoute extends _i4.PageRouteInfo<void> {
+  const IngameRoute({List<_i4.PageRouteInfo>? children})
+    : super(IngameRoute.name, initialChildren: children);
 
   static const String name = 'IngameRoute';
 
   static _i4.PageInfo page = _i4.PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<IngameRouteArgs>();
-      return _i2.IngameScreen(key: args.key, gameContext: args.gameContext);
+      return const _i2.IngameScreen();
     },
   );
-}
-
-class IngameRouteArgs {
-  const IngameRouteArgs({this.key, required this.gameContext});
-
-  final _i5.Key? key;
-
-  final _i6.GameContext gameContext;
-
-  @override
-  String toString() {
-    return 'IngameRouteArgs{key: $key, gameContext: $gameContext}';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    if (other is! IngameRouteArgs) return false;
-    return key == other.key && gameContext == other.gameContext;
-  }
-
-  @override
-  int get hashCode => key.hashCode ^ gameContext.hashCode;
 }
 
 /// generated route for

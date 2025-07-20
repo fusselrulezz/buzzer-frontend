@@ -1,4 +1,5 @@
 import "package:auto_route/auto_route.dart";
+import "package:buzzer/services/game_context_service.dart";
 import "package:easy_localization/easy_localization.dart";
 import "package:logger/logger.dart";
 import "package:shadcn_flutter/shadcn_flutter.dart";
@@ -121,19 +122,19 @@ class CreateRoomFormModel extends BaseViewModel {
     final roomDetails = await buzzerService.client.fetchRoomDetails();
 
     if (context.mounted) {
-      context.router.push(
-        IngameRoute(
-          gameContext: GameContext(
-            roomId: response.gameRoom.id,
-            roomName: response.gameRoom.name,
-            userId: response.player.id,
-            userName: response.player.name,
-            joinCode: response.joinCode,
-            isHost: response.player.isHost,
-            initialGameState: InitialGameState.fromDetails(roomDetails),
-          ),
+      locator<GameContextService>().setContext(
+        GameContext(
+          roomId: response.gameRoom.id,
+          roomName: response.gameRoom.name,
+          userId: response.player.id,
+          userName: response.player.name,
+          joinCode: response.joinCode,
+          isHost: response.player.isHost,
+          initialGameState: InitialGameState.fromDetails(roomDetails),
         ),
       );
+
+      context.router.push(IngameRoute());
     }
   }
 }
