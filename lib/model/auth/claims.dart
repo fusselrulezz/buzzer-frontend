@@ -22,4 +22,16 @@ class Claims extends DelegatingMap<String, dynamic> {
   String? get playerId =>
       this["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]
           as String?;
+
+  /// Gets the room ID from the claims.
+  /// Returns null if the "gameRoomId" claim is not present.
+  String? get roomId => this["gameRoomId"] as String?;
+
+  /// Gets the player name from the claims.
+  /// Returns null if the "playerName" claim is not present.
+  String? get playerName => this["playerName"] as String?;
+
+  /// Gets whether the player is the host of the game room.
+  /// Returns `false` if the "isHost" claim is not present or is not a boolean.
+  bool get isHost => this["isHost"]?.toString().toLowerCase() == "true";
 }
