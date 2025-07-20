@@ -49,12 +49,10 @@ class StoredIdentity {
   static StoredIdentity fromIdentity(Identity identity) {
     return StoredIdentity(
       accessToken: identity.accessToken,
-      accessTokenExpiresAt: DateTime.now().add(
-        Duration(seconds: 3600), // TODO: Assuming 1 hour expiration for example
-      ),
+      accessTokenExpiresAt: identity.claims.expiresAt,
       refreshToken: identity.refreshToken,
-      refreshTokenExpiresAt: DateTime.now().add(
-        Duration(days: 30), // TODO: Assuming 30 days expiration for example
+      refreshTokenExpiresAt: DateTime.now().toUtc().add(
+        Duration(days: 1), // Assuming refresh token is valid for 1 day
       ),
     );
   }
