@@ -1,16 +1,24 @@
-# buzzer
+A cross-platform real-time buzzer app for you and your friends to host quizzes,
+games, and events.
 
-A new Flutter project.
+# Features
 
-## Getting Started
+- Real-time buzzer functionality
+- Host a room and let players join using a join code
+- Lockout: the first to buzz wins
 
-This project is a starting point for a Flutter application.
+# Development
 
-A few resources to get you started if this is your first Flutter project:
+The project is split into multiple repositories:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- [buzzer-frontend](https://github.com/fusselrulezz/buzzer-frontend) contains 
+the frontend application, made with Flutter
+- [buzzer-client-dart](https://github.com/fusselrulezz/buzzer-client-dart) is 
+referenced by the frontend and provides a library for communicating with the backend
+- [buzzer-server](https://github.com/fusselrulezz/buzzer-server) the ASP.NET Core Web API backend for this app.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+To develop, you need [Flutter](https://flutter.dev/) on your machine. Have a
+look at the [Installation Guide](https://docs.flutter.dev/get-started/install)
+to get started. When you are finished, clone this repository and run 
+`flutter pub get` to load the dependencies for this project.
+To run, simply run `flutter run -d chrome` to launch the frontend in debug mode.
