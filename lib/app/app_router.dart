@@ -1,5 +1,6 @@
 import "package:auto_route/auto_route.dart";
 import "package:buzzer/app/app_router.gr.dart";
+import "package:buzzer/app/guards/auth_guard.dart";
 
 /// The main router for the Buzzer app.
 @AutoRouterConfig()
@@ -10,7 +11,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: HomeRoute.page, initial: true),
 
     // Ingame page, containing the game screen
-    AutoRoute(page: IngameRoute.page),
+    AutoRoute(page: IngameRoute.page, guards: [AuthGuard()]),
 
     // License page
     AutoRoute(page: LicenseRoute.page),
