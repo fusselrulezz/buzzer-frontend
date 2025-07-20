@@ -37,6 +37,14 @@ class StoredIdentity {
   /// Tranforms this [RandomNames] instance into a JSON map.
   Map<String, dynamic> toJson() => _$StoredIdentityToJson(this);
 
+  /// Converts this [StoredIdentity] to an [Identity].
+  Identity toIdentity() {
+    return Identity.create(
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+    );
+  }
+
   /// Converts a [StoredIdentity] to an [Identity].
   static StoredIdentity fromIdentity(Identity identity) {
     return StoredIdentity(
