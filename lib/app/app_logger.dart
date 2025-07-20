@@ -1,10 +1,49 @@
 import "dart:convert";
 
+import "package:buzzer/helper/ascii_only.dart";
+import "package:easy_logger/easy_logger.dart";
 import "package:logger/logger.dart";
 
 /// Returns the a default [Logger] instance for the application.
 Logger getLogger(String name) {
   return Logger(printer: _BuzzerLogPrinter(name: name));
+}
+
+/// A function that logs messages from the [EasyLogger] package using the
+/// custom [_BuzzerLogPrinter].
+void easyLoggerPrinter(
+  Object object, {
+  String? name,
+  LevelMessages? level,
+  StackTrace? stackTrace,
+}) {
+  final escapedName = name == null
+      ? "EasyLogger"
+      : AsciiOnly.filter(name).trim();
+  final printer = _BuzzerLogPrinter(name: escapedName);
+
+  final mappedLevel = switch (level) {
+    LevelMessages.debug => Level.debug,
+    LevelMessages.info => Level.info,
+    LevelMessages.warning => Level.warning,
+    LevelMessages.error => Level.error,
+    _ => Level.info, // Default to info if no level is provided
+  };
+
+  final message = printer
+      .log(
+        LogEvent(
+          mappedLevel,
+          object,
+          time: DateTime.now(),
+          stackTrace: stackTrace,
+        ),
+      )
+      .join("\n");
+
+  if (message.isNotEmpty) {
+    print(message);
+  }
 }
 
 class _BuzzerLogPrinter extends LogPrinter {

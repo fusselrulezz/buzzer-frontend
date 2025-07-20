@@ -19,6 +19,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   shadcn_flutter: ^0.0.37
   easy_localization: ^3.0.7+1
+  easy_logger: ^0.0.2
   json_annotation: ^4.9.0
   logger: ^2.6.0
   chopper: ^8.1.0

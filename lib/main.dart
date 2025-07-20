@@ -21,6 +21,8 @@ Future<void> main() async {
   _logger.i("Starting Buzzer app...");
 
   WidgetsFlutterBinding.ensureInitialized();
+
+  EasyLocalization.logger.printer = easyLoggerPrinter;
   await EasyLocalization.ensureInitialized();
 
   await registerServices();
