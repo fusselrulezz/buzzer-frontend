@@ -17,9 +17,11 @@ import "package:buzzer_client/buzzer_client.dart";
 class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
   final _logger = getLogger("IngameScreenModel");
 
+  late GameContext _gameContext;
+
   /// The context of the game, containing information about the room,
   /// the user, and the initial game state.
-  GameContext get gameContext => locator<GameContextService>().currentContext!;
+  GameContext get gameContext => _gameContext;
 
   final BuzzerService _buzzerService = locator<BuzzerService>();
 
@@ -30,6 +32,20 @@ class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
 
   /// Creates a new [IngameScreenModel] instance.
   IngameScreenModel() {
+    final context = locator<GameContextService>().currentContext;
+
+    if (context == null) {
+      // Just assume that this will never happen, as the game context should
+      // always be set before navigating to the ingame screen.
+      // If it is not set, we cannot initialize the model properly.
+      _logger.e(
+        "Game context is not set, cannot initialize IngameScreenModel.",
+      );
+      return;
+    }
+
+    _gameContext = context;
+
     _logger.i(
       "IngameScreenModel initialized for room: ${gameContext.roomName}, user: ${gameContext.userName}",
     );
