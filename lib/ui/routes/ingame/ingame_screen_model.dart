@@ -1,4 +1,5 @@
 import "package:auto_route/auto_route.dart";
+import "package:buzzer/app/app_router.gr.dart";
 import "package:buzzer/services/game_context_service.dart";
 import "package:flutter/widgets.dart";
 
@@ -82,11 +83,10 @@ class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
   /// Will be called when the user presses the "Leave Room" button.
   Future<void> onPressedLeaveRoom(BuildContext context) async {
     await locator<AuthenticationService>().clearIdentity();
-
     _buzzerService.disconnect();
 
     if (context.mounted) {
-      context.router.popUntilRoot();
+      context.router.replaceAll([HomeRoute()]);
     }
   }
 
