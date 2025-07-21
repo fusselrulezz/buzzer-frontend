@@ -1,6 +1,7 @@
 import "package:auto_route/auto_route.dart";
 import "package:buzzer/app/app_router.gr.dart";
 import "package:buzzer/services/game_context_service.dart";
+import "package:collection/collection.dart";
 import "package:flutter/widgets.dart";
 
 import "package:buzzer/app/app_logger.dart";
@@ -87,7 +88,12 @@ class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
     _logger.i("Players: ${initialState?.players.length ?? 0}");
 
     _players.addAll(initialState?.players ?? []);
-    _buzzerEnabled = initialState?.buzzerState.isBuzzerActive ?? true;
+
+    var state = initialState?.buzzerState.firstWhereOrNull(
+      (state) => state.buzzedPlayerId == gameContext.userId,
+    );
+
+    _buzzerEnabled = state?.isBuzzerActive ?? true;
   }
 
   @override

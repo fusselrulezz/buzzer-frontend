@@ -41,7 +41,7 @@ class GameContext {
 /// This is primarily used to initialize the game context when joining a game room.
 class InitialGameState {
   /// The state of the buzzer.
-  final BuzzerStateDto buzzerState;
+  final List<BuzzerStateDto> buzzerState;
 
   /// The list of players in the game room.
   final List<PlayerDto> players;
@@ -52,7 +52,7 @@ class InitialGameState {
   /// Creates an [InitialGameState] from the details of a game room.
   static InitialGameState fromDetails(PrivateGameRoomDto roomDetails) {
     return InitialGameState(
-      buzzerState: roomDetails.buzzerState,
+      buzzerState: roomDetails.buzzerStates,
       players: roomDetails.players,
     );
   }
