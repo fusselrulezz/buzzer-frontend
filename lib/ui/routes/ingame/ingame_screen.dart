@@ -97,7 +97,10 @@ class IngameScreen extends MvvmView<IngameScreenModel> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  PlayerList(players: viewModel.players),
+                  PlayerList(
+                    players: viewModel.players,
+                    playerBuzzerStates: viewModel.playerBuzzerStates,
+                  ),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

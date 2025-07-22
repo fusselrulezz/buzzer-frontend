@@ -83,6 +83,18 @@ class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
   /// Whether the reset button is enabled.
   bool get resetButtonEnabled => !_buzzerEnabled;
 
+  final Map<String, bool> _playerBuzzerStates = {};
+
+  /// The state of the buzzer for each player. This maps whether the buzzer is
+  /// enabled or disabled for each player. A value of `true` means the buzzer
+  /// is enabled, and `false` means it is disabled.
+  Map<String, bool> get playerBuzzerStates => {
+    // Include the current user's buzzer state
+    gameContext.userId: _buzzerEnabled,
+    // Include the buzzer states of other players
+    ..._playerBuzzerStates,
+  };
+
   void _applyInitialState(InitialGameState? initialState) {
     _logger.i("Applying initial game state...");
     _logger.i("Players: ${initialState?.players.length ?? 0}");
@@ -124,7 +136,12 @@ class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
   }
 
   Future<void> _onPlayerBuzzed(String playerId) async {
-    _buzzerEnabled = false;
+    if (playerId == gameContext.userId) {
+      // If the current user buzzed, disable the buzzer for them.
+      _buzzerEnabled = false;
+    }
+
+    _playerBuzzerStates[playerId] = false;
     rebuildUi();
 
     _logger.i("Received buzz from player: $playerId");
@@ -132,6 +149,7 @@ class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
 
   void _onBuzzerCleared(String playerId) {
     _buzzerEnabled = true;
+    _playerBuzzerStates[playerId] = true;
     rebuildUi();
 
     _logger.i("Buzzer cleared by player: $playerId");
@@ -153,6 +171,8 @@ class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
   void _onPlayerDisconnected(PlayerDto player) {
     // Remove the player from the list if they are connected
     _players.removeWhere((p) => p.id == player.id);
+    _playerBuzzerStates.remove(player.id);
+
     rebuildUi();
 
     _logger.i("Player disconnected: ${player.name} (${player.id})");

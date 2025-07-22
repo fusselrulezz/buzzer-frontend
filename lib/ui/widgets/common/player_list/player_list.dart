@@ -15,8 +15,18 @@ class PlayerList extends StatelessWidget {
   /// The width of the player list widget.
   final double width;
 
+  /// The state of the buzzer for each player. This maps whether the buzzer is
+  /// enabled or disabled for each player. A value of `true` means the buzzer
+  /// is enabled, and `false` means it is disabled.
+  final Map<String, bool> playerBuzzerStates;
+
   /// Creates a new [PlayerList] widget.
-  const PlayerList({super.key, required this.players, this.width = 300.0});
+  const PlayerList({
+    super.key,
+    required this.players,
+    this.width = 300.0,
+    required this.playerBuzzerStates,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +46,12 @@ class PlayerList extends StatelessWidget {
           ListView.builder(
             shrinkWrap: true,
             itemCount: players.length,
-            itemBuilder: (context, index) =>
-                PlayerListTile(player: players[index]),
+            itemBuilder: (context, index) {
+              final player = players[index];
+              final buzzerActive = playerBuzzerStates[player.id] ?? true;
+
+              return PlayerListTile(player: player, buzzerActive: buzzerActive);
+            },
           ),
         ],
       ),
