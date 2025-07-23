@@ -46,14 +46,22 @@ class InitialGameState {
   /// The list of players in the game room.
   final List<PlayerDto> players;
 
+  /// The settings for the game room.
+  final GameRoomSettingsDto settings;
+
   /// Creates a new [InitialGameState] instance.
-  InitialGameState({required this.buzzerState, required this.players});
+  InitialGameState({
+    required this.buzzerState,
+    required this.players,
+    required this.settings,
+  });
 
   /// Creates an [InitialGameState] from the details of a game room.
   static InitialGameState fromDetails(PrivateGameRoomDto roomDetails) {
     return InitialGameState(
       buzzerState: roomDetails.buzzerStates,
       players: roomDetails.players,
+      settings: roomDetails.settings,
     );
   }
 }
