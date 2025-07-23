@@ -3,6 +3,7 @@ import "package:shadcn_flutter/shadcn_flutter.dart";
 
 import "package:buzzer/mvvm/mvvm_view.dart";
 import "package:buzzer/ui/common/ui_helpers.dart";
+import "package:buzzer/ui/widgets/common/checkbox_with_info.dart";
 
 import "create_room_form_model.dart";
 
@@ -48,6 +49,22 @@ class CreateRoomForm extends MvvmView<CreateRoomFormModel> {
                 Text("$trPrefix.fields.player_name.label".tr()).base.bold,
                 verticalSpaceTiny,
                 TextField(controller: viewModel.userNameController),
+                verticalSpaceSmall,
+                Text("Settings").base.bold,
+                verticalSpaceTiny,
+                CheckboxWithInfo(
+                  state: viewModel.multipleBuzzersAllowedState,
+                  onChanged: (value) {
+                    viewModel.multipleBuzzersAllowedState = value;
+                  },
+                  label: Text(
+                    "$trPrefix.fields.allow_multiple_buzzers.label".tr(),
+                  ),
+                  content: Text(
+                    "$trPrefix.fields.allow_multiple_buzzers.hint".tr(),
+                  ),
+                ),
+                verticalSpaceSmall,
                 // Progress and spacing
                 Padding(
                   padding: EdgeInsets.symmetric(

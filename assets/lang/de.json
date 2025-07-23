@@ -55,6 +55,10 @@
                 },
                 "player_name": {
                     "label": "Dein Name"
+                },
+                "allow_multiple_buzzers": {
+                    "label": "Spieler können gleichzeitig buzzern",
+                    "hint": "Wenn aktiviert, können alle Spieler gleichzeitig buzzern."
                 }
             },
             "actions": {

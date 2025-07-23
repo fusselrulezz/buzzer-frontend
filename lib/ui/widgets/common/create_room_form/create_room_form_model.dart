@@ -1,5 +1,4 @@
 import "package:auto_route/auto_route.dart";
-import "package:buzzer/services/game_context_service.dart";
 import "package:easy_localization/easy_localization.dart";
 import "package:logger/logger.dart";
 import "package:shadcn_flutter/shadcn_flutter.dart";
@@ -13,6 +12,7 @@ import "package:buzzer/mvvm/base_view_models.dart";
 import "package:buzzer/services/api_service.dart";
 import "package:buzzer/services/authentication_service.dart";
 import "package:buzzer/services/buzzer_service.dart";
+import "package:buzzer/services/game_context_service.dart";
 import "package:buzzer_client/buzzer_client.dart";
 
 /// The view model for the create room form, managing the state and logic
@@ -38,6 +38,23 @@ class CreateRoomFormModel extends BaseViewModel {
 
   /// Whether the form is valid, meaning both room name and user name are valid.
   bool get isFormValid => isRoomNameValid && isUsernameValid;
+
+  bool _multipleBuzzersAllowed = false;
+
+  /// Whether multiple buzzers are allowed in the room.
+  bool get multipleBuzzersAllowed => _multipleBuzzersAllowed;
+  set multipleBuzzersAllowed(bool value) {
+    _multipleBuzzersAllowed = value;
+    rebuildUi();
+  }
+
+  CheckboxState get multipleBuzzersAllowedState =>
+      _multipleBuzzersAllowed ? CheckboxState.checked : CheckboxState.unchecked;
+
+  set multipleBuzzersAllowedState(CheckboxState state) {
+    _multipleBuzzersAllowed = state == CheckboxState.checked;
+    rebuildUi();
+  }
 
   /// Disposes the controllers used in the form.
   void disposeForm() {
