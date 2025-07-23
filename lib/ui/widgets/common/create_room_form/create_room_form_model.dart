@@ -73,6 +73,7 @@ class CreateRoomFormModel extends BaseViewModel {
     var createRequest = GameRoomCreateRequest(
       name: roomName,
       playerName: userName,
+      settings: GameRoomSettingsDto(multipleBuzzersAllowed: false),
     );
 
     try {
