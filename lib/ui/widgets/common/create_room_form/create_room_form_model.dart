@@ -48,6 +48,8 @@ class CreateRoomFormModel extends BaseViewModel {
     rebuildUi();
   }
 
+  /// The state of the checkbox for allowing multiple buzzers.
+  /// This is used to bind the checkbox state in the UI.
   CheckboxState get multipleBuzzersAllowedState =>
       _multipleBuzzersAllowed ? CheckboxState.checked : CheckboxState.unchecked;
 
@@ -90,7 +92,9 @@ class CreateRoomFormModel extends BaseViewModel {
     var createRequest = GameRoomCreateRequest(
       name: roomName,
       playerName: userName,
-      settings: GameRoomSettingsDto(multipleBuzzersAllowed: false),
+      settings: GameRoomSettingsDto(
+        multipleBuzzersAllowed: multipleBuzzersAllowed,
+      ),
     );
 
     try {
