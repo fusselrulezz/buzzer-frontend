@@ -80,8 +80,35 @@ class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
   /// Whether the buzzer is currently enabled for the user.
   bool get buzzerEnabled => _buzzerEnabled;
 
+  /// Whether the reset button is visible.
+  bool get resetButtonVisible {
+    final settings = gameContext.initialGameState?.settings;
+
+    if (settings == null) {
+      return gameContext.isHost;
+    }
+
+    if (settings.multipleBuzzersAllowed) {
+      return true;
+    }
+
+    return gameContext.isHost;
+  }
+
   /// Whether the reset button is enabled.
-  bool get resetButtonEnabled => !_buzzerEnabled;
+  bool get resetButtonEnabled {
+    final settings = gameContext.initialGameState?.settings;
+
+    if (settings == null) {
+      return gameContext.isHost;
+    }
+
+    if (settings.multipleBuzzersAllowed) {
+      return playerBuzzerStates.values.any((enabled) => enabled);
+    }
+
+    return !_buzzerEnabled;
+  }
 
   final Map<String, bool> _playerBuzzerStates = {};
 
@@ -141,7 +168,21 @@ class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
       _buzzerEnabled = false;
     }
 
-    _playerBuzzerStates[playerId] = false;
+    if (gameContext.initialGameState?.settings.multipleBuzzersAllowed ??
+        false) {
+      // If multiple buzzers are allowed, disable the buzzer for the player
+      // who buzzed.
+      _playerBuzzerStates[playerId] = false;
+    } else {
+      // If only one buzzer is allowed, disable the buzzer for all other players.
+      _buzzerEnabled = false;
+
+      for (var entry in _playerBuzzerStates.entries) {
+        final playerId = entry.key;
+        _playerBuzzerStates[playerId] = false;
+      }
+    }
+
     rebuildUi();
 
     _logger.i("Received buzz from player: $playerId");

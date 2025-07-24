@@ -111,7 +111,7 @@ class IngameScreen extends MvvmView<IngameScreenModel> {
                         ),
                         verticalSpaceLarge,
                         Visibility.maintain(
-                          visible: viewModel.isHost,
+                          visible: viewModel.resetButtonVisible,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
