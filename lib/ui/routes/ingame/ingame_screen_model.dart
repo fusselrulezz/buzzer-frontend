@@ -104,7 +104,7 @@ class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
     }
 
     if (settings.multipleBuzzersAllowed) {
-      return playerBuzzerStates.values.any((enabled) => enabled);
+      return !_buzzerEnabled;
     }
 
     return !_buzzerEnabled;
