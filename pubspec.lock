@@ -143,7 +143,7 @@ packages:
       path: "."
       ref: "v0.3.0"
       resolved-ref: "865b36aff1d4a391e24983bad18c7deb1dfc87b5"
-      url: "git@github.com:fusselrulezz/buzzer-client-dart.git"
+      url: "https://github.com/fusselrulezz/buzzer-client-dart.git"
     source: git
     version: "0.3.0"
   characters:
