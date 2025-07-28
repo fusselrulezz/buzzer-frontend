@@ -90,27 +90,31 @@ class AuthenticationService {
 
     _logger.i("Refreshing identity...");
 
-    final refreshResponse = await locator<ApiService>().client
-        .apiAuthRefreshPost(
-          body: RefreshTokenRequestDto(
-            playerId: playerId,
-            refreshToken: _identity!.refreshToken,
-          ),
-        );
+    try {
+      final refreshResponse = await locator<ApiService>().client
+          .apiAuthRefreshPost(
+            body: RefreshTokenRequestDto(
+              playerId: playerId,
+              refreshToken: _identity!.refreshToken,
+            ),
+          );
 
-    if (refreshResponse.isSuccessful) {
-      final body = refreshResponse.body;
+      if (refreshResponse.isSuccessful) {
+        final body = refreshResponse.body;
 
-      if (body == null) {
-        _logger.w("Refresh response body is null");
-        return;
+        if (body == null) {
+          _logger.w("Refresh response body is null");
+          return;
+        }
+
+        _identity = _identity!.copyWith(accessToken: body.token);
+
+        _logger.i("Successfully refreshed identity");
+      } else {
+        _logger.w("Failed to refresh identity");
       }
-
-      _identity = _identity!.copyWith(accessToken: body.token);
-
-      _logger.i("Successfully refreshed identity");
-    } else {
-      _logger.w("Failed to refresh identity");
+    } catch (e) {
+      _logger.e("Error during identity refresh", error: e);
     }
   }
 }
