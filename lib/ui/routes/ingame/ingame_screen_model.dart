@@ -122,6 +122,11 @@ class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
     ..._playerBuzzerStates,
   };
 
+  /// Whether multiple buzzers are allowed in the game.
+  /// If true, each player can buzz independently.
+  bool get multipleBuzzersAllowed =>
+      gameContext.initialGameState?.settings.multipleBuzzersAllowed ?? false;
+
   void _applyInitialState(InitialGameState? initialState) {
     _logger.i("Applying initial game state...");
     _logger.i("Players: ${initialState?.players.length ?? 0}");
@@ -168,8 +173,7 @@ class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
       _buzzerEnabled = false;
     }
 
-    if (gameContext.initialGameState?.settings.multipleBuzzersAllowed ??
-        false) {
+    if (multipleBuzzersAllowed) {
       // If multiple buzzers are allowed, disable the buzzer for the player
       // who buzzed.
       _playerBuzzerStates[playerId] = false;
@@ -189,8 +193,7 @@ class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
   }
 
   void _onBuzzerCleared(String playerId) {
-    if (gameContext.initialGameState?.settings.multipleBuzzersAllowed ??
-        false) {
+    if (multipleBuzzersAllowed) {
       if (playerId == gameContext.userId) {
         // Only re-enable the buzzer for this player. Having multiple buzzers
         // means each player can clear their own buzzer independently.
