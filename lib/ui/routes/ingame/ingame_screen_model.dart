@@ -189,7 +189,17 @@ class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
   }
 
   void _onBuzzerCleared(String playerId) {
-    _buzzerEnabled = true;
+    if (gameContext.initialGameState?.settings.multipleBuzzersAllowed ??
+        false) {
+      if (playerId == gameContext.userId) {
+        // Only re-enable the buzzer for this player. Having multiple buzzers
+        // means each player can clear their own buzzer independently.
+        _buzzerEnabled = true;
+      }
+    } else {
+      _buzzerEnabled = true;
+    }
+
     _playerBuzzerStates[playerId] = true;
     rebuildUi();
 
