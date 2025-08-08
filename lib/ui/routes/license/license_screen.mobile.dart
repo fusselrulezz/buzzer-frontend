@@ -1,5 +1,6 @@
 import "package:buzzer/mvvm/view_model_widget.dart";
 import "package:buzzer/ui/routes/license/license_screen_model.dart";
+import "package:flutter/material.dart";
 import "package:shadcn_flutter/shadcn_flutter.dart";
 
 /// The mobile variant of the license screen.
@@ -9,6 +10,6 @@ class LicenseScreenMobile extends ViewModelWidget<LicenseScreenModel> {
 
   @override
   Widget build(BuildContext context, LicenseScreenModel viewModel) {
-    return const Placeholder();
+    return LicensePage();
   }
 }
