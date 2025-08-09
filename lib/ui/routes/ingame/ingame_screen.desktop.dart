@@ -3,6 +3,7 @@ import "package:shadcn_flutter/shadcn_flutter.dart";
 
 import "package:buzzer/mvvm/view_model_widget.dart";
 import "package:buzzer/ui/common/ui_helpers.dart";
+import "package:buzzer/ui/routes/ingame/ingame_screen.dart";
 import "package:buzzer/ui/routes/ingame/ingame_screen_model.dart";
 import "package:buzzer/ui/widgets/common/buzzer_button.dart";
 import "package:buzzer/ui/widgets/common/join_code_display/join_code_display.dart";
@@ -16,7 +17,7 @@ class IngameScreenDesktop extends ViewModelWidget<IngameScreenModel> {
 
   @override
   Widget build(BuildContext context, IngameScreenModel viewModel) {
-    const trPrefix = "routes.ingame";
+    const trPrefix = IngameScreen.trPrefix;
 
     const double horizontalPadding = 64.0;
 

@@ -12,6 +12,9 @@ import "ingame_screen.mobile.dart";
 /// state, player list, and buzzer functionality.
 @RoutePage()
 class IngameScreen extends MvvmView<IngameScreenModel> {
+  /// The translation key prefix for the ingame screen.
+  static const trPrefix = "routes.ingame";
+
   /// Creates a new [IngameScreen] widget.
   const IngameScreen({super.key});
 

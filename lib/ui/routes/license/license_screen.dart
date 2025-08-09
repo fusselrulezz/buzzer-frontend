@@ -13,6 +13,9 @@ import "license_screen_model.dart";
 /// of the libraries and frameworks used in the application.
 @RoutePage()
 class LicenseScreen extends MvvmView<LicenseScreenModel> {
+  /// The translation prefix for the license screen.
+  static const trPrefix = "routes.license";
+
   /// Creates a new [LicenseScreen] widget.
   const LicenseScreen({super.key});
 

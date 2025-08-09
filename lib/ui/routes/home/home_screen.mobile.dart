@@ -1,9 +1,11 @@
+import "package:easy_localization/easy_localization.dart";
+import "package:shadcn_flutter/shadcn_flutter.dart";
+
 import "package:buzzer/ui/common/ui_helpers.dart";
+import "package:buzzer/ui/routes/home/home_screen.dart";
 import "package:buzzer/ui/widgets/common/create_room_form/create_room_form.dart";
 import "package:buzzer/ui/widgets/common/join_room_form/join_room_form.dart";
 import "package:buzzer/ui/widgets/common/settings_dialog/settings_dialog.dart";
-import "package:easy_localization/easy_localization.dart";
-import "package:shadcn_flutter/shadcn_flutter.dart";
 
 /// The mobile variant of the home screen of the application.
 class HomeScreenMobile extends StatefulWidget {
@@ -19,7 +21,7 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
 
   @override
   Widget build(BuildContext context) {
-    const trPrefix = "routes.home";
+    const trPrefix = HomeScreen.trPrefix;
 
     return Scaffold(
       headers: [

@@ -9,6 +9,9 @@ import "home_screen.mobile.dart";
 /// for users to create or join rooms.
 @RoutePage()
 class HomeScreen extends StatelessWidget {
+  /// The translation key prefix for the home screen.
+  static const trPrefix = "routes.home";
+
   /// Creeates a new [HomeScreen] widget.
   const HomeScreen({super.key});
 

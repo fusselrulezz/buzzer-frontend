@@ -1,6 +1,7 @@
 import "package:easy_localization/easy_localization.dart";
 import "package:shadcn_flutter/shadcn_flutter.dart";
 
+import "package:buzzer/ui/routes/home/home_screen.dart";
 import "package:buzzer/ui/widgets/common/create_room_form/create_room_form.dart";
 import "package:buzzer/ui/widgets/common/join_room_form/join_room_form.dart";
 import "package:buzzer/ui/widgets/common/settings_dialog/settings_dialog.dart";
@@ -14,7 +15,7 @@ class HomeScreenDesktop extends StatelessWidget {
   Widget build(BuildContext context) {
     const horizontalPadding = 64.0;
 
-    const trPrefix = "routes.home";
+    const trPrefix = HomeScreen.trPrefix;
 
     return Scaffold(
       child: Column(
