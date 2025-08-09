@@ -4,9 +4,10 @@ import "package:flutter/material.dart" show ListTile, Ink;
 import "package:shadcn_flutter/shadcn_flutter.dart";
 
 import "package:buzzer/mvvm/view_model_widget.dart";
-import "package:buzzer/ui/routes/license/license_screen.dart";
-import "package:buzzer/ui/routes/license/license_screen_model.dart";
-import "package:buzzer/ui/routes/license/license_text_display.dart";
+
+import "license_screen.dart";
+import "license_screen_model.dart";
+import "license_text_display.dart";
 
 /// The desktop variant of the license screen.
 class LicenseScreenDesktop extends ViewModelWidget<LicenseScreenModel> {

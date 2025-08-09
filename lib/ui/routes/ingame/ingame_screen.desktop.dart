@@ -3,12 +3,13 @@ import "package:shadcn_flutter/shadcn_flutter.dart";
 
 import "package:buzzer/mvvm/view_model_widget.dart";
 import "package:buzzer/ui/common/ui_helpers.dart";
-import "package:buzzer/ui/routes/ingame/ingame_screen.dart";
-import "package:buzzer/ui/routes/ingame/ingame_screen_model.dart";
 import "package:buzzer/ui/widgets/common/buzzer_button.dart";
 import "package:buzzer/ui/widgets/common/join_code_display/join_code_display.dart";
 import "package:buzzer/ui/widgets/common/player_list/player_list.dart";
 import "package:buzzer/ui/widgets/common/settings_dialog/settings_dialog.dart";
+
+import "ingame_screen.dart";
+import "ingame_screen_model.dart";
 
 /// The desktop variant of the ingame screen.
 class IngameScreenDesktop extends ViewModelWidget<IngameScreenModel> {

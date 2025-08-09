@@ -1,7 +1,9 @@
-import "package:buzzer/mvvm/view_model_widget.dart";
-import "package:buzzer/ui/routes/license/license_screen_model.dart";
-import "package:flutter/material.dart";
+import "package:flutter/material.dart" show LicensePage;
 import "package:shadcn_flutter/shadcn_flutter.dart";
+
+import "package:buzzer/mvvm/view_model_widget.dart";
+
+import "license_screen_model.dart";
 
 /// The mobile variant of the license screen.
 class LicenseScreenMobile extends ViewModelWidget<LicenseScreenModel> {
