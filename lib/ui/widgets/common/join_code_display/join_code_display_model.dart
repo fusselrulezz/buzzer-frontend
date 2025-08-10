@@ -1,9 +1,9 @@
+import "package:flutter/services.dart";
+import "package:flutter/widgets.dart";
+import "package:logger/logger.dart";
+
 import "package:buzzer/app/app_logger.dart";
 import "package:buzzer/mvvm/base_view_models.dart";
-import "package:easy_localization/easy_localization.dart";
-import "package:flutter/services.dart";
-import "package:logger/logger.dart";
-import "package:shadcn_flutter/shadcn_flutter.dart";
 
 /// Displays a join code for a game room, allowing users to copy it to the
 /// clipboard or toggle its visibility.
@@ -54,27 +54,29 @@ class JoinCodeDisplayModel extends BaseViewModel {
   }
 
   void _showCopySuccessPopover(BuildContext context) {
-    showPopover(
-      context: context,
-      alignment: Alignment.topCenter,
-      overlayBarrier: OverlayBarrier(
-        borderRadius: Theme.of(context).borderRadiusLg,
-      ),
-      builder: (context) =>
-          Card(child: Text("$trPrefix.copy.copied".tr()).medium),
-    );
+    // TODO: Restore copy success popover
+    //showPopover(
+    //  context: context,
+    //  alignment: Alignment.topCenter,
+    //  overlayBarrier: OverlayBarrier(
+    //    borderRadius: Theme.of(context).borderRadiusLg,
+    //  ),
+    //  builder: (context) =>
+    //      Card(child: Text("$trPrefix.copy.copied".tr()).medium),
+    //);
   }
 
   void _showCopyFailurePopover(BuildContext context) {
-    showPopover(
-      context: context,
-      alignment: Alignment.topCenter,
-      overlayBarrier: OverlayBarrier(
-        borderRadius: Theme.of(context).borderRadiusLg,
-      ),
-      builder: (context) =>
-          Card(child: Text("$trPrefix.copy.not_copied".tr()).medium),
-    );
+    // TODO: Restore copy failure popover
+    //showPopover(
+    //  context: context,
+    //  alignment: Alignment.topCenter,
+    //  overlayBarrier: OverlayBarrier(
+    //    borderRadius: Theme.of(context).borderRadiusLg,
+    //  ),
+    //  builder: (context) =>
+    //      Card(child: Text("$trPrefix.copy.not_copied".tr()).medium),
+    //);
   }
 
   /// Will be called when the user has pressed the "Toggle Visibility" button

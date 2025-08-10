@@ -1,8 +1,9 @@
-import "package:flutter/material.dart" show ListTile;
-import "package:shadcn_flutter/shadcn_flutter.dart";
+import "package:bootstrap_icons/bootstrap_icons.dart";
+import "package:flutter/material.dart";
 
 import "package:buzzer/ui/common/ui_helpers.dart";
 import "package:buzzer_client/buzzer_client.dart";
+import "package:shadcn_ui/shadcn_ui.dart";
 
 /// A widget that displays a player's information in a list tile format.
 class PlayerListTile extends StatelessWidget {
@@ -27,15 +28,16 @@ class PlayerListTile extends StatelessWidget {
       title: Row(
         children: [
           Icon(
-            BootstrapIcons.circleFill,
-            color: buzzerActive ? Colors.red : Colors.gray,
+            BootstrapIcons.circle_fill,
+            color: buzzerActive ? Colors.red : Colors.grey,
             size: 16.0,
           ),
           horizontalSpaceSmall,
-          Text(player.name).bold,
+          Text(player.name, style: TextStyle(fontWeight: FontWeight.bold)),
         ],
       ),
-      subtitle: Text(player.id).muted.small,
+      // TODO: Make sure this is "small" too.
+      subtitle: Text(player.id, style: ShadTheme.of(context).textTheme.small),
     );
   }
 }

@@ -1,7 +1,7 @@
 import "package:auto_route/auto_route.dart";
+import "package:bootstrap_icons/bootstrap_icons.dart";
 import "package:easy_localization/easy_localization.dart";
-import "package:shadcn_flutter/shadcn_flutter.dart";
-
+import "package:flutter/material.dart";
 import "package:buzzer/mvvm/mvvm_view.dart";
 import "package:buzzer/ui/common/ui_helpers.dart";
 import "package:buzzer/ui/routes/ingame/ingame_screen_model.dart";
@@ -9,6 +9,7 @@ import "package:buzzer/ui/widgets/common/buzzer_button.dart";
 import "package:buzzer/ui/widgets/common/join_code_display/join_code_display.dart";
 import "package:buzzer/ui/widgets/common/player_list/player_list.dart";
 import "package:buzzer/ui/widgets/common/settings_dialog/settings_dialog.dart";
+import "package:shadcn_ui/shadcn_ui.dart";
 
 /// The ingame screen of the application, which displays the current game
 /// state, player list, and buzzer functionality.
@@ -28,7 +29,7 @@ class IngameScreen extends MvvmView<IngameScreenModel> {
     const double horizontalPadding = 64.0;
 
     return Scaffold(
-      child: Column(
+      body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(
@@ -41,7 +42,10 @@ class IngameScreen extends MvvmView<IngameScreenModel> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(viewModel.roomName).h1,
+                    Text(
+                      viewModel.roomName,
+                      style: ShadTheme.of(context).textTheme.h1,
+                    ),
                     verticalSpaceTiny,
                     Row(
                       children: [
@@ -49,10 +53,11 @@ class IngameScreen extends MvvmView<IngameScreenModel> {
                           "$trPrefix.header.info.playing_as".tr(
                             namedArgs: {"playerName": viewModel.userName},
                           ),
-                        ).h3,
+                          style: ShadTheme.of(context).textTheme.h3,
+                        ),
                         horizontalSpaceSmall,
                         if (viewModel.isHost) ...[
-                          PrimaryBadge(
+                          ShadBadge(
                             child: Text(
                               "$trPrefix.header.info.badge_host".tr(),
                             ),
@@ -65,20 +70,23 @@ class IngameScreen extends MvvmView<IngameScreenModel> {
                       "$trPrefix.header.info.room_id".tr(
                         namedArgs: {"roomId": viewModel.gameContext.roomId},
                       ),
-                    ).muted.small,
+                      // TODO: Make sure this merge thing works...
+                      style: ShadTheme.of(context).textTheme.small.merge(
+                        ShadTheme.of(context).textTheme.muted,
+                      ),
+                    ),
                   ],
                 ),
                 Row(
                   children: [
                     JoinCodeDisplay(joinCode: viewModel.joinCode),
                     horizontalSpaceMedium,
-                    Button(
-                      style: const ButtonStyle.ghostIcon(),
+                    ShadButton.ghost(
                       onPressed: () => _showSettingsPopover(context),
                       child: const Icon(BootstrapIcons.gear, size: 24.0),
                     ),
                     horizontalSpaceSmall,
-                    Button.destructive(
+                    ShadButton.destructive(
                       onPressed: () async =>
                           await viewModel.onPressedLeaveRoom(context),
                       child: Text("$trPrefix.header.actions.leave.label".tr()),
@@ -115,12 +123,11 @@ class IngameScreen extends MvvmView<IngameScreenModel> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Button(
-                                style: const ButtonStyle.ghostIcon(),
+                              ShadButton.ghost(
                                 enabled: viewModel.resetButtonEnabled,
                                 onPressed: viewModel.onPressedResetBuzzer,
                                 child: const Icon(
-                                  BootstrapIcons.arrowClockwise,
+                                  BootstrapIcons.arrow_clockwise,
                                   size: 32.0,
                                 ),
                               ),

@@ -1,9 +1,9 @@
 import "package:easy_localization/easy_localization.dart";
-import "package:shadcn_flutter/shadcn_flutter.dart";
+import "package:flutter/material.dart";
 
 import "package:buzzer/mvvm/mvvm_view.dart";
 import "package:buzzer/ui/common/ui_helpers.dart";
-import "package:buzzer/ui/widgets/input_features/random_name_input_feature.dart";
+import "package:shadcn_ui/shadcn_ui.dart";
 
 import "join_room_form_model.dart";
 
@@ -21,40 +21,51 @@ class JoinRoomForm extends MvvmView<JoinRoomFormModel> {
   ) {
     const trPrefix = "widgets.join_room_form";
 
-    final theme = Theme.of(context);
-    final progressHeight = theme.scaling * 2;
+    final progressHeight = 2.0; // TODO: Maybe make this scalable
     final totalHeight = (mediumSize - progressHeight) / 2;
 
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Center(child: Text("$trPrefix.title".tr()).h3),
+          Center(
+            child: Text(
+              "$trPrefix.title".tr(),
+              style: ShadTheme.of(context).textTheme.h3,
+            ),
+          ),
           verticalSpaceMedium,
-          Text("$trPrefix.description".tr()).base,
+          Text("$trPrefix.description".tr()),
           verticalSpaceMedium,
           FocusTraversalGroup(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Join code
-                Text("$trPrefix.fields.join_code.label".tr()).base.bold,
+                Text(
+                  "$trPrefix.fields.join_code.label".tr(),
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 verticalSpaceTiny,
-                TextField(controller: viewModel.joinCodeController),
+                ShadInput(controller: viewModel.joinCodeController),
                 verticalSpaceSmall,
                 // User name
-                Text("$trPrefix.fields.player_name.label".tr()).base.bold,
+                Text(
+                  "$trPrefix.fields.player_name.label".tr(),
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 verticalSpaceTiny,
-                TextField(
+                ShadInput(
                   controller: viewModel.userNameController,
-                  features: [
-                    RandomNameInputFeature(
-                      visibility: viewModel.isRandomNameFeatureVisible
-                          ? InputFeatureVisibility.always
-                          : InputFeatureVisibility.never,
-                      generateName: viewModel.generateRandomName,
-                    ),
-                  ],
+                  // TODO: Restore random name input
+                  //features: [
+                  //  RandomNameInputFeature(
+                  //    visibility: viewModel.isRandomNameFeatureVisible
+                  //        ? InputFeatureVisibility.always
+                  //        : InputFeatureVisibility.never,
+                  //    generateName: viewModel.generateRandomName,
+                  //  ),
+                  //],
                 ),
                 // Progress and spacing
                 Padding(
@@ -79,7 +90,7 @@ class JoinRoomForm extends MvvmView<JoinRoomFormModel> {
                         child: _buildErrorMessage(viewModel.error(viewModel)),
                       ),
                     ),
-                    Button.primary(
+                    ShadButton(
                       onPressed: () async =>
                           await viewModel.onPressedJoinRoom(context),
                       enabled: !viewModel.isBusy,
@@ -106,12 +117,12 @@ class JoinRoomForm extends MvvmView<JoinRoomFormModel> {
       JoinRoomFormModel();
 
   Widget _buildErrorMessage(dynamic error) {
-    const textStyle = TextStyle(color: Colors.red);
+    const textStyle = TextStyle(color: Colors.red, fontWeight: FontWeight.bold);
 
     if (error is String) {
-      return Text(error, style: textStyle).bold;
+      return Text(error, style: textStyle);
     } else {
-      return Text("Error: ${error.toString()}", style: textStyle).bold;
+      return Text("Error: ${error.toString()}", style: textStyle);
     }
   }
 }

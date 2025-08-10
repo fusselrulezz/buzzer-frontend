@@ -1,4 +1,5 @@
-import "package:shadcn_flutter/shadcn_flutter.dart";
+import "package:flutter/widgets.dart";
+import "package:shadcn_ui/shadcn_ui.dart";
 
 /// Represents an item in the settings dialog table.
 class SettingsDialogTableItem {
@@ -21,18 +22,16 @@ class SettingsDialogTableItem {
     required List<T> items,
   }) {
     final itemButtons = items
-        .map((e) => SelectItemButton(value: e, child: Text(displayName(e))))
+        .map((e) => ShadOption(value: e, child: Text(displayName(e))))
         .toList();
 
     return SettingsDialogTableItem(
       label: label,
-      builder: (context) => Select<T>(
-        value: value,
-        itemBuilder: (_, value) => Text(displayName(value)),
+      builder: (context) => ShadSelect<T>(
+        initialValue: value,
+        options: itemButtons,
+        selectedOptionBuilder: (_, value) => Text(displayName(value)),
         onChanged: (value) => onChanged(context, value),
-        popup: (context) {
-          return SelectPopup<T>(items: SelectItemList(children: itemButtons));
-        },
       ),
     );
   }

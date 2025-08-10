@@ -1,6 +1,6 @@
 import "package:flutter/foundation.dart";
+import "package:flutter/material.dart";
 import "package:flutter/scheduler.dart";
-import "package:shadcn_flutter/shadcn_flutter.dart";
 
 /// A widget that displays the text of a license for a given package.
 class LicenseTextDisplay extends StatefulWidget {

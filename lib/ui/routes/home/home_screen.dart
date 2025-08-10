@@ -1,6 +1,8 @@
 import "package:auto_route/auto_route.dart";
+import "package:bootstrap_icons/bootstrap_icons.dart";
 import "package:easy_localization/easy_localization.dart";
-import "package:shadcn_flutter/shadcn_flutter.dart";
+import "package:flutter/material.dart";
+import "package:shadcn_ui/shadcn_ui.dart";
 
 import "package:buzzer/ui/widgets/common/create_room_form/create_room_form.dart";
 import "package:buzzer/ui/widgets/common/join_room_form/join_room_form.dart";
@@ -20,7 +22,7 @@ class HomeScreen extends StatelessWidget {
     const trPrefix = "routes.home";
 
     return Scaffold(
-      child: Column(
+      body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(
@@ -30,13 +32,14 @@ class HomeScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("$trPrefix.branding".tr()).h1,
+                Text(
+                  "$trPrefix.branding".tr(),
+                  style: ShadTheme.of(context).textTheme.h1,
+                ),
                 FocusTraversalGroup(
                   child: Tooltip(
-                    tooltip: (context) =>
-                        Text("$trPrefix.topnav.settings.tooltip".tr()),
-                    child: Button(
-                      style: const ButtonStyle.ghostIcon(),
+                    message: "$trPrefix.topnav.settings.tooltip".tr(),
+                    child: ShadButton.ghost(
                       onPressed: () => _showSettingsPopover(context),
                       child: const Icon(BootstrapIcons.gear, size: 24.0),
                     ),
