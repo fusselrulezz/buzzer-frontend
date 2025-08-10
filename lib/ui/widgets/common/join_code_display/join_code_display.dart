@@ -38,9 +38,15 @@ class JoinCodeDisplay extends MvvmView<JoinCodeDisplayModel> {
           ],
         ),
         horizontalSpaceSmall,
-        ShadIconButton.ghost(
-          onPressed: () async => await viewModel.onPressedCopy(context),
-          icon: const Icon(BootstrapIcons.copy),
+        ShadPopover(
+          controller: viewModel.popoverController,
+          popover: (context) => viewModel.copySuccess
+              ? Text("$trPrefix.copy.copied".tr())
+              : Text("$trPrefix.copy.not_copied".tr()),
+          child: ShadIconButton.ghost(
+            onPressed: viewModel.onPressedCopy,
+            icon: const Icon(BootstrapIcons.copy),
+          ),
         ),
         horizontalSpaceTiny,
         ShadIconButton.ghost(

@@ -1,6 +1,6 @@
 import "package:flutter/services.dart";
-import "package:flutter/widgets.dart";
 import "package:logger/logger.dart";
+import "package:shadcn_ui/shadcn_ui.dart";
 
 import "package:buzzer/app/app_logger.dart";
 import "package:buzzer/mvvm/base_view_models.dart";
@@ -26,20 +26,34 @@ class JoinCodeDisplayModel extends BaseViewModel {
   // TODO: Make this configurable in the UI, or detect based on client type.
   bool get hideWithoutBlur => false;
 
+  final ShadPopoverController _popoverController = ShadPopoverController();
+
+  /// The popover controller for the copy success/failure messages.
+  ShadPopoverController get popoverController => _popoverController;
+
+  bool _copySuccess = false;
+
+  /// Whether the view should show a copy success message or a failure message.
+  bool get copySuccess => _copySuccess;
+
   /// Creates a new [JoinCodeDisplayModel] instance.
   JoinCodeDisplayModel({required this.joinCode});
 
+  @override
+  void dispose() {
+    _popoverController.dispose();
+    super.dispose();
+  }
+
   /// Will be called when the user has pressed the "Copy" button
   /// to copy the join code to the clipboard.
-  Future<void> onPressedCopy(BuildContext context) async {
+  Future<void> onPressedCopy() async {
     try {
       await Clipboard.setData(ClipboardData(text: joinCode));
 
       _logger.i("Successfully copied join code to clipboard.");
 
-      if (context.mounted) {
-        _showCopySuccessPopover(context);
-      }
+      _showCopySuccessPopover();
     } catch (e, stackTrace) {
       _logger.e(
         "Failed to copy join code to clipboard",
@@ -47,36 +61,28 @@ class JoinCodeDisplayModel extends BaseViewModel {
         stackTrace: stackTrace,
       );
 
-      if (context.mounted) {
-        _showCopyFailurePopover(context);
-      }
+      _showCopyFailurePopover();
     }
   }
 
-  void _showCopySuccessPopover(BuildContext context) {
-    // TODO: Restore copy success popover
-    //showPopover(
-    //  context: context,
-    //  alignment: Alignment.topCenter,
-    //  overlayBarrier: OverlayBarrier(
-    //    borderRadius: Theme.of(context).borderRadiusLg,
-    //  ),
-    //  builder: (context) =>
-    //      Card(child: Text("$trPrefix.copy.copied".tr()).medium),
-    //);
+  void _showCopySuccessPopover() {
+    _copySuccess = true;
+    _popoverController.show();
+
+    // Automatically hide the popover after a short delay.
+    Future.delayed(const Duration(seconds: 2), () {
+      _popoverController.hide();
+    });
   }
 
-  void _showCopyFailurePopover(BuildContext context) {
-    // TODO: Restore copy failure popover
-    //showPopover(
-    //  context: context,
-    //  alignment: Alignment.topCenter,
-    //  overlayBarrier: OverlayBarrier(
-    //    borderRadius: Theme.of(context).borderRadiusLg,
-    //  ),
-    //  builder: (context) =>
-    //      Card(child: Text("$trPrefix.copy.not_copied".tr()).medium),
-    //);
+  void _showCopyFailurePopover() {
+    _copySuccess = false;
+    _popoverController.show();
+
+    // Automatically hide the popover after a short delay.
+    Future.delayed(const Duration(seconds: 2), () {
+      _popoverController.hide();
+    });
   }
 
   /// Will be called when the user has pressed the "Toggle Visibility" button
