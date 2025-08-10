@@ -31,6 +31,7 @@ dependencies:
   adaptive_theme: ^3.7.0
   package_info_plus: ^8.3.0
   collection: ^1.19.1
+  responsive_builder2: ^0.8.7
 
 dev_dependencies:
   flutter_test:

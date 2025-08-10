@@ -1,75 +1,25 @@
 import "package:auto_route/auto_route.dart";
-import "package:bootstrap_icons/bootstrap_icons.dart";
-import "package:easy_localization/easy_localization.dart";
-import "package:flutter/material.dart";
-import "package:shadcn_ui/shadcn_ui.dart";
+import "package:flutter/widgets.dart";
+import "package:responsive_builder2/responsive_builder2.dart";
 
-import "package:buzzer/ui/widgets/common/create_room_form/create_room_form.dart";
-import "package:buzzer/ui/widgets/common/join_room_form/join_room_form.dart";
-import "package:buzzer/ui/widgets/common/settings_dialog/settings_dialog.dart";
+import "home_screen.desktop.dart";
+import "home_screen.mobile.dart";
 
 /// The home screen of the application, which serves as the main entry point
 /// for users to create or join rooms.
 @RoutePage()
 class HomeScreen extends StatelessWidget {
+  /// The translation key prefix for the home screen.
+  static const trPrefix = "routes.home";
+
   /// Creeates a new [HomeScreen] widget.
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    const horizontalPadding = 64.0;
-
-    const trPrefix = "routes.home";
-
-    return Scaffold(
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 32.0,
-              horizontal: horizontalPadding,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "$trPrefix.branding".tr(),
-                  style: ShadTheme.of(context).textTheme.h1,
-                ),
-                FocusTraversalGroup(
-                  child: Tooltip(
-                    message: "$trPrefix.topnav.settings.tooltip".tr(),
-                    child: ShadButton.ghost(
-                      onPressed: () => _showSettingsPopover(context),
-                      child: const Icon(BootstrapIcons.gear, size: 24.0),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 32.0,
-                horizontal: horizontalPadding,
-              ),
-              child: Row(
-                spacing: 16.0,
-                children: [
-                  const CreateRoomForm(),
-                  const VerticalDivider(),
-                  const JoinRoomForm(),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
+    return ScreenTypeLayout.builder2(
+      desktop: (_, _) => const HomeScreenDesktop(),
+      phone: (_, __) => const HomeScreenMobile(),
     );
-  }
-
-  void _showSettingsPopover(BuildContext context) {
-    showDialog(context: context, builder: (context) => const SettingsDialog());
   }
 }
