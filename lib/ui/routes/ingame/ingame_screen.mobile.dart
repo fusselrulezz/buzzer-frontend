@@ -17,6 +17,8 @@ class IngameScreenMobile extends ViewModelWidget<IngameScreenModel> {
   Widget build(BuildContext context, IngameScreenModel viewModel) {
     const trPrefix = IngameScreen.trPrefix;
 
+    final theme = ShadTheme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Column(
@@ -26,16 +28,15 @@ class IngameScreenMobile extends ViewModelWidget<IngameScreenModel> {
               "$trPrefix.header.info.playing_as".tr(
                 namedArgs: {"playerName": viewModel.userName},
               ),
-              style: ShadTheme.of(
-                context,
-              ).textTheme.small.merge(ShadTheme.of(context).textTheme.muted),
+              style: theme.textTheme.small.merge(theme.textTheme.muted),
             ),
           ],
         ),
+        actionsPadding: EdgeInsets.all(8.0),
         actions: [
-          ShadButton.ghost(
+          ShadIconButton.ghost(
             onPressed: () => _showSettingsPopover(context),
-            child: const Icon(Icons.settings),
+            icon: const Icon(Icons.settings, size: 24),
           ),
         ],
       ),

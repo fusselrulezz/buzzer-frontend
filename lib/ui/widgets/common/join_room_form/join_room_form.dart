@@ -1,3 +1,4 @@
+import "package:bootstrap_icons/bootstrap_icons.dart";
 import "package:easy_localization/easy_localization.dart";
 import "package:flutter/material.dart";
 
@@ -21,18 +22,17 @@ class JoinRoomForm extends MvvmView<JoinRoomFormModel> {
   ) {
     const trPrefix = "widgets.join_room_form";
 
-    final progressHeight = 2.0; // TODO: Maybe make this scalable
-    final totalHeight = (mediumSize - progressHeight) / 2;
+    const progressHeight = 2.0;
+    const totalHeight = (mediumSize - progressHeight) / 2;
+
+    final theme = ShadTheme.of(context);
 
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(
-            child: Text(
-              "$trPrefix.title".tr(),
-              style: ShadTheme.of(context).textTheme.h3,
-            ),
+            child: Text("$trPrefix.title".tr(), style: theme.textTheme.h3),
           ),
           verticalSpaceMedium,
           Text("$trPrefix.description".tr()),
@@ -57,15 +57,13 @@ class JoinRoomForm extends MvvmView<JoinRoomFormModel> {
                 verticalSpaceTiny,
                 ShadInput(
                   controller: viewModel.userNameController,
-                  // TODO: Restore random name input
-                  //features: [
-                  //  RandomNameInputFeature(
-                  //    visibility: viewModel.isRandomNameFeatureVisible
-                  //        ? InputFeatureVisibility.always
-                  //        : InputFeatureVisibility.never,
-                  //    generateName: viewModel.generateRandomName,
-                  //  ),
-                  //],
+                  trailing: ShadIconButton(
+                    padding: EdgeInsets.zero,
+                    width: 20,
+                    height: 20,
+                    onPressed: viewModel.onPressedRandomName,
+                    icon: const Icon(BootstrapIcons.dice_6),
+                  ),
                 ),
                 // Progress and spacing
                 Padding(

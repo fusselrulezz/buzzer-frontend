@@ -23,8 +23,10 @@ class PlayerListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = ShadTheme.of(context);
+
     return ListTile(
-      contentPadding: const EdgeInsets.all(0.0),
+      contentPadding: EdgeInsets.zero,
       title: Row(
         children: [
           Icon(
@@ -36,8 +38,10 @@ class PlayerListTile extends StatelessWidget {
           Text(player.name, style: TextStyle(fontWeight: FontWeight.bold)),
         ],
       ),
-      // TODO: Make sure this is "small" too.
-      subtitle: Text(player.id, style: ShadTheme.of(context).textTheme.small),
+      subtitle: Text(
+        player.id,
+        style: theme.textTheme.small.merge(theme.textTheme.muted),
+      ),
     );
   }
 }

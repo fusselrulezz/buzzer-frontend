@@ -38,14 +38,20 @@ class JoinCodeDisplay extends MvvmView<JoinCodeDisplayModel> {
           ],
         ),
         horizontalSpaceSmall,
-        ShadButton.ghost(
-          onPressed: () async => await viewModel.onPressedCopy(context),
-          child: const Icon(BootstrapIcons.copy),
+        ShadPopover(
+          controller: viewModel.popoverController,
+          popover: (context) => viewModel.copySuccess
+              ? Text("$trPrefix.copy.copied".tr())
+              : Text("$trPrefix.copy.not_copied".tr()),
+          child: ShadIconButton.ghost(
+            onPressed: viewModel.onPressedCopy,
+            icon: const Icon(BootstrapIcons.copy),
+          ),
         ),
         horizontalSpaceTiny,
-        ShadButton.ghost(
+        ShadIconButton.ghost(
           onPressed: viewModel.onPressedToggleVisibility,
-          child: viewModel.isCodeVisible
+          icon: viewModel.isCodeVisible
               ? const Icon(BootstrapIcons.eye)
               : const Icon(BootstrapIcons.eye_slash),
         ),
@@ -60,10 +66,9 @@ class JoinCodeDisplay extends MvvmView<JoinCodeDisplayModel> {
     BuildContext context,
     JoinCodeDisplayModel viewModel,
   ) {
-    final display = Text(
-      viewModel.joinCode,
-      style: ShadTheme.of(context).textTheme.h3,
-    );
+    final theme = ShadTheme.of(context);
+
+    final display = Text(viewModel.joinCode, style: theme.textTheme.h3);
 
     if (viewModel.isCodeVisible) {
       return display;
@@ -72,10 +77,7 @@ class JoinCodeDisplay extends MvvmView<JoinCodeDisplayModel> {
     } else {
       return ImageFiltered(
         imageFilter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-        child: Text(
-          viewModel.joinCode,
-          style: ShadTheme.of(context).textTheme.h3,
-        ),
+        child: Text(viewModel.joinCode, style: theme.textTheme.h3),
       );
     }
   }
