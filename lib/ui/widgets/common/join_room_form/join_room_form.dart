@@ -22,8 +22,8 @@ class JoinRoomForm extends MvvmView<JoinRoomFormModel> {
   ) {
     const trPrefix = "widgets.join_room_form";
 
-    final progressHeight = 2.0; // TODO: Maybe make this scalable
-    final totalHeight = (mediumSize - progressHeight) / 2;
+    const progressHeight = 2.0;
+    const totalHeight = (mediumSize - progressHeight) / 2;
 
     final theme = ShadTheme.of(context);
 
