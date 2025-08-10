@@ -32,10 +32,11 @@ class IngameScreenMobile extends ViewModelWidget<IngameScreenModel> {
             ),
           ],
         ),
+        actionsPadding: EdgeInsets.all(8.0),
         actions: [
-          ShadButton.ghost(
+          ShadIconButton.ghost(
             onPressed: () => _showSettingsPopover(context),
-            child: const Icon(Icons.settings),
+            icon: const Icon(Icons.settings, size: 24),
           ),
         ],
       ),
