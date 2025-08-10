@@ -27,90 +27,86 @@ class CreateRoomForm extends MvvmView<CreateRoomFormModel> {
 
     final theme = ShadTheme.of(context);
 
-    return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-            child: Text("$trPrefix.title".tr(), style: theme.textTheme.h3),
-          ),
-          verticalSpaceMedium,
-          Text("$trPrefix.description".tr()),
-          verticalSpaceMedium,
-          FocusTraversalGroup(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Room name
-                Text(
-                  "$trPrefix.fields.room_name.label".tr(),
-                  style: TextStyle(fontWeight: FontWeight.bold),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Center(child: Text("$trPrefix.title".tr(), style: theme.textTheme.h3)),
+        verticalSpaceMedium,
+        Text("$trPrefix.description".tr()),
+        verticalSpaceMedium,
+        FocusTraversalGroup(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Room name
+              Text(
+                "$trPrefix.fields.room_name.label".tr(),
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              verticalSpaceTiny,
+              ShadInput(
+                controller: viewModel.roomNameController,
+                placeholder: Text("$trPrefix.fields.room_name.hint".tr()),
+              ),
+              verticalSpaceSmall,
+              // User name
+              Text(
+                "$trPrefix.fields.player_name.label".tr(),
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              verticalSpaceTiny,
+              ShadInput(controller: viewModel.userNameController),
+              verticalSpaceSmall,
+              Text("Settings", style: TextStyle(fontWeight: FontWeight.bold)),
+              verticalSpaceTiny,
+              CheckboxWithInfo(
+                state: viewModel.multipleBuzzersAllowedState,
+                onChanged: (value) {
+                  viewModel.multipleBuzzersAllowedState = value;
+                },
+                label: Text(
+                  "$trPrefix.fields.allow_multiple_buzzers.label".tr(),
                 ),
-                verticalSpaceTiny,
-                ShadInput(
-                  controller: viewModel.roomNameController,
-                  placeholder: Text("$trPrefix.fields.room_name.hint".tr()),
+                content: Text(
+                  "$trPrefix.fields.allow_multiple_buzzers.hint".tr(),
                 ),
-                verticalSpaceSmall,
-                // User name
-                Text(
-                  "$trPrefix.fields.player_name.label".tr(),
-                  style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              verticalSpaceSmall,
+              // Progress and spacing
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: totalHeight,
+                  horizontal: tinySize,
                 ),
-                verticalSpaceTiny,
-                ShadInput(controller: viewModel.userNameController),
-                verticalSpaceSmall,
-                Text("Settings", style: TextStyle(fontWeight: FontWeight.bold)),
-                verticalSpaceTiny,
-                CheckboxWithInfo(
-                  state: viewModel.multipleBuzzersAllowedState,
-                  onChanged: (value) {
-                    viewModel.multipleBuzzersAllowedState = value;
-                  },
-                  label: Text(
-                    "$trPrefix.fields.allow_multiple_buzzers.label".tr(),
-                  ),
-                  content: Text(
-                    "$trPrefix.fields.allow_multiple_buzzers.hint".tr(),
-                  ),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: progressHeight,
+                  child: viewModel.isBusy ? LinearProgressIndicator() : null,
                 ),
-                verticalSpaceSmall,
-                // Progress and spacing
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: totalHeight,
-                    horizontal: tinySize,
-                  ),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: progressHeight,
-                    child: viewModel.isBusy ? LinearProgressIndicator() : null,
-                  ),
-                ),
-                // Action buttons
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Visibility(
-                        visible: viewModel.hasError,
-                        child: _buildErrorMessage(viewModel.error(viewModel)),
-                      ),
+              ),
+              // Action buttons
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Visibility(
+                      visible: viewModel.hasError,
+                      child: _buildErrorMessage(viewModel.error(viewModel)),
                     ),
-                    ShadButton(
-                      onPressed: () async =>
-                          await viewModel.onPressedCreateRoom(context),
-                      enabled: !viewModel.isBusy,
-                      child: Text("$trPrefix.actions.create.label".tr()),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                  ShadButton(
+                    onPressed: () async =>
+                        await viewModel.onPressedCreateRoom(context),
+                    enabled: !viewModel.isBusy,
+                    child: Text("$trPrefix.actions.create.label".tr()),
+                  ),
+                ],
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
