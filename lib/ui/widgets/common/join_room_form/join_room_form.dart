@@ -1,3 +1,4 @@
+import "package:bootstrap_icons/bootstrap_icons.dart";
 import "package:easy_localization/easy_localization.dart";
 import "package:flutter/material.dart";
 
@@ -56,15 +57,13 @@ class JoinRoomForm extends MvvmView<JoinRoomFormModel> {
                 verticalSpaceTiny,
                 ShadInput(
                   controller: viewModel.userNameController,
-                  // TODO: Restore random name input
-                  //features: [
-                  //  RandomNameInputFeature(
-                  //    visibility: viewModel.isRandomNameFeatureVisible
-                  //        ? InputFeatureVisibility.always
-                  //        : InputFeatureVisibility.never,
-                  //    generateName: viewModel.generateRandomName,
-                  //  ),
-                  //],
+                  trailing: ShadIconButton(
+                    padding: EdgeInsets.zero,
+                    width: 20,
+                    height: 20,
+                    onPressed: viewModel.onPressedRandomName,
+                    icon: const Icon(BootstrapIcons.dice_6),
+                  ),
                 ),
                 // Progress and spacing
                 Padding(

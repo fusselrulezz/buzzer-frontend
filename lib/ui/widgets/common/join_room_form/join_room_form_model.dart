@@ -140,6 +140,14 @@ class JoinRoomFormModel extends BaseViewModel {
     }
   }
 
+  void onPressedRandomName() {
+    final randomName = generateRandomName();
+
+    if (randomName.isNotEmpty) {
+      _userNameController.text = randomName;
+    }
+  }
+
   /// Will be called when the user has pressed the "Generate Random Name" button.
   /// It generates a random name using the [RandomNameService].
   String generateRandomName() {
