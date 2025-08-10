@@ -25,6 +25,8 @@ class SettingsDialog extends MvvmView<SettingsDialogModel> {
   ) {
     const trPrefix = "widgets.settings_dialog";
 
+    final theme = ShadTheme.of(context);
+
     return AlertDialog(
       content: SizedBox(
         width: 300.0,
@@ -32,10 +34,7 @@ class SettingsDialog extends MvvmView<SettingsDialogModel> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "$trPrefix.title".tr(),
-              style: ShadTheme.of(context).textTheme.h3,
-            ),
+            Text("$trPrefix.title".tr(), style: theme.textTheme.h3),
             verticalSpaceSmall,
             SettingsDialogTable(
               maxWidth: 400.0,
@@ -64,7 +63,7 @@ class SettingsDialog extends MvvmView<SettingsDialogModel> {
               children: [
                 Text(
                   "Version: ${viewModel.appVersion}",
-                  style: ShadTheme.of(context).textTheme.muted,
+                  style: theme.textTheme.muted,
                 ),
                 ShadButton.link(
                   onPressed: () {

@@ -25,15 +25,14 @@ class CreateRoomForm extends MvvmView<CreateRoomFormModel> {
     final progressHeight = 2.0;
     final totalHeight = (mediumSize - progressHeight) / 2;
 
+    final theme = ShadTheme.of(context);
+
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(
-            child: Text(
-              "$trPrefix.title".tr(),
-              style: ShadTheme.of(context).textTheme.h3,
-            ),
+            child: Text("$trPrefix.title".tr(), style: theme.textTheme.h3),
           ),
           verticalSpaceMedium,
           Text("$trPrefix.description".tr()),

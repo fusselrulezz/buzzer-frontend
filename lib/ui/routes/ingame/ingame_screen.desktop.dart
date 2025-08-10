@@ -21,8 +21,9 @@ class IngameScreenDesktop extends ViewModelWidget<IngameScreenModel> {
   @override
   Widget build(BuildContext context, IngameScreenModel viewModel) {
     const trPrefix = IngameScreen.trPrefix;
+    const horizontalPadding = 64.0;
 
-    const double horizontalPadding = 64.0;
+    final theme = ShadTheme.of(context);
 
     return Scaffold(
       body: Column(
@@ -38,10 +39,7 @@ class IngameScreenDesktop extends ViewModelWidget<IngameScreenModel> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      viewModel.roomName,
-                      style: ShadTheme.of(context).textTheme.h1,
-                    ),
+                    Text(viewModel.roomName, style: theme.textTheme.h1),
                     verticalSpaceTiny,
                     Row(
                       children: [
@@ -49,7 +47,7 @@ class IngameScreenDesktop extends ViewModelWidget<IngameScreenModel> {
                           "$trPrefix.header.info.playing_as".tr(
                             namedArgs: {"playerName": viewModel.userName},
                           ),
-                          style: ShadTheme.of(context).textTheme.h3,
+                          style: theme.textTheme.h3,
                         ),
                         horizontalSpaceSmall,
                         if (viewModel.isHost) ...[
@@ -67,9 +65,7 @@ class IngameScreenDesktop extends ViewModelWidget<IngameScreenModel> {
                         namedArgs: {"roomId": viewModel.gameContext.roomId},
                       ),
                       // TODO: Make sure this merge thing works...
-                      style: ShadTheme.of(context).textTheme.small.merge(
-                        ShadTheme.of(context).textTheme.muted,
-                      ),
+                      style: theme.textTheme.small.merge(theme.textTheme.muted),
                     ),
                   ],
                 ),

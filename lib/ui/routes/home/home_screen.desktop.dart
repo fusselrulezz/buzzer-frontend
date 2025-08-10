@@ -16,9 +16,10 @@ class HomeScreenDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const trPrefix = HomeScreen.trPrefix;
     const horizontalPadding = 64.0;
 
-    const trPrefix = HomeScreen.trPrefix;
+    final theme = ShadTheme.of(context);
 
     return Scaffold(
       body: Column(
@@ -31,10 +32,7 @@ class HomeScreenDesktop extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "$trPrefix.branding".tr(),
-                  style: ShadTheme.of(context).textTheme.h1,
-                ),
+                Text("$trPrefix.branding".tr(), style: theme.textTheme.h1),
                 FocusTraversalGroup(
                   child: Tooltip(
                     message: "$trPrefix.topnav.settings.tooltip".tr(),
