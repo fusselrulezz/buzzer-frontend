@@ -35,15 +35,21 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
-        child: ShadTabs<int>(
-          value: 0,
-          gap: largeSize,
-          tabs: [
-            ShadTab(value: 0, content: CreateRoomForm(), child: Text("Create")),
-            ShadTab(value: 1, content: JoinRoomForm(), child: Text("Join")),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
+          child: ShadTabs<int>(
+            value: 0,
+            gap: largeSize,
+            tabs: [
+              ShadTab(
+                value: 0,
+                content: CreateRoomForm(),
+                child: Text("Create"),
+              ),
+              ShadTab(value: 1, content: JoinRoomForm(), child: Text("Join")),
+            ],
+          ),
         ),
       ),
     );
