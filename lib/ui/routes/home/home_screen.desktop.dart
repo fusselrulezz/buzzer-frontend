@@ -34,8 +34,9 @@ class HomeScreenDesktop extends StatelessWidget {
               children: [
                 Text("$trPrefix.branding".tr(), style: theme.textTheme.h1),
                 FocusTraversalGroup(
-                  child: Tooltip(
-                    message: "$trPrefix.topnav.settings.tooltip".tr(),
+                  child: ShadTooltip(
+                    builder: (context) =>
+                        Text("$trPrefix.topnav.settings.tooltip".tr()),
                     child: ShadIconButton.ghost(
                       onPressed: () => _showSettingsPopover(context),
                       icon: const Icon(BootstrapIcons.gear, size: 24.0),
