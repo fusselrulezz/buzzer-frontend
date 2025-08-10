@@ -114,10 +114,10 @@ class IngameScreenDesktop extends ViewModelWidget<IngameScreenModel> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              ShadButton.ghost(
+                              ShadIconButton.ghost(
                                 enabled: viewModel.resetButtonEnabled,
                                 onPressed: viewModel.onPressedResetBuzzer,
-                                child: const Icon(
+                                icon: const Icon(
                                   BootstrapIcons.arrow_clockwise,
                                   size: 32.0,
                                 ),

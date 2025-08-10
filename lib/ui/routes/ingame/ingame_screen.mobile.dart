@@ -1,3 +1,6 @@
+import "package:bootstrap_icons/bootstrap_icons.dart";
+import "package:buzzer/ui/common/ui_helpers.dart";
+import "package:buzzer/ui/widgets/common/buzzer_button.dart";
 import "package:easy_localization/easy_localization.dart";
 import "package:flutter/material.dart";
 import "package:shadcn_ui/shadcn_ui.dart";
@@ -22,13 +25,24 @@ class IngameScreenMobile extends ViewModelWidget<IngameScreenModel> {
     return Scaffold(
       appBar: AppBar(
         title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(viewModel.roomName),
-            Text(
-              "$trPrefix.header.info.playing_as".tr(
-                namedArgs: {"playerName": viewModel.userName},
-              ),
-              style: theme.textTheme.small.merge(theme.textTheme.muted),
+            Row(
+              children: [
+                Text(
+                  "$trPrefix.header.info.playing_as".tr(
+                    namedArgs: {"playerName": viewModel.userName},
+                  ),
+                  style: theme.textTheme.small.merge(theme.textTheme.muted),
+                ),
+                horizontalSpaceSmall,
+                if (viewModel.isHost) ...[
+                  ShadBadge(
+                    child: Text("$trPrefix.header.info.badge_host".tr()),
+                  ),
+                ],
+              ],
             ),
           ],
         ),
@@ -40,7 +54,30 @@ class IngameScreenMobile extends ViewModelWidget<IngameScreenModel> {
           ),
         ],
       ),
-      body: const Placeholder(),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          BuzzerButton(
+            enabled: viewModel.buzzerEnabled,
+            onPressed: viewModel.onPressedBuzzer,
+          ),
+          verticalSpaceLarge,
+          Visibility.maintain(
+            visible: viewModel.resetButtonVisible,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ShadIconButton.ghost(
+                  enabled: viewModel.resetButtonEnabled,
+                  onPressed: viewModel.onPressedResetBuzzer,
+                  icon: const Icon(BootstrapIcons.arrow_clockwise, size: 32.0),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
