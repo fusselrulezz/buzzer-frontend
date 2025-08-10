@@ -10,6 +10,8 @@ import "package:buzzer/model/system_config.dart";
 class SystemConfigService {
   final _logger = getLogger("SystemConfigService");
 
+  static const _envServiceUrl = String.fromEnvironment("BUZZER_SERVICE_URL");
+
   SystemConfig? _config;
 
   /// The loaded system configuration. If the configuration has not been loaded yet,
@@ -56,7 +58,7 @@ class SystemConfigService {
   }
 
   String _resolveServiceUrl() {
-    final serviceUrl = _config!.serviceUrl;
+    final serviceUrl = _getEffectiveServiceUrl();
 
     if (kIsWeb) {
       // For web, we allow service URLs based on the origin or relative paths.
@@ -71,5 +73,9 @@ class SystemConfigService {
     }
 
     return serviceUrl;
+  }
+
+  String _getEffectiveServiceUrl() {
+    return _envServiceUrl.isNotEmpty ? _envServiceUrl : _config!.serviceUrl;
   }
 }
