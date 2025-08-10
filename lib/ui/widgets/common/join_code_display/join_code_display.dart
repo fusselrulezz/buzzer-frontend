@@ -1,10 +1,12 @@
 import "dart:ui";
 
+import "package:bootstrap_icons/bootstrap_icons.dart";
 import "package:easy_localization/easy_localization.dart";
-import "package:shadcn_flutter/shadcn_flutter.dart";
 
 import "package:buzzer/mvvm/mvvm_view.dart";
 import "package:buzzer/ui/common/ui_helpers.dart";
+import "package:flutter/widgets.dart";
+import "package:shadcn_ui/shadcn_ui.dart";
 
 import "join_code_display_model.dart";
 
@@ -32,22 +34,20 @@ class JoinCodeDisplay extends MvvmView<JoinCodeDisplayModel> {
           children: [
             Text("$trPrefix.title".tr()),
             horizontalSpaceMedium,
-            _buildJoinCodeDisplay(viewModel),
+            _buildJoinCodeDisplay(context, viewModel),
           ],
         ),
         horizontalSpaceSmall,
-        Button(
-          style: const ButtonStyle.ghostIcon(),
+        ShadButton.ghost(
           onPressed: () async => await viewModel.onPressedCopy(context),
           child: const Icon(BootstrapIcons.copy),
         ),
         horizontalSpaceTiny,
-        Button(
-          style: const ButtonStyle.ghostIcon(),
+        ShadButton.ghost(
           onPressed: viewModel.onPressedToggleVisibility,
           child: viewModel.isCodeVisible
               ? const Icon(BootstrapIcons.eye)
-              : const Icon(BootstrapIcons.eyeSlash),
+              : const Icon(BootstrapIcons.eye_slash),
         ),
       ],
     );
@@ -56,8 +56,14 @@ class JoinCodeDisplay extends MvvmView<JoinCodeDisplayModel> {
   /// Controls how the join code is displayed based on the visibility state.
   // When editing this code, ensure that position does not change so that the
   // text will not jump around when toggling visibility.
-  Widget _buildJoinCodeDisplay(JoinCodeDisplayModel viewModel) {
-    final display = Text(viewModel.joinCode).h3;
+  Widget _buildJoinCodeDisplay(
+    BuildContext context,
+    JoinCodeDisplayModel viewModel,
+  ) {
+    final display = Text(
+      viewModel.joinCode,
+      style: ShadTheme.of(context).textTheme.h3,
+    );
 
     if (viewModel.isCodeVisible) {
       return display;
@@ -66,7 +72,10 @@ class JoinCodeDisplay extends MvvmView<JoinCodeDisplayModel> {
     } else {
       return ImageFiltered(
         imageFilter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-        child: Text(viewModel.joinCode).h3,
+        child: Text(
+          viewModel.joinCode,
+          style: ShadTheme.of(context).textTheme.h3,
+        ),
       );
     }
   }

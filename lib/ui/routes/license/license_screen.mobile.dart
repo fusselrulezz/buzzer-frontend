@@ -1,5 +1,4 @@
-import "package:flutter/material.dart" show LicensePage;
-import "package:shadcn_flutter/shadcn_flutter.dart";
+import "package:flutter/material.dart";
 
 import "package:buzzer/mvvm/view_model_widget.dart";
 

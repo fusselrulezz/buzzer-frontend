@@ -1,5 +1,5 @@
-import "package:flutter/widgets.dart" as widgets;
-import "package:shadcn_flutter/shadcn_flutter.dart";
+import "package:flutter/material.dart";
+import "package:shadcn_ui/shadcn_ui.dart";
 
 import "settings_dialog_table_item.dart";
 
@@ -20,49 +20,43 @@ class SettingsDialogTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final scaling = theme.scaling;
-    final spacing = scaling * 16;
+    final theme = ShadTheme.of(context);
+    const scaling = 1.0;
+    const spacing = scaling * 16;
 
     return ConstrainedBox(
       constraints: BoxConstraints(maxWidth: maxWidth),
-      child: DefaultTextStyle.merge(
-        style: TextStyle(color: theme.colorScheme.foreground),
-        child: widgets.Table(
-          columnWidths: const {0: IntrinsicColumnWidth(), 1: FlexColumnWidth()},
-          children: [
-            for (int i = 0; i < items.length; i++) ...[
-              widgets.TableRow(
-                children: [
-                  // Label column
-                  Padding(
-                    padding: EdgeInsets.only(
-                      right: 16 * scaling,
-                      top: i == 0 ? 0 : spacing,
-                    ),
-                    child: SizedBox(
-                      height: 32 * scaling,
-                      child: Align(
-                        alignment: AlignmentDirectional.centerEnd,
-                        child: Text(
-                          items[i].label,
-                          style: theme.typography.textSmall,
-                        ),
-                      ),
+      child: Table(
+        columnWidths: const {0: IntrinsicColumnWidth(), 1: FlexColumnWidth()},
+        children: [
+          for (int i = 0; i < items.length; i++) ...[
+            TableRow(
+              children: [
+                // Label column
+                Padding(
+                  padding: EdgeInsets.only(
+                    right: 16 * scaling,
+                    top: i == 0 ? 0 : spacing,
+                  ),
+                  child: SizedBox(
+                    height: 32 * scaling,
+                    child: Align(
+                      alignment: AlignmentDirectional.centerEnd,
+                      child: Text(items[i].label, style: theme.textTheme.small),
                     ),
                   ),
-                  // Value column
-                  Padding(
-                    padding: EdgeInsets.only(top: i == 0 ? 0 : spacing),
-                    child: Builder(
-                      builder: (context) => items[i].builder(context),
-                    ),
+                ),
+                // Value column
+                Padding(
+                  padding: EdgeInsets.only(top: i == 0 ? 0 : spacing),
+                  child: Builder(
+                    builder: (context) => items[i].builder(context),
                   ),
-                ],
-              ),
-            ],
+                ),
+              ],
+            ),
           ],
-        ),
+        ],
       ),
     );
   }

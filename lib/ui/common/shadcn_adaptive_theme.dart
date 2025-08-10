@@ -1,20 +1,25 @@
 import "package:adaptive_theme/adaptive_theme.dart";
 import "package:flutter/foundation.dart";
-import "package:shadcn_flutter/shadcn_flutter.dart";
+import "package:flutter/material.dart";
+import "package:shadcn_ui/shadcn_ui.dart";
 
 /// A builder function that takes the current context and provides
 /// the light and dark themes to build the widget tree.
 typedef ShadcnAdaptiveThemeBuilder =
-    Widget Function(BuildContext context, ThemeData light, ThemeData dark);
+    Widget Function(
+      BuildContext context,
+      ShadThemeData light,
+      ShadThemeData dark,
+    );
 
 /// A widget that provides adaptive theming capabilities using the
 /// `adaptive_theme` package.
 class ShadcnAdaptiveTheme extends StatefulWidget {
   /// The light theme to use when the mode is light.
-  final ThemeData light;
+  final ShadThemeData light;
 
   /// The dark theme to use when the mode is dark.
-  final ThemeData dark;
+  final ShadThemeData dark;
 
   /// The initial theme mode to use when the widget is first built.
   final AdaptiveThemeMode initial;
@@ -34,7 +39,7 @@ class ShadcnAdaptiveTheme extends StatefulWidget {
   const ShadcnAdaptiveTheme({
     super.key,
     required this.light,
-    ThemeData? dark,
+    ShadThemeData? dark,
     required this.initial,
     required this.builder,
     this.debugShowFloatingThemeButton = false,
@@ -44,25 +49,25 @@ class ShadcnAdaptiveTheme extends StatefulWidget {
   State<ShadcnAdaptiveTheme> createState() => _ShadcnAdaptiveThemeState();
 
   /// Returns the current adaptive theme manager for the given context.
-  static AdaptiveThemeManager<ThemeData> of(BuildContext context) {
+  static AdaptiveThemeManager<ShadThemeData> of(BuildContext context) {
     context
         .dependOnInheritedWidgetOfExactType<
-          InheritedAdaptiveTheme<ThemeData>
+          InheritedAdaptiveTheme<ShadThemeData>
         >();
     return context.findAncestorStateOfType<State<ShadcnAdaptiveTheme>>()!
-        as AdaptiveThemeManager<ThemeData>;
+        as AdaptiveThemeManager<ShadThemeData>;
   }
 
   /// Returns the current adaptive theme manager for the given context,
   /// or `null` if no manager is found.
-  static AdaptiveThemeManager<ThemeData>? maybeOf(BuildContext context) {
+  static AdaptiveThemeManager<ShadThemeData>? maybeOf(BuildContext context) {
     context
         .dependOnInheritedWidgetOfExactType<
-          InheritedAdaptiveTheme<ThemeData>
+          InheritedAdaptiveTheme<ShadThemeData>
         >();
     final state = context.findAncestorStateOfType<State<ShadcnAdaptiveTheme>>();
     if (state == null) return null;
-    return state as AdaptiveThemeManager<ThemeData>;
+    return state as AdaptiveThemeManager<ShadThemeData>;
   }
 
   /// Returns the current adaptive theme mode for the given context.
@@ -71,7 +76,7 @@ class ShadcnAdaptiveTheme extends StatefulWidget {
 }
 
 class _ShadcnAdaptiveThemeState extends State<ShadcnAdaptiveTheme>
-    with WidgetsBindingObserver, AdaptiveThemeManager<ThemeData> {
+    with WidgetsBindingObserver, AdaptiveThemeManager<ShadThemeData> {
   late bool _debugShowFloatingThemeButton = widget.debugShowFloatingThemeButton;
 
   @override
@@ -120,7 +125,7 @@ class _ShadcnAdaptiveThemeState extends State<ShadcnAdaptiveTheme>
 
   @override
   Widget build(BuildContext context) {
-    return InheritedAdaptiveTheme<ThemeData>(
+    return InheritedAdaptiveTheme<ShadThemeData>(
       manager: this,
       child: Builder(
         builder: (context) {

@@ -1,5 +1,6 @@
 import "package:easy_localization/easy_localization.dart";
-import "package:shadcn_flutter/shadcn_flutter.dart";
+import "package:flutter/material.dart";
+import "package:shadcn_ui/shadcn_ui.dart";
 
 import "package:buzzer/ui/common/ui_helpers.dart";
 import "package:buzzer/ui/widgets/common/create_room_form/create_room_form.dart";
@@ -25,37 +26,23 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
     const trPrefix = HomeScreen.trPrefix;
 
     return Scaffold(
-      headers: [
-        AppBar(
-          title: Text("$trPrefix.branding".tr()),
-          leading: const [],
-          trailing: [
-            OutlineButton(
-              density: ButtonDensity.icon,
-              onPressed: () => _showSettingsPopover(context),
-              child: const Icon(Icons.settings),
-            ),
-          ],
-        ),
-      ],
-      child: Padding(
+      appBar: AppBar(
+        title: Text("$trPrefix.branding".tr()),
+        actions: [
+          ShadButton.ghost(
+            onPressed: () => _showSettingsPopover(context),
+            child: const Icon(Icons.settings),
+          ),
+        ],
+      ),
+      body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
-        child: Column(
-          children: [
-            Tabs(
-              index: index,
-              children: const [
-                TabItem(child: Text("Create")),
-                TabItem(child: Text("Join")),
-              ],
-              onChanged: (int value) {
-                setState(() {
-                  index = value;
-                });
-              },
-            ),
-            verticalSpaceLarge,
-            _buildContent(context),
+        child: ShadTabs<int>(
+          value: 0,
+          gap: largeSize,
+          tabs: [
+            ShadTab(value: 0, content: CreateRoomForm(), child: Text("Create")),
+            ShadTab(value: 1, content: JoinRoomForm(), child: Text("Join")),
           ],
         ),
       ),
@@ -64,9 +51,5 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
 
   void _showSettingsPopover(BuildContext context) {
     showDialog(context: context, builder: (context) => const SettingsDialog());
-  }
-
-  Widget _buildContent(BuildContext context) {
-    return index == 0 ? const CreateRoomForm() : const JoinRoomForm();
   }
 }

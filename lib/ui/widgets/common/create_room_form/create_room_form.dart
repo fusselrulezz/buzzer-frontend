@@ -1,5 +1,6 @@
 import "package:easy_localization/easy_localization.dart";
-import "package:shadcn_flutter/shadcn_flutter.dart";
+import "package:flutter/material.dart";
+import "package:shadcn_ui/shadcn_ui.dart";
 
 import "package:buzzer/mvvm/mvvm_view.dart";
 import "package:buzzer/ui/common/ui_helpers.dart";
@@ -21,36 +22,46 @@ class CreateRoomForm extends MvvmView<CreateRoomFormModel> {
   ) {
     const trPrefix = "widgets.create_room_form";
 
-    final theme = Theme.of(context);
-    final progressHeight = theme.scaling * 2;
+    final progressHeight = 2.0;
     final totalHeight = (mediumSize - progressHeight) / 2;
 
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Center(child: Text("$trPrefix.title".tr()).h3),
+          Center(
+            child: Text(
+              "$trPrefix.title".tr(),
+              style: ShadTheme.of(context).textTheme.h3,
+            ),
+          ),
           verticalSpaceMedium,
-          Text("$trPrefix.description".tr()).base,
+          Text("$trPrefix.description".tr()),
           verticalSpaceMedium,
           FocusTraversalGroup(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Room name
-                Text("$trPrefix.fields.room_name.label".tr()).base.bold,
+                Text(
+                  "$trPrefix.fields.room_name.label".tr(),
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 verticalSpaceTiny,
-                TextField(
+                ShadInput(
                   controller: viewModel.roomNameController,
                   placeholder: Text("$trPrefix.fields.room_name.hint".tr()),
                 ),
                 verticalSpaceSmall,
                 // User name
-                Text("$trPrefix.fields.player_name.label".tr()).base.bold,
+                Text(
+                  "$trPrefix.fields.player_name.label".tr(),
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 verticalSpaceTiny,
-                TextField(controller: viewModel.userNameController),
+                ShadInput(controller: viewModel.userNameController),
                 verticalSpaceSmall,
-                Text("Settings").base.bold,
+                Text("Settings", style: TextStyle(fontWeight: FontWeight.bold)),
                 verticalSpaceTiny,
                 CheckboxWithInfo(
                   state: viewModel.multipleBuzzersAllowedState,
@@ -88,7 +99,7 @@ class CreateRoomForm extends MvvmView<CreateRoomFormModel> {
                         child: _buildErrorMessage(viewModel.error(viewModel)),
                       ),
                     ),
-                    Button.primary(
+                    ShadButton(
                       onPressed: () async =>
                           await viewModel.onPressedCreateRoom(context),
                       enabled: !viewModel.isBusy,
@@ -115,12 +126,12 @@ class CreateRoomForm extends MvvmView<CreateRoomFormModel> {
   }
 
   Widget _buildErrorMessage(dynamic error) {
-    const textStyle = TextStyle(color: Colors.red);
+    const textStyle = TextStyle(color: Colors.red, fontWeight: FontWeight.bold);
 
     if (error is String) {
-      return Text(error, style: textStyle).bold;
+      return Text(error, style: textStyle);
     } else {
-      return Text("Error: ${error.toString()}", style: textStyle).bold;
+      return Text("Error: ${error.toString()}", style: textStyle);
     }
   }
 }

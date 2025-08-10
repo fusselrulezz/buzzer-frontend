@@ -1,7 +1,7 @@
 import "package:auto_route/auto_route.dart";
 import "package:easy_localization/easy_localization.dart";
+import "package:flutter/widgets.dart";
 import "package:logger/logger.dart";
-import "package:shadcn_flutter/shadcn_flutter.dart";
 
 import "package:buzzer/app/app_logger.dart";
 import "package:buzzer/app/app_router.gr.dart";
@@ -50,11 +50,10 @@ class CreateRoomFormModel extends BaseViewModel {
 
   /// The state of the checkbox for allowing multiple buzzers.
   /// This is used to bind the checkbox state in the UI.
-  CheckboxState get multipleBuzzersAllowedState =>
-      _multipleBuzzersAllowed ? CheckboxState.checked : CheckboxState.unchecked;
+  bool get multipleBuzzersAllowedState => _multipleBuzzersAllowed;
 
-  set multipleBuzzersAllowedState(CheckboxState state) {
-    _multipleBuzzersAllowed = state == CheckboxState.checked;
+  set multipleBuzzersAllowedState(bool state) {
+    _multipleBuzzersAllowed = state;
     rebuildUi();
   }
 

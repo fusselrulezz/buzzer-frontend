@@ -1,14 +1,15 @@
-import "package:shadcn_flutter/shadcn_flutter.dart";
+import "package:flutter/widgets.dart";
+import "package:shadcn_ui/shadcn_ui.dart";
 
 /// A checkbox widget with an info icon that provides additional information
 /// when clicked. The checkbox state can be toggled, and the label is displayed
 /// next to the checkbox.
 class CheckboxWithInfo extends StatelessWidget {
   /// The state of the checkbox, which can be checked or unchecked.
-  final CheckboxState state;
+  final bool state;
 
   /// Callback function that is called when the checkbox state changes.
-  final Function(CheckboxState) onChanged;
+  final Function(bool) onChanged;
 
   /// The label widget that is displayed next to the checkbox.
   final Widget label;
@@ -31,19 +32,20 @@ class CheckboxWithInfo extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Checkbox(state: state, onChanged: onChanged, trailing: label.base),
-        HoverCard(
-          hoverBuilder: (context) {
-            return SizedBox(
-              width: 300,
-              child: SurfaceCard(child: Basic(content: content)),
-            );
-          },
-          child: IconButton.ghost(
-            icon: Icon(BootstrapIcons.infoCircle),
-            onPressed: () {},
-          ),
-        ),
+        ShadCheckbox(value: state, onChanged: onChanged, label: label),
+        // TODO: Redo this hover card...
+        //HoverCard(
+        //  hoverBuilder: (context) {
+        //    return SizedBox(
+        //      width: 300,
+        //      child: SurfaceCard(child: Basic(content: content)),
+        //    );
+        //  },
+        //  child: IconButton.ghost(
+        //    icon: Icon(BootstrapIcons.infoCircle),
+        //    onPressed: () {},
+        //  ),
+        //),
       ],
     );
   }

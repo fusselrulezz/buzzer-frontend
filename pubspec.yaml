@@ -17,7 +17,8 @@ dependencies:
       ref: v0.4.0
 
   cupertino_icons: ^1.0.8
-  shadcn_flutter: ^0.0.37
+  shadcn_ui: ^0.28.5
+  bootstrap_icons: ^1.11.3
   easy_localization: ^3.0.7+1
   easy_logger: ^0.0.2
   json_annotation: ^4.9.0

@@ -1,6 +1,6 @@
 import "package:easy_localization/easy_localization.dart";
 import "package:flutter/material.dart" as mat;
-import "package:shadcn_flutter/shadcn_flutter.dart";
+import "package:flutter/material.dart";
 
 /// A button widget that acts as a buzzer, allowing users to press it
 /// to signal their readiness or to answer questions in a game.
@@ -45,7 +45,7 @@ class BuzzerButton extends StatelessWidget {
     } else {
       buttonStyle = mat.ElevatedButton.styleFrom(
         shape: const CircleBorder(),
-        backgroundColor: Colors.gray,
+        backgroundColor: Colors.grey,
         foregroundColor: Colors.white,
         elevation: 0,
       );

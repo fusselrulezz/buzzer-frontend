@@ -1,6 +1,6 @@
 import "package:auto_route/auto_route.dart";
+import "package:flutter/widgets.dart";
 import "package:responsive_builder2/responsive_builder2.dart";
-import "package:shadcn_flutter/shadcn_flutter.dart";
 
 import "package:buzzer/mvvm/mvvm_view.dart";
 

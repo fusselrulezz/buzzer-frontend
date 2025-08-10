@@ -1,7 +1,8 @@
 import "package:auto_route/auto_route.dart";
+import "package:bootstrap_icons/bootstrap_icons.dart";
 import "package:easy_localization/easy_localization.dart";
-import "package:flutter/material.dart" show ListTile, Ink;
-import "package:shadcn_flutter/shadcn_flutter.dart";
+import "package:flutter/material.dart";
+import "package:shadcn_ui/shadcn_ui.dart";
 
 import "package:buzzer/mvvm/view_model_widget.dart";
 
@@ -20,21 +21,22 @@ class LicenseScreenDesktop extends ViewModelWidget<LicenseScreenModel> {
   @override
   Widget build(BuildContext context, LicenseScreenModel viewModel) {
     return Scaffold(
-      child: ResizablePanel.horizontal(
-        draggerBuilder: (context) => const HorizontalResizableDragger(),
+      body: ShadResizablePanelGroup(
         children: [
-          ResizablePane(
-            initialSize: 400.0,
+          ShadResizablePanel(
+            id: 0,
+            defaultSize: .3,
+            minSize: 0.2,
+            maxSize: 0.5,
             child: Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      OutlineButton(
-                        shape: ButtonShape.rectangle,
+                      ShadButton.outline(
                         onPressed: () => context.pop(),
-                        child: Icon(BootstrapIcons.chevronLeft),
+                        child: Icon(BootstrapIcons.chevron_left),
                       ),
                       const SizedBox(width: 8.0),
                       Text("$trPrefix.title".tr()),
@@ -59,10 +61,15 @@ class LicenseScreenDesktop extends ViewModelWidget<LicenseScreenModel> {
                                 packageName == viewModel.selectedPackage;
 
                             return Ink(
-                              decoration: BoxDecoration(color: Colors.amber),
+                              //decoration: BoxDecoration(color: Colors.amber),
                               child: ListTile(
                                 title: selected
-                                    ? Text(packageName).bold
+                                    ? Text(
+                                        packageName,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      )
                                     : Text(packageName),
                                 onTap: () =>
                                     viewModel.onSelectLicense(packageName),
@@ -75,7 +82,14 @@ class LicenseScreenDesktop extends ViewModelWidget<LicenseScreenModel> {
               ],
             ),
           ),
-          ResizablePane.flex(child: _buildLicenseDetails(viewModel)),
+          ShadResizablePanel(
+            id: 1,
+            defaultSize: .8,
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: _buildLicenseDetails(viewModel),
+            ),
+          ),
         ],
       ),
     );

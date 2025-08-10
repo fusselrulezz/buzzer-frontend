@@ -1,4 +1,4 @@
-import "package:shadcn_flutter/shadcn_flutter.dart";
+import "package:flutter/widgets.dart";
 
 /// The `tiny` size constant used for spacing in the UI.
 const double tinySize = 5.0;

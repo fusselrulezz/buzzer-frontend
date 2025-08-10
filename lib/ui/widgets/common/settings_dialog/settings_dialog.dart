@@ -1,11 +1,12 @@
 import "package:adaptive_theme/adaptive_theme.dart";
 import "package:auto_route/auto_route.dart";
-import "package:buzzer/app/app_router.gr.dart";
 import "package:easy_localization/easy_localization.dart";
-import "package:shadcn_flutter/shadcn_flutter.dart";
+import "package:flutter/material.dart";
 
+import "package:buzzer/app/app_router.gr.dart";
 import "package:buzzer/mvvm/mvvm_view.dart";
 import "package:buzzer/ui/common/ui_helpers.dart";
+import "package:shadcn_ui/shadcn_ui.dart";
 
 import "settings_dialog_model.dart";
 import "settings_dialog_table.dart";
@@ -31,7 +32,10 @@ class SettingsDialog extends MvvmView<SettingsDialogModel> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("$trPrefix.title".tr()).h3,
+            Text(
+              "$trPrefix.title".tr(),
+              style: ShadTheme.of(context).textTheme.h3,
+            ),
             verticalSpaceSmall,
             SettingsDialogTable(
               maxWidth: 400.0,
@@ -58,8 +62,11 @@ class SettingsDialog extends MvvmView<SettingsDialogModel> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Version: ${viewModel.appVersion}").textMuted,
-                LinkButton(
+                Text(
+                  "Version: ${viewModel.appVersion}",
+                  style: ShadTheme.of(context).textTheme.muted,
+                ),
+                ShadButton.link(
                   onPressed: () {
                     context.pushRoute(LicenseRoute());
                   },

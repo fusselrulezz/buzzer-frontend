@@ -1,7 +1,9 @@
 import "package:easy_localization/easy_localization.dart";
-import "package:shadcn_flutter/shadcn_flutter.dart";
+import "package:flutter/material.dart";
+import "package:shadcn_ui/shadcn_ui.dart";
 
 import "package:buzzer/mvvm/view_model_widget.dart";
+import "package:buzzer/ui/widgets/common/settings_dialog/settings_dialog.dart";
 
 import "ingame_screen.dart";
 import "ingame_screen_model.dart";
@@ -16,25 +18,32 @@ class IngameScreenMobile extends ViewModelWidget<IngameScreenModel> {
     const trPrefix = IngameScreen.trPrefix;
 
     return Scaffold(
-      headers: [
-        AppBar(
-          title: Text(viewModel.roomName),
-          subtitle: Text(
-            "$trPrefix.header.info.playing_as".tr(
-              namedArgs: {"playerName": viewModel.userName},
-            ),
-          ),
-          leading: const [],
-          trailing: [
-            OutlineButton(
-              density: ButtonDensity.icon,
-              onPressed: () {},
-              child: const Icon(Icons.settings),
+      appBar: AppBar(
+        title: Column(
+          children: [
+            Text(viewModel.roomName),
+            Text(
+              "$trPrefix.header.info.playing_as".tr(
+                namedArgs: {"playerName": viewModel.userName},
+              ),
+              style: ShadTheme.of(
+                context,
+              ).textTheme.small.merge(ShadTheme.of(context).textTheme.muted),
             ),
           ],
         ),
-      ],
-      child: const Placeholder(),
+        actions: [
+          ShadButton.ghost(
+            onPressed: () => _showSettingsPopover(context),
+            child: const Icon(Icons.settings),
+          ),
+        ],
+      ),
+      body: const Placeholder(),
     );
+  }
+
+  void _showSettingsPopover(BuildContext context) {
+    showDialog(context: context, builder: (context) => const SettingsDialog());
   }
 }
