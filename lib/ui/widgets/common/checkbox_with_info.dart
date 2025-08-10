@@ -1,10 +1,12 @@
+import "package:bootstrap_icons/bootstrap_icons.dart";
+import "package:flutter/material.dart";
 import "package:flutter/widgets.dart";
 import "package:shadcn_ui/shadcn_ui.dart";
 
 /// A checkbox widget with an info icon that provides additional information
 /// when clicked. The checkbox state can be toggled, and the label is displayed
 /// next to the checkbox.
-class CheckboxWithInfo extends StatelessWidget {
+class CheckboxWithInfo extends StatefulWidget {
   /// The state of the checkbox, which can be checked or unchecked.
   final bool state;
 
@@ -28,24 +30,38 @@ class CheckboxWithInfo extends StatelessWidget {
   });
 
   @override
+  State<CheckboxWithInfo> createState() => _CheckboxWithInfoState();
+}
+
+class _CheckboxWithInfoState extends State<CheckboxWithInfo> {
+  final popoverController = ShadPopoverController();
+
+  @override
+  void dispose() {
+    popoverController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        ShadCheckbox(value: state, onChanged: onChanged, label: label),
-        // TODO: Redo this hover card...
-        //HoverCard(
-        //  hoverBuilder: (context) {
-        //    return SizedBox(
-        //      width: 300,
-        //      child: SurfaceCard(child: Basic(content: content)),
-        //    );
-        //  },
-        //  child: IconButton.ghost(
-        //    icon: Icon(BootstrapIcons.infoCircle),
-        //    onPressed: () {},
-        //  ),
-        //),
+        ShadCheckbox(
+          value: widget.state,
+          onChanged: widget.onChanged,
+          label: widget.label,
+        ),
+        ShadPopover(
+          controller: popoverController,
+          popover: (_) => widget.content,
+          child: ShadIconButton.ghost(
+            icon: Icon(BootstrapIcons.info_circle),
+            onPressed: () {
+              popoverController.show();
+            },
+          ),
+        ),
       ],
     );
   }
