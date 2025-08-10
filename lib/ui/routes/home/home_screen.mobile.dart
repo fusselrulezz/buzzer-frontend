@@ -29,9 +29,9 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
       appBar: AppBar(
         title: Text("$trPrefix.branding".tr()),
         actions: [
-          ShadButton.ghost(
+          ShadIconButton.ghost(
             onPressed: () => _showSettingsPopover(context),
-            child: const Icon(Icons.settings),
+            icon: const Icon(Icons.settings),
           ),
         ],
       ),

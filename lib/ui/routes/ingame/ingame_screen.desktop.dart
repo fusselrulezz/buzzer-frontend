@@ -64,7 +64,6 @@ class IngameScreenDesktop extends ViewModelWidget<IngameScreenModel> {
                       "$trPrefix.header.info.room_id".tr(
                         namedArgs: {"roomId": viewModel.gameContext.roomId},
                       ),
-                      // TODO: Make sure this merge thing works...
                       style: theme.textTheme.small.merge(theme.textTheme.muted),
                     ),
                   ],
@@ -73,9 +72,9 @@ class IngameScreenDesktop extends ViewModelWidget<IngameScreenModel> {
                   children: [
                     JoinCodeDisplay(joinCode: viewModel.joinCode),
                     horizontalSpaceMedium,
-                    ShadButton.ghost(
+                    ShadIconButton.ghost(
                       onPressed: () => _showSettingsPopover(context),
-                      child: const Icon(BootstrapIcons.gear, size: 24.0),
+                      icon: const Icon(BootstrapIcons.gear, size: 24.0),
                     ),
                     horizontalSpaceSmall,
                     ShadButton.destructive(

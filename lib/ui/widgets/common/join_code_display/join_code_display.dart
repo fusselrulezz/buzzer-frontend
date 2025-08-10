@@ -38,14 +38,14 @@ class JoinCodeDisplay extends MvvmView<JoinCodeDisplayModel> {
           ],
         ),
         horizontalSpaceSmall,
-        ShadButton.ghost(
+        ShadIconButton.ghost(
           onPressed: () async => await viewModel.onPressedCopy(context),
-          child: const Icon(BootstrapIcons.copy),
+          icon: const Icon(BootstrapIcons.copy),
         ),
         horizontalSpaceTiny,
-        ShadButton.ghost(
+        ShadIconButton.ghost(
           onPressed: viewModel.onPressedToggleVisibility,
-          child: viewModel.isCodeVisible
+          icon: viewModel.isCodeVisible
               ? const Icon(BootstrapIcons.eye)
               : const Icon(BootstrapIcons.eye_slash),
         ),
