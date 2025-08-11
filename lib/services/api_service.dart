@@ -1,3 +1,6 @@
+import "dart:io";
+
+import "package:flutter/foundation.dart";
 import "package:logger/logger.dart";
 
 import "package:buzzer/app/app_logger.dart";
@@ -37,9 +40,22 @@ class ApiService {
   }
 
   Buzzer? _buildClient() {
+    if (kDebugMode) {
+      // Ignore bad certificate errors in debug mode
+      HttpOverrides.global = _IgnoreCertificateHttpOverride();
+    }
+
     return Buzzer.create(
       baseUrl: serviceUri,
       authenticator: locator<AuthenticationService>().authenticator,
     );
+  }
+}
+
+class _IgnoreCertificateHttpOverride extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (_, _, _) => true;
   }
 }
