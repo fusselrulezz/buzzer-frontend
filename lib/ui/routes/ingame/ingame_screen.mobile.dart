@@ -1,11 +1,13 @@
 import "package:bootstrap_icons/bootstrap_icons.dart";
-import "package:buzzer/ui/common/ui_helpers.dart";
-import "package:buzzer/ui/widgets/common/buzzer_button.dart";
+import "package:buzzer/ui/widgets/common/player_list/player_list_tile.dart";
 import "package:easy_localization/easy_localization.dart";
 import "package:flutter/material.dart";
 import "package:shadcn_ui/shadcn_ui.dart";
 
 import "package:buzzer/mvvm/view_model_widget.dart";
+import "package:buzzer/ui/common/ui_helpers.dart";
+import "package:buzzer/ui/routes/ingame/bottom_drawer.dart";
+import "package:buzzer/ui/widgets/common/buzzer_button.dart";
 import "package:buzzer/ui/widgets/common/settings_dialog/settings_dialog.dart";
 
 import "ingame_screen.dart";
@@ -54,27 +56,58 @@ class IngameScreenMobile extends ViewModelWidget<IngameScreenModel> {
           ),
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+      body: Stack(
         children: [
-          BuzzerButton(
-            enabled: viewModel.buzzerEnabled,
-            onPressed: viewModel.onPressedBuzzer,
-          ),
-          verticalSpaceLarge,
-          Visibility.maintain(
-            visible: viewModel.resetButtonVisible,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ShadIconButton.ghost(
-                  enabled: viewModel.resetButtonEnabled,
-                  onPressed: viewModel.onPressedResetBuzzer,
-                  icon: const Icon(BootstrapIcons.arrow_clockwise, size: 32.0),
+          // Main column for buzzer & reset button
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              BuzzerButton(
+                enabled: viewModel.buzzerEnabled,
+                onPressed: viewModel.onPressedBuzzer,
+              ),
+              verticalSpaceLarge,
+              Visibility.maintain(
+                visible: viewModel.resetButtonVisible,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ShadIconButton.ghost(
+                      enabled: viewModel.resetButtonEnabled,
+                      onPressed: viewModel.onPressedResetBuzzer,
+                      icon: const Icon(
+                        BootstrapIcons.arrow_clockwise,
+                        size: 32.0,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
+          ),
+
+          // Slide up player list
+          BottomDrawer(
+            builder: (scrollController) {
+              return Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ListView.builder(
+                  controller: scrollController,
+                  itemCount: viewModel.players.length,
+                  itemBuilder: (context, index) {
+                    final player = viewModel.players[index];
+                    final buzzerActive =
+                        viewModel.playerBuzzerStates[player.id] ?? true;
+
+                    return PlayerListTile(
+                      player: player,
+                      buzzerActive: buzzerActive,
+                    );
+                  },
+                ),
+              );
+            },
           ),
         ],
       ),
