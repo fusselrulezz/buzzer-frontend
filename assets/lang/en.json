@@ -19,6 +19,14 @@
                 "settings": {
                     "tooltip": "Settings"
                 }
+            },
+            "tabs": {
+                "create": {
+                    "label": "Create"
+                },
+                "join": {
+                    "label": "Join"
+                }
             }
         },
 
@@ -55,6 +63,9 @@
                 },
                 "player_name": {
                     "label": "Your Name"
+                },
+                "settings": {
+                    "label": "Settings"
                 },
                 "allow_multiple_buzzers": {
                     "label": "Simultaneous Buzzers",

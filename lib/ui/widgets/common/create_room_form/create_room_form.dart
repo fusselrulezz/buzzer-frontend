@@ -57,7 +57,10 @@ class CreateRoomForm extends MvvmView<CreateRoomFormModel> {
               verticalSpaceTiny,
               ShadInput(controller: viewModel.userNameController),
               verticalSpaceSmall,
-              Text("Settings", style: TextStyle(fontWeight: FontWeight.bold)),
+              Text(
+                "$trPrefix.fields.settings.label".tr(),
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               verticalSpaceTiny,
               CheckboxWithInfo(
                 state: viewModel.multipleBuzzersAllowedState,

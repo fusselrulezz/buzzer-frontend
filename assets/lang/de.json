@@ -19,6 +19,14 @@
                 "settings": {
                     "tooltip": "Einstellungen"
                 }
+            },
+            "tabs": {
+                "create": {
+                    "label": "Erstellen"
+                },
+                "join": {
+                    "label": "Beitreten"
+                }
             }
         },
 
@@ -55,6 +63,9 @@
                 },
                 "player_name": {
                     "label": "Dein Name"
+                },
+                "settings": {
+                    "label": "Einstellungen"
                 },
                 "allow_multiple_buzzers": {
                     "label": "Spieler können gleichzeitig buzzern",

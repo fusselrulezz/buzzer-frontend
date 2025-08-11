@@ -45,9 +45,13 @@ class _HomeScreenMobileState extends State<HomeScreenMobile> {
               ShadTab(
                 value: 0,
                 content: CreateRoomForm(),
-                child: Text("Create"),
+                child: Text("$trPrefix.tabs.create.label".tr()),
               ),
-              ShadTab(value: 1, content: JoinRoomForm(), child: Text("Join")),
+              ShadTab(
+                value: 1,
+                content: JoinRoomForm(),
+                child: Text("$trPrefix.tabs.join.label".tr()),
+              ),
             ],
           ),
         ),
