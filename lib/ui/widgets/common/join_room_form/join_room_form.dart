@@ -27,80 +27,76 @@ class JoinRoomForm extends MvvmView<JoinRoomFormModel> {
 
     final theme = ShadTheme.of(context);
 
-    return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-            child: Text("$trPrefix.title".tr(), style: theme.textTheme.h3),
-          ),
-          verticalSpaceMedium,
-          Text("$trPrefix.description".tr()),
-          verticalSpaceMedium,
-          FocusTraversalGroup(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Join code
-                Text(
-                  "$trPrefix.fields.join_code.label".tr(),
-                  style: TextStyle(fontWeight: FontWeight.bold),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Center(child: Text("$trPrefix.title".tr(), style: theme.textTheme.h3)),
+        verticalSpaceMedium,
+        Text("$trPrefix.description".tr()),
+        verticalSpaceMedium,
+        FocusTraversalGroup(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Join code
+              Text(
+                "$trPrefix.fields.join_code.label".tr(),
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              verticalSpaceTiny,
+              ShadInput(controller: viewModel.joinCodeController),
+              verticalSpaceSmall,
+              // User name
+              Text(
+                "$trPrefix.fields.player_name.label".tr(),
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              verticalSpaceTiny,
+              ShadInput(
+                controller: viewModel.userNameController,
+                trailing: ShadIconButton(
+                  padding: EdgeInsets.zero,
+                  width: 20,
+                  height: 20,
+                  onPressed: viewModel.onPressedRandomName,
+                  icon: const Icon(BootstrapIcons.dice_6),
                 ),
-                verticalSpaceTiny,
-                ShadInput(controller: viewModel.joinCodeController),
-                verticalSpaceSmall,
-                // User name
-                Text(
-                  "$trPrefix.fields.player_name.label".tr(),
-                  style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              // Progress and spacing
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: totalHeight,
+                  horizontal: tinySize,
                 ),
-                verticalSpaceTiny,
-                ShadInput(
-                  controller: viewModel.userNameController,
-                  trailing: ShadIconButton(
-                    padding: EdgeInsets.zero,
-                    width: 20,
-                    height: 20,
-                    onPressed: viewModel.onPressedRandomName,
-                    icon: const Icon(BootstrapIcons.dice_6),
-                  ),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: progressHeight,
+                  child: viewModel.isBusy ? LinearProgressIndicator() : null,
                 ),
-                // Progress and spacing
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: totalHeight,
-                    horizontal: tinySize,
-                  ),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: progressHeight,
-                    child: viewModel.isBusy ? LinearProgressIndicator() : null,
-                  ),
-                ),
-                // Action buttons
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Visibility(
-                        visible: viewModel.hasError,
-                        child: _buildErrorMessage(viewModel.error(viewModel)),
-                      ),
+              ),
+              // Action buttons
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Visibility(
+                      visible: viewModel.hasError,
+                      child: _buildErrorMessage(viewModel.error(viewModel)),
                     ),
-                    ShadButton(
-                      onPressed: () async =>
-                          await viewModel.onPressedJoinRoom(context),
-                      enabled: !viewModel.isBusy,
-                      child: Text("$trPrefix.actions.join.label".tr()),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                  ShadButton(
+                    onPressed: () async =>
+                        await viewModel.onPressedJoinRoom(context),
+                    enabled: !viewModel.isBusy,
+                    child: Text("$trPrefix.actions.join.label".tr()),
+                  ),
+                ],
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

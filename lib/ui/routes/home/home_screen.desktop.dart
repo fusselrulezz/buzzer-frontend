@@ -55,9 +55,9 @@ class HomeScreenDesktop extends StatelessWidget {
               child: Row(
                 spacing: 16.0,
                 children: [
-                  const CreateRoomForm(),
+                  Expanded(child: const CreateRoomForm()),
                   const VerticalDivider(),
-                  const JoinRoomForm(),
+                  Expanded(child: const JoinRoomForm()),
                 ],
               ),
             ),
