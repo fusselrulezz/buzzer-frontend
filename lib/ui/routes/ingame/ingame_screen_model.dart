@@ -148,6 +148,7 @@ class IngameScreenModel extends BaseViewModel with ManagedStreamSubscriptions {
 
   /// Will be called when the user presses the "Leave Room" button.
   Future<void> onPressedLeaveRoom(BuildContext context) async {
+    await _buzzerService.client.leaveRoom();
     await locator<AuthenticationService>().clearIdentity();
     _buzzerService.disconnect();
 
