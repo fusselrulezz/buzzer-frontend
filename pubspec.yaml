@@ -14,22 +14,22 @@ dependencies:
   buzzer_client:
     git:
       url: https://github.com/fusselrulezz/buzzer-client-dart.git
-      ref: v0.5.0
+      ref: 7f77a6be8cde3772bca6dda8a1d1472c9970919e
 
   cupertino_icons: ^1.0.8
-  shadcn_ui: ^0.28.5
+  shadcn_ui: ^0.43.0
   bootstrap_icons: ^1.11.3
   easy_localization: ^3.0.7+1
   easy_logger: ^0.0.2
   json_annotation: ^4.9.0
   logger: ^2.6.0
   chopper: ^8.1.0
-  auto_route: ^10.1.0+1
-  get_it: ^8.0.3
+  auto_route: ^11.1.0
+  get_it: ^9.2.0
   provider: ^6.1.5
   shared_preferences: ^2.5.3
   adaptive_theme: ^3.7.0
-  package_info_plus: ^8.3.0
+  package_info_plus: ^9.0.0
   collection: ^1.19.1
   responsive_builder2: ^0.8.7
 
@@ -37,7 +37,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
   build_runner: ^2.5.4
   json_serializable: ^6.9.5
   auto_route_generator: ^10.1.0
