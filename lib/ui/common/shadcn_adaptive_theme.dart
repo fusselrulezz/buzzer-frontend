@@ -118,9 +118,9 @@ class _ShadcnAdaptiveThemeState extends State<ShadcnAdaptiveTheme>
   Brightness get brightness => theme.brightness;
 
   @override
-  Future<bool> reset() async {
+  Future<void> reset() async {
+    await super.reset();
     setTheme(light: widget.light, dark: widget.dark, notify: false);
-    return super.reset();
   }
 
   @override
