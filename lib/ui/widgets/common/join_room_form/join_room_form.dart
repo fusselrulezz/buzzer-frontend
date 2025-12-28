@@ -3,8 +3,8 @@ import "package:flutter/material.dart";
 import "package:shadcn_ui/shadcn_ui.dart";
 
 import "package:buzzer/mvvm/mvvm_view.dart";
-import "package:buzzer/ui/common/generate_random_name_button.dart";
 import "package:buzzer/ui/common/ui_helpers.dart";
+import "package:buzzer/ui/widgets/common/generate_random_name_button.dart";
 
 import "join_room_form_model.dart";
 
