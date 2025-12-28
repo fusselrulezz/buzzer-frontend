@@ -139,28 +139,4 @@ class JoinRoomFormModel extends BaseViewModel {
       context.router.push(IngameRoute());
     }
   }
-
-  void onPressedRandomName() {
-    final randomName = generateRandomName();
-
-    if (randomName.isNotEmpty) {
-      _userNameController.text = randomName;
-    }
-  }
-
-  /// Will be called when the user has pressed the "Generate Random Name" button.
-  /// It generates a random name using the [RandomNameService].
-  String generateRandomName() {
-    if (!_randomNameService.hasRandomNames) {
-      _logger.e("Failed to generate random name: Service has no data");
-      return "";
-    }
-
-    try {
-      return _randomNameService.getRandomName();
-    } catch (e) {
-      _logger.e("Failed to generate random name", error: e);
-      return "";
-    }
-  }
 }
