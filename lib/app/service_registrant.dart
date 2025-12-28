@@ -17,9 +17,7 @@ Future<void> registerServices() async {
   await secureStorageService.init();
   locator.registerSingleton(secureStorageService);
 
-  final randomNameService = RandomNameService();
-  await randomNameService.init();
-  locator.registerSingleton(randomNameService);
+  locator.registerSingleton(RandomNameService());
 
   final appInfoService = AppInfoService();
   await appInfoService.init();

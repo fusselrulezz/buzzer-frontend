@@ -12,9 +12,6 @@ import "package:buzzer/services/random_name_service.dart";
 class GenerateRandomNameButton extends StatelessWidget {
   static final Logger _logger = getLogger("GenerateRandomNameButton");
 
-  static final RandomNameService _randomNameService =
-      locator<RandomNameService>();
-
   /// The size of the button.
   final double buttonSize;
 
@@ -34,10 +31,6 @@ class GenerateRandomNameButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (!_randomNameService.hasRandomNames) {
-      return const SizedBox.shrink();
-    }
-
     return ShadIconButton.ghost(
       padding: EdgeInsets.zero,
       width: buttonSize,
@@ -51,7 +44,7 @@ class GenerateRandomNameButton extends StatelessWidget {
   void _onPressed() {
     final randomName = generateRandomName();
 
-    if (randomName != null && randomName.isNotEmpty) {
+    if (randomName != null) {
       onNameGenerated(randomName);
     }
   }
@@ -60,11 +53,6 @@ class GenerateRandomNameButton extends StatelessWidget {
   /// It generates a random name using the [RandomNameService].
   String? generateRandomName() {
     final service = locator<RandomNameService>();
-
-    if (!service.hasRandomNames) {
-      _logger.e("Failed to generate random name: Service has no data");
-      return null;
-    }
 
     try {
       return service.getRandomName();

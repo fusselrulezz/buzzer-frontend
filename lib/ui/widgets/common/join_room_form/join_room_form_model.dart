@@ -13,15 +13,12 @@ import "package:buzzer/services/api_service.dart";
 import "package:buzzer/services/authentication_service.dart";
 import "package:buzzer/services/buzzer_service.dart";
 import "package:buzzer/services/game_context_service.dart";
-import "package:buzzer/services/random_name_service.dart";
 import "package:buzzer_client/buzzer_client.dart";
 
 /// The view model for the join room form, managing the state and logic
 /// for joining an existing game room.
 class JoinRoomFormModel extends BaseViewModel {
   final Logger _logger = getLogger("JoinRoomFormModel");
-
-  final RandomNameService _randomNameService = locator<RandomNameService>();
 
   final TextEditingController _joinCodeController = TextEditingController();
 
@@ -41,10 +38,6 @@ class JoinRoomFormModel extends BaseViewModel {
 
   /// Whether the form is valid, meaning both join code and user name are valid.
   bool get isFormValid => isJoinCodeValid && isUsernameValid;
-
-  /// Whether the random name feature is visible.
-  /// This is true if the [RandomNameService] has any random names available.
-  bool get isRandomNameFeatureVisible => _randomNameService.hasRandomNames;
 
   /// Disposes the controllers used in the form.
   void disposeForm() {
