@@ -141,11 +141,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "7f77a6be8cde3772bca6dda8a1d1472c9970919e"
-      resolved-ref: "7f77a6be8cde3772bca6dda8a1d1472c9970919e"
+      ref: "v0.6.0"
+      resolved-ref: "4939b16a83f0c5e1222457a687e9a5d86916131e"
       url: "https://github.com/fusselrulezz/buzzer-client-dart.git"
     source: git
-    version: "0.5.0"
+    version: "0.6.0"
   characters:
     dependency: transitive
     description:
