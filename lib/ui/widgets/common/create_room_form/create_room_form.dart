@@ -5,6 +5,7 @@ import "package:shadcn_ui/shadcn_ui.dart";
 import "package:buzzer/mvvm/mvvm_view.dart";
 import "package:buzzer/ui/common/ui_helpers.dart";
 import "package:buzzer/ui/widgets/common/checkbox_with_info.dart";
+import "package:buzzer/ui/widgets/common/generate_random_name_button.dart";
 
 import "create_room_form_model.dart";
 
@@ -55,7 +56,14 @@ class CreateRoomForm extends MvvmView<CreateRoomFormModel> {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               verticalSpaceTiny,
-              ShadInput(controller: viewModel.userNameController),
+              ShadInput(
+                controller: viewModel.userNameController,
+                trailing: GenerateRandomNameButton(
+                  onNameGenerated: (name) {
+                    viewModel.userNameController.text = name;
+                  },
+                ),
+              ),
               verticalSpaceSmall,
               Text(
                 "$trPrefix.fields.settings.label".tr(),
