@@ -54,10 +54,11 @@ class JoinRoomForm extends MvvmView<JoinRoomFormModel> {
               verticalSpaceTiny,
               ShadInput(
                 controller: viewModel.userNameController,
-                trailing: ShadIconButton(
+                trailing: ShadIconButton.ghost(
                   padding: EdgeInsets.zero,
                   width: 20,
                   height: 20,
+                  iconSize: 16,
                   onPressed: viewModel.onPressedRandomName,
                   icon: const Icon(BootstrapIcons.dice_6),
                 ),
